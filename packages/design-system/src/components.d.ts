@@ -6,6 +6,12 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface UiBadge {
+        /**
+          * @default 'neutral'
+         */
+        "tone": 'neutral' | 'accent';
+    }
     interface UiButton {
         /**
           * @default false
@@ -37,6 +43,8 @@ export namespace Components {
          */
         "tone": 'neutral' | 'accent';
     }
+    interface UiPageSection {
+    }
     interface UiPanel {
         /**
           * @default 'surface'
@@ -51,6 +59,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLUiBadgeElement extends Components.UiBadge, HTMLStencilElement {
+    }
+    var HTMLUiBadgeElement: {
+        prototype: HTMLUiBadgeElement;
+        new (): HTMLUiBadgeElement;
+    };
     interface HTMLUiButtonElement extends Components.UiButton, HTMLStencilElement {
     }
     var HTMLUiButtonElement: {
@@ -69,6 +83,12 @@ declare global {
         prototype: HTMLUiChipElement;
         new (): HTMLUiChipElement;
     };
+    interface HTMLUiPageSectionElement extends Components.UiPageSection, HTMLStencilElement {
+    }
+    var HTMLUiPageSectionElement: {
+        prototype: HTMLUiPageSectionElement;
+        new (): HTMLUiPageSectionElement;
+    };
     interface HTMLUiPanelElement extends Components.UiPanel, HTMLStencilElement {
     }
     var HTMLUiPanelElement: {
@@ -82,14 +102,22 @@ declare global {
         new (): HTMLUiStackElement;
     };
     interface HTMLElementTagNameMap {
+        "ui-badge": HTMLUiBadgeElement;
         "ui-button": HTMLUiButtonElement;
         "ui-card": HTMLUiCardElement;
         "ui-chip": HTMLUiChipElement;
+        "ui-page-section": HTMLUiPageSectionElement;
         "ui-panel": HTMLUiPanelElement;
         "ui-stack": HTMLUiStackElement;
     }
 }
 declare namespace LocalJSX {
+    interface UiBadge {
+        /**
+          * @default 'neutral'
+         */
+        "tone"?: 'neutral' | 'accent';
+    }
     interface UiButton {
         /**
           * @default false
@@ -121,6 +149,8 @@ declare namespace LocalJSX {
          */
         "tone"?: 'neutral' | 'accent';
     }
+    interface UiPageSection {
+    }
     interface UiPanel {
         /**
           * @default 'surface'
@@ -134,6 +164,9 @@ declare namespace LocalJSX {
         "space"?: 'sm' | 'md' | 'lg';
     }
 
+    interface UiBadgeAttributes {
+        "tone": 'neutral' | 'accent';
+    }
     interface UiButtonAttributes {
         "variant": 'primary' | 'secondary';
         "type": 'button' | 'submit' | 'reset';
@@ -155,9 +188,11 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
+        "ui-badge": Omit<UiBadge, keyof UiBadgeAttributes> & { [K in keyof UiBadge & keyof UiBadgeAttributes]?: UiBadge[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `attr:${K}`]?: UiBadgeAttributes[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `prop:${K}`]?: UiBadge[K] };
         "ui-button": Omit<UiButton, keyof UiButtonAttributes> & { [K in keyof UiButton & keyof UiButtonAttributes]?: UiButton[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `attr:${K}`]?: UiButtonAttributes[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `prop:${K}`]?: UiButton[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
         "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
+        "ui-page-section": UiPageSection;
         "ui-panel": Omit<UiPanel, keyof UiPanelAttributes> & { [K in keyof UiPanel & keyof UiPanelAttributes]?: UiPanel[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `attr:${K}`]?: UiPanelAttributes[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `prop:${K}`]?: UiPanel[K] };
         "ui-stack": Omit<UiStack, keyof UiStackAttributes> & { [K in keyof UiStack & keyof UiStackAttributes]?: UiStack[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `attr:${K}`]?: UiStackAttributes[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `prop:${K}`]?: UiStack[K] };
     }
@@ -166,9 +201,11 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "ui-badge": LocalJSX.IntrinsicElements["ui-badge"] & JSXBase.HTMLAttributes<HTMLUiBadgeElement>;
             "ui-button": LocalJSX.IntrinsicElements["ui-button"] & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
             "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
             "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
+            "ui-page-section": LocalJSX.IntrinsicElements["ui-page-section"] & JSXBase.HTMLAttributes<HTMLUiPageSectionElement>;
             "ui-panel": LocalJSX.IntrinsicElements["ui-panel"] & JSXBase.HTMLAttributes<HTMLUiPanelElement>;
             "ui-stack": LocalJSX.IntrinsicElements["ui-stack"] & JSXBase.HTMLAttributes<HTMLUiStackElement>;
         }

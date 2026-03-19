@@ -6,10 +6,10 @@ It is intended to be updated as work moves between agents.
 
 ## Status
 
-- Project stage: Phase 2 in progress
-- Current focus: layout helpers and cleanup after the Phase 1 foundation commit
-- Current highest-priority implementation: first shared layout helper plus reduction of token/fallback debt
-- Review model: Lagrange prepares the next review and commit gate at the Phase 2 boundary
+- Project stage: Phase 4 complete
+- Current focus: Phase 3 and Phase 4 changes are ready to land together
+- Current highest-priority implementation: await next phase assignment after commit
+- Review model: Lagrange remains available for the next phase boundary
 
 ## Agent Tasks
 
@@ -25,40 +25,38 @@ Current responsibilities:
 
 Next tasks:
 
-1. Start Phase 2 with a narrow implementation slice
-2. Track cleanup debt carried from Phase 1
-3. Verify Stencil builds and web integration as new shared components land
-4. Hand the Phase 2 boundary to Lagrange when the slice set is coherent
+1. Commit the completed Phase 3 and Phase 4 slices
+2. Queue the next phase once commit is complete
 
 ### Heisenberg
 
-Status: in progress
+Status: completed for current phase
 
 Current task:
 
-- Start Phase 2 implementation
-- Build the first justified layout helper and reduce cleanup debt from Phase 1 where it directly overlaps
+- Phase 4 implementation complete
+- `ui-badge` landed as the first justified feedback-oriented addition
 
 Definition of done:
 
-- The next shared layout helper is implemented and used in `apps/web`
-- The API is narrow and justified by repeated structure
+- One new feedback-oriented shared component or variant is implemented and used in `apps/web`
+- The API is narrow and justified by repeated visible state
 - The Stencil build passes
-- Transitional CSS is reduced where the new component truly replaces raw structure
+- Transitional CSS is reduced where the new component truly replaces raw UI state handling
 
 Next after current task:
 
-1. Add the next layout helper if repetition still justifies it
+1. Evaluate whether another repeated feedback/state pattern deserves promotion
 2. Reduce duplicated fallback/shared CSS
 3. Address token-alignment cleanup called out in prior review notes
 
 ### Lagrange
 
-Status: queued for Phase 2 review
+Status: standby
 
 Current task:
 
-- Prepare to review the Phase 2 layout/helper changes and cleanup work at the next phase boundary
+- Await the next review and commit-preparation boundary
 
 Review focus:
 
@@ -91,16 +89,16 @@ Next tasks if needed:
 
 ## Immediate Queue
 
-1. Heisenberg implements the first Phase 2 layout helper
-2. Heisenberg reduces overlapping fallback/shared CSS where safe
-3. Codex verifies build and web integration
-4. Lagrange reviews at the Phase 2 boundary
+1. Commit the completed Phase 3 and Phase 4 work
+2. Decide the next phase focus
+3. Re-activate Heisenberg on the next slice
 
 ## Deferred Review Notes
 
 - Token alignment for accent treatment is still a known cleanup item.
 - Transitional `:not(:defined)` fallback styling should keep shrinking as real components replace raw markup.
 - Shared layout should only be promoted when repetition is real across the demo surface.
+- `ui-stack` and `ui-page-section` are now the current layout baseline.
 
 ## Notes
 

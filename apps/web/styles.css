@@ -17,6 +17,7 @@ a {
 
 ui-button:not(:defined),
 ui-chip:not(:defined),
+ui-badge:not(:defined),
 ui-card:not(:defined),
 ui-panel:not(:defined),
 .ui-link-button {
@@ -62,6 +63,22 @@ ui-chip:not(:defined)[tone='accent'] {
   color: var(--ui-color-accent);
 }
 
+ui-badge:not(:defined) {
+  min-height: 1.75rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ui-color-text-muted);
+}
+
+ui-badge:not(:defined)[tone='accent'] {
+  border-color: var(--ui-color-accent);
+  background: rgba(207, 90, 43, 0.08);
+  color: var(--ui-color-accent);
+}
+
 ui-card:not(:defined) {
   display: block;
   padding: var(--ui-space-6);
@@ -90,6 +107,11 @@ ui-panel:not(:defined)[tone='accent'] {
   background:
     radial-gradient(circle at top right, rgba(207, 90, 43, 0.18), transparent 34%),
     var(--ui-color-surface-elevated);
+}
+
+ui-page-section:not(:defined) {
+  display: block;
+  margin-top: var(--ui-space-8);
 }
 
 ui-stack:not(:defined) {

@@ -1,0 +1,22 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface);
+  color: var(--ui-color-text-muted);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+:host([tone='accent']) {
+  border-color: var(--ui-color-accent);
+  background: rgba(207, 90, 43, 0.08);
+  color: var(--ui-color-accent);
+}
