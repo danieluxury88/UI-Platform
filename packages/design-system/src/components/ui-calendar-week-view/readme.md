@@ -1,4 +1,4 @@
-# ui-calendar
+# ui-calendar-week-view
 
 
 
@@ -14,40 +14,28 @@
 | `firstDayOfWeek` | `first-day-of-week` |             | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` | `0`                                     |
 | `locale`         | `locale`            |             | `string`                          | `'en-US'`                               |
 | `selectedDate`   | `selected-date`     |             | `string \| undefined`             | `undefined`                             |
-| `view`           | `view`              |             | `"day" \| "month" \| "week"`      | `'month'`                               |
 
 
 ## Dependencies
 
+### Used by
+
+ - [ui-calendar](../ui-calendar)
+
 ### Depends on
 
-- [ui-stack](../ui-stack)
-- [ui-calendar-toolbar](../ui-calendar-toolbar)
-- [ui-calendar-month-view](../ui-calendar-month-view)
-- [ui-calendar-day-view](../ui-calendar-day-view)
-- [ui-calendar-week-view](../ui-calendar-week-view)
+- [ui-calendar-day-cell](../ui-calendar-day-cell)
+- [ui-calendar-event-chip](../ui-calendar-event-chip)
+- [ui-badge](../ui-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  ui-calendar --> ui-stack
-  ui-calendar --> ui-calendar-toolbar
-  ui-calendar --> ui-calendar-month-view
-  ui-calendar --> ui-calendar-day-view
-  ui-calendar --> ui-calendar-week-view
-  ui-calendar-toolbar --> ui-toolbar
-  ui-calendar-toolbar --> ui-button
-  ui-calendar-month-view --> ui-calendar-day-cell
-  ui-calendar-month-view --> ui-calendar-event-chip
-  ui-calendar-month-view --> ui-badge
-  ui-calendar-day-view --> ui-button
-  ui-calendar-day-view --> ui-stack
-  ui-calendar-day-view --> ui-badge
-  ui-calendar-day-view --> ui-calendar-event-chip
   ui-calendar-week-view --> ui-calendar-day-cell
   ui-calendar-week-view --> ui-calendar-event-chip
   ui-calendar-week-view --> ui-badge
-  style ui-calendar fill:#f9f,stroke:#333,stroke-width:4px
+  ui-calendar --> ui-calendar-week-view
+  style ui-calendar-week-view fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

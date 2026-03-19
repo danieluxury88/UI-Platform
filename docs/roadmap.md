@@ -7,14 +7,15 @@ The repo already has the foundation in place:
 - pnpm workspace and package boundaries are established
 - `@ui-platform/tokens` exports the shared theme variables
 - `@ui-platform/design-system` is a working Stencil package with build output
-- Phases 1 through 6 are complete and committed
+- Phases 1 through 7 are complete and committed
 - `ui-button`, `ui-chip`, `ui-card`, and `ui-panel` are in the shared component layer
 - layout and composition layers are in place with `ui-stack`, `ui-page-section`, `ui-badge`, and `ui-toolbar`
 - `apps/web` loads the Stencil loader and consumes shared components incrementally
 - `apps/mobile` is a thin shared-package consumer
-- the calendar family has started with a month-first milestone in progress
+- Phase 7 closes at the first committed calendar baseline
+- multi-week and year calendar views are deferred by product decision
 
-The roadmap now needs to focus on Phase 7 business-widget work, starting with the shared calendar family while keeping the lower shared layers stable.
+The roadmap now needs to focus on the next phase: tightening component hierarchy, clarifying layer boundaries, and making the implementation order across the design system more explicit.
 
 ## Delivery phases
 
@@ -173,11 +174,11 @@ Exit criteria:
 
 Status:
 
-- Active
+- Complete and committed
 
 Objective:
 
-- Add high-complexity domain widgets only when the lower layers stop shifting.
+- Establish the first committed business-widget baseline without overextending the calendar family.
 
 Candidate work:
 
@@ -185,52 +186,83 @@ Candidate work:
 - Kanban board
 - Task-oriented widgets
 
-Current focus:
+Committed baseline:
 
-- Build the calendar as a component family, not a monolith
-- Keep the API controlled around `view`, `anchorDate`, `selectedDate`, and `events`
-- Use `apps/web` as the proving surface before introducing denser business views elsewhere
+- `ui-calendar`
+- `ui-calendar-toolbar`
+- `ui-calendar-month-view`
+- `ui-calendar-day-view`
+- `ui-calendar-week-view`
+- `ui-calendar-day-cell`
+- `ui-calendar-event-chip`
 
-Rollout order:
+Product decision:
 
-1. Month baseline
-2. Day view
-3. Week view
-4. Multi-week only if product need is proven
-5. Year view later
+- Phase 7 closes at the first committed calendar baseline
+- Multi-week and year views are deferred
+- Calendar remains a shared business-widget family, but view breadth is no longer the next implementation priority
 
-Current milestone:
+### Phase 8: Hierarchy tightening across the design system
 
-- `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-cell`, `ui-calendar-event-chip`, and `ui-calendar-day-view` form the current baseline
-- `ui-calendar-week-view` is the next implementation slice
-- See `docs/calendar-brief.md` for the current architecture brief
+Status:
+
+- Next
+
+Objective:
+
+- Define and tighten the hierarchical order of components across the design system before adding more breadth.
+
+Primary goals:
+
+- Make every shared component's layer classification explicit
+- Tighten dependency boundaries between layers
+- Reduce cross-layer leakage in APIs, props, and shared utilities
+- Establish the recommended implementation order from lower shared layers upward
+
+Recommended implementation order:
+
+1. Confirm the current layer map for all shared components
+2. Tighten primitives and surfaces first
+3. Re-validate layout and feedback boundaries
+4. Separate generic compositions from widget-specific support components
+5. Keep business widgets last and defer new calendar views until the hierarchy is stable
+
+Expected output:
+
+- A clearer layer map for existing components
+- Fewer ambiguous responsibilities between layout, feedback, compositions, and business widgets
+- A stricter review standard for where new shared code belongs
 
 ## Near-term execution sequence
 
 This is the recommended next order for a developer working in `packages/design-system` and `apps/web`.
 
-1. Keep the month-first calendar baseline build-clean.
-   - Treat `ui-calendar` plus the month view as the shared contract in motion.
-   - Avoid breaking the controlled API while new views are introduced.
-2. Revisit shared calendar utilities after the day view lands.
-   - Promote date-range or label helpers only when month and day both need them.
-   - Avoid locking in a month-centric helper model that blocks week or year later.
-3. Add week view only after day behavior is stable.
-   - Use day-view feedback to shape time-slot, keyboard, and event-density decisions.
-4. Treat year and multi-week as later validation work.
-   - Do not let them distort the earlier month/day APIs prematurely.
+1. Freeze the Phase 7 calendar baseline.
+   - Treat month, day, and the current narrow week view as the committed business-widget contract.
+   - Do not expand into multi-week or year during the next phase.
+2. Audit the current component layer map.
+   - Confirm what is primitive, surface, layout, feedback, composition, or business widget.
+   - Resolve ambiguous cases explicitly instead of letting them drift.
+3. Tighten lower-layer boundaries first.
+   - Keep primitives free of surface, layout, and widget concerns.
+   - Keep surfaces focused on framing rather than page structure.
+4. Re-check layout, feedback, and composition responsibilities.
+   - Layout should stay structural.
+   - Feedback should stay state-oriented.
+   - Generic compositions should stay separate from calendar-specific support pieces.
+5. Normalize shared utilities and APIs around the agreed hierarchy.
+   - Keep widget-specific helpers inside business widgets unless reuse below that layer is proven.
 
 ## Recommended `apps/web` migration order
 
-The web demo should continue to be the proving ground for each new calendar slice.
+The web demo should continue to be the proving ground for hierarchy work and any future calendar slices.
 
 Recommended sequence:
 
-1. Keep the current month-view demo stable.
-2. Keep the day-view scenario driven by the same controlled calendar shell.
-3. Preserve app-level demo glue in `apps/web` instead of baking product behavior into the widget.
-4. Introduce week-level interactions only after day view exposes the next real constraints.
-5. Keep dense scheduling, creation flows, and product workflows app-local until the shared widget family proves the lower contracts.
+1. Keep the current month, day, and week calendar scenarios stable.
+2. Preserve app-level demo glue in `apps/web` instead of baking product behavior into the shared widgets.
+3. Use the demo to expose layer-boundary leaks, not to justify adding more deferred calendar breadth.
+4. Keep dense scheduling, creation flows, and product workflows app-local until the shared hierarchy is tighter.
 
 ## Milestones
 
@@ -265,9 +297,26 @@ Success means:
 - Repeated page structure is understood well enough to promote into layout components
 - Feedback variants are grounded in real usage rather than speculative design
 
+### Milestone 5: Phase 7 calendar baseline is closed
+
+Success means:
+
+- Month, day, and the current narrow week view are the committed shared calendar baseline
+- Multi-week and year views are explicitly deferred
+- The next phase can focus on hierarchy and boundaries instead of more calendar breadth
+
+### Milestone 6: Hierarchy tightening is underway
+
+Success means:
+
+- Every existing shared component has a clear layer assignment
+- The recommended implementation order is lower layers first, business widgets last
+- Reviews can reject cross-layer leakage using a documented standard
+
 ## Guardrails
 
 - Do not add business widgets while surfaces and layout are still moving.
 - Do not promote one-off demo markup into shared components.
 - Do not introduce new tokens for a single component without checking whether an existing semantic token works first.
 - Do not start Ionic work until the web consumer path stops exposing basic component API churn.
+- Do not use deferred calendar views to mask unresolved hierarchy or boundary problems.

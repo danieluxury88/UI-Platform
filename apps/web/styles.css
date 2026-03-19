@@ -153,6 +153,16 @@ ui-calendar-day-view:not(:defined) {
   box-shadow: var(--ui-shadow-1);
 }
 
+ui-calendar-week-view:not(:defined) {
+  display: block;
+  min-height: 24rem;
+  padding: var(--ui-space-5);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface-elevated);
+  box-shadow: var(--ui-shadow-1);
+}
+
 ui-stack:not(:defined) {
   display: flex;
   flex-direction: column;
@@ -180,6 +190,10 @@ ui-stack:not(:defined)[space='md'] {
 
 .ui-calendar-layout--day {
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+}
+
+.ui-calendar-layout--week {
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr);
 }
 
 .ui-calendar-meta {

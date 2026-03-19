@@ -6,9 +6,9 @@ It is intended to be updated as work moves between agents.
 
 ## Status
 
-- Project stage: Business-widget implementation in progress
-- Current focus: stabilize the month-and-day calendar milestone and prepare the next week-view slice
-- Current highest-priority implementation: review and land the combined month/day calendar milestone cleanly
+- Project stage: Hierarchy-focused phase setup
+- Current focus: define the next hierarchy-focused implementation plan after the first committed calendar baseline
+- Current highest-priority implementation: documentation refresh and component-hierarchy planning
 - Review model: Lagrange remains available for the next implementation boundary
 
 ## Agent Tasks
@@ -25,30 +25,29 @@ Current responsibilities:
 
 Next tasks:
 
-1. Keep the month-first calendar baseline build-clean while new slices land
-2. Align roadmap and architecture docs with the active business-widget track
-3. Hand the combined month/day milestone to Lagrange and queue the next calendar slice
+1. Close Phase 7 against commit `d580ae1`
+2. Fold Archimedes' documentation refresh into the repo state
+3. Define the next implementation queue around component hierarchy
 
 ### Heisenberg
 
-Status: completed, pending review
+Status: standby
 
 Current task:
 
-- Deliver the combined month/day calendar milestone
+- Await the next hierarchy-focused implementation slice
 
 Definition of done:
 
-- `ui-calendar-day-view` renders a narrow, controlled single-day experience
-- `ui-calendar` supports `view="day"` without breaking the month API
-- `apps/web` demonstrates both month and day meaningfully
-- The Stencil build passes after the new slice lands
+- The next phase has a clear component hierarchy
+- Implementation order follows that hierarchy cleanly
+- Deferred calendar views remain explicitly out of scope until reactivated
 
 Next after current task:
 
-1. Start `ui-calendar-week-view` after the current milestone is reviewed
-2. Reuse the event shape and shared calendar utilities where sensible
-3. Report follow-up work needed for timed layouts and denser scheduling
+1. Implement the first slice that proves the new hierarchy
+2. Keep lower-layer boundaries clear before expanding business widgets again
+3. Revisit deferred calendar views only after the new phase is stable
 
 ### Lagrange
 
@@ -56,7 +55,7 @@ Status: in progress
 
 Current task:
 
-- Review the combined month/day calendar milestone and prepare follow-up findings
+- Review commit `d580ae1` as the Phase 7 boundary and prepare follow-up findings
 
 Review focus:
 
@@ -71,27 +70,27 @@ Next after review:
 
 1. Prepare a concise findings report
 2. Confirm whether the change is ready to land
-3. Own commit preparation once the next calendar milestone is accepted
+3. Mark deferred calendar views as follow-up, not as Phase 7 blockers
 
 ### Archimedes
 
-Status: complete
+Status: in progress
 
 Current task:
 
-- Calendar brief delivered in `docs/calendar-brief.md`
+- Review and update the documentation for the next hierarchy-focused phase
 
 Next tasks if needed:
 
-1. Align docs if the calendar API or rollout order changes materially
-2. Record architectural decisions once week/day/year behavior stabilizes
-3. Re-enter only if the business-widget boundary starts to blur
+1. Close Phase 7 in the docs at the first committed calendar baseline
+2. Define the next phase around component hierarchy and layer order
+3. Record any decision changes that become stable during the docs refresh
 
 ## Immediate Queue
 
-1. Codex lands the combined month/day milestone
-2. Lagrange reviews the milestone and flags follow-up work
-3. Heisenberg starts `ui-calendar-week-view` once the review boundary is clear
+1. Archimedes refreshes the docs for the new phase boundary
+2. Lagrange reviews commit `d580ae1` as the closed Phase 7 milestone
+3. Codex scopes the first hierarchy-focused implementation slice for Heisenberg
 
 ## Deferred Review Notes
 
@@ -103,8 +102,8 @@ Next tasks if needed:
 - Mobile work should not fork or reimplement the shared design-system contract.
 - Calendar work should start as a family of components, not a monolith with a large `view` switch.
 - Day view should stay narrow and avoid pretending timed scheduling is solved yet.
-- Week and year views should not start until day-view state, events, and keyboard behavior feel stable.
-- Week view is the next intentional complexity jump and should stay narrow on its first pass.
+- Multi-week and year views are now explicitly deferred beyond Phase 7.
+- The next phase should tighten component hierarchy before expanding business widgets again.
 
 ## Notes
 

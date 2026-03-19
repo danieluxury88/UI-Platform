@@ -1,4 +1,4 @@
-export type CalendarView = 'month' | 'day';
+export type CalendarView = 'month' | 'day' | 'week';
 
 export type CalendarNavigateAction = 'previous' | 'next' | 'today';
 
@@ -22,6 +22,21 @@ export interface CalendarDayCellModel {
   isSelected: boolean;
   isOutsideMonth: boolean;
   events: CalendarEventRecord[];
+}
+
+export interface CalendarWeekDayModel {
+  date: string;
+  dayNumber: number;
+  dayLabel: string;
+  isToday: boolean;
+  isSelected: boolean;
+  events: CalendarEventRecord[];
+}
+
+export interface CalendarWeekViewModel {
+  rangeLabel: string;
+  weekdayLabels: string[];
+  days: CalendarWeekDayModel[];
 }
 
 export interface CalendarMonthGrid {
@@ -84,6 +99,17 @@ function formatMonthLabel(value: Date, locale: string): string {
     year: 'numeric',
     timeZone: 'UTC',
   }).format(value);
+}
+
+function formatWeekLabel(start: Date, end: Date, locale: string): string {
+  const formatter = new Intl.DateTimeFormat(locale, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+  return `${formatter.format(start)} - ${formatter.format(end)}`;
 }
 
 function formatDayLabel(value: Date, locale: string): string {
@@ -183,6 +209,13 @@ export function formatCalendarDayLabel(anchorDate: string, locale: string): stri
   return formatDayLabel(toUtcDate(anchorDate), locale);
 }
 
+export function formatCalendarWeekLabel(anchorDate: string, locale: string, firstDayOfWeek: CalendarWeekday): string {
+  const anchor = toUtcDate(anchorDate);
+  const start = startOfWeek(anchor, firstDayOfWeek);
+  const end = addDays(start, 6);
+  return formatWeekLabel(start, end, locale);
+}
+
 export function buildDayViewModel(
   anchorDate: string,
   events: CalendarEventRecord[],
@@ -198,5 +231,43 @@ export function buildDayViewModel(
     events: [...events].sort(eventRangeSort).filter((event) => matchesEvent(dateString, event)),
     isToday: dateString === today,
     isSelected: Boolean(selectedDate && selectedDate === dateString),
+  };
+}
+
+export function buildWeekViewModel(
+  anchorDate: string,
+  events: CalendarEventRecord[],
+  selectedDate: string | undefined,
+  locale: string,
+  firstDayOfWeek: CalendarWeekday,
+): CalendarWeekViewModel {
+  const anchor = toUtcDate(anchorDate);
+  const start = startOfWeek(anchor, firstDayOfWeek);
+  const end = addDays(start, 6);
+  const sortedEvents = [...events].sort(eventRangeSort);
+  const days: CalendarWeekDayModel[] = [];
+
+  for (let dayIndex = 0; dayIndex < 7; dayIndex += 1) {
+    const date = addDays(start, dayIndex);
+    const dateString = toDateString(date);
+    days.push({
+      date: dateString,
+      dayNumber: date.getUTCDate(),
+      dayLabel: new Intl.DateTimeFormat(locale, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'UTC',
+      }).format(date),
+      isToday: dateString === getTodayDateString(),
+      isSelected: Boolean(selectedDate && selectedDate === dateString),
+      events: sortedEvents.filter((event) => matchesEvent(dateString, event)),
+    });
+  }
+
+  return {
+    rangeLabel: formatWeekLabel(start, end, locale),
+    weekdayLabels: formatWeekdayLabels(locale, firstDayOfWeek),
+    days,
   };
 }

@@ -2,6 +2,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 import {
   formatCalendarDayLabel,
   formatCalendarMonthLabel,
+  formatCalendarWeekLabel,
   type CalendarEventRecord,
   type CalendarView,
   type CalendarWeekday,
@@ -29,7 +30,9 @@ export class UiCalendar {
     const rangeLabel =
       this.view === 'day'
         ? formatCalendarDayLabel(this.anchorDate, this.locale)
-        : formatCalendarMonthLabel(this.anchorDate, this.locale);
+        : this.view === 'week'
+          ? formatCalendarWeekLabel(this.anchorDate, this.locale, this.firstDayOfWeek)
+          : formatCalendarMonthLabel(this.anchorDate, this.locale);
     const monthViewProps = {
       anchorDate: this.anchorDate,
       events: this.events,
@@ -57,10 +60,15 @@ export class UiCalendar {
               <ui-calendar-toolbar rangeLabel={rangeLabel} />
               <ui-calendar-day-view {...dayViewProps} />
             </ui-stack>
+          ) : this.view === 'week' ? (
+            <ui-stack space="lg">
+              <ui-calendar-toolbar rangeLabel={rangeLabel} />
+              <ui-calendar-week-view {...monthViewProps} />
+            </ui-stack>
           ) : (
             <div class="ui-calendar__unsupported">
               <p class="ui-calendar__eyebrow">Calendar</p>
-              <p class="ui-calendar__message">Only month and day views are supported in this milestone.</p>
+              <p class="ui-calendar__message">Only month, day, and week views are supported in this milestone.</p>
             </div>
           )}
         </section>

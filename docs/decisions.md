@@ -134,6 +134,25 @@ Consequences:
 - Root scripts and contributor setup should assume pnpm by default.
 - Future documentation should not describe package-manager selection as an open bootstrap question.
 
+## D-008: Close Phase 7 at the first committed calendar baseline
+
+Status: Accepted
+
+Decision:
+
+- Treat the first committed calendar baseline as the end of Phase 7.
+
+Rationale:
+
+- The first committed calendar baseline establishes the calendar family as a shared business-widget baseline without forcing denser or broader views into the design-system too early.
+- Product has decided that multi-week and year views should be deferred rather than defining the next phase.
+
+Consequences:
+
+- `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-view`, `ui-calendar-week-view`, `ui-calendar-day-cell`, and `ui-calendar-event-chip` form the committed shared baseline.
+- Multi-week and year are deferred.
+- The next phase should focus on hierarchy tightening, layer boundaries, and implementation order across the design system rather than more calendar breadth.
+
 ## Open questions
 
 ### O-002: Is a component documentation site required in the first milestone?

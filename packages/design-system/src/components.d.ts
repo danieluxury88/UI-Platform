@@ -132,6 +132,25 @@ export namespace Components {
          */
         "rangeLabel": string;
     }
+    interface UiCalendarWeekView {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate": string;
+        /**
+          * @default []
+         */
+        "events": CalendarEventRecord[];
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek": CalendarWeekday;
+        /**
+          * @default 'en-US'
+         */
+        "locale": string;
+        "selectedDate"?: string;
+    }
     interface UiCard {
         /**
           * @default 'surface'
@@ -275,6 +294,12 @@ declare global {
         prototype: HTMLUiCalendarToolbarElement;
         new (): HTMLUiCalendarToolbarElement;
     };
+    interface HTMLUiCalendarWeekViewElement extends Components.UiCalendarWeekView, HTMLStencilElement {
+    }
+    var HTMLUiCalendarWeekViewElement: {
+        prototype: HTMLUiCalendarWeekViewElement;
+        new (): HTMLUiCalendarWeekViewElement;
+    };
     interface HTMLUiCardElement extends Components.UiCard, HTMLStencilElement {
     }
     var HTMLUiCardElement: {
@@ -320,6 +345,7 @@ declare global {
         "ui-calendar-event-chip": HTMLUiCalendarEventChipElement;
         "ui-calendar-month-view": HTMLUiCalendarMonthViewElement;
         "ui-calendar-toolbar": HTMLUiCalendarToolbarElement;
+        "ui-calendar-week-view": HTMLUiCalendarWeekViewElement;
         "ui-card": HTMLUiCardElement;
         "ui-chip": HTMLUiChipElement;
         "ui-page-section": HTMLUiPageSectionElement;
@@ -457,6 +483,25 @@ declare namespace LocalJSX {
          */
         "rangeLabel"?: string;
     }
+    interface UiCalendarWeekView {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate"?: string;
+        /**
+          * @default []
+         */
+        "events"?: CalendarEventRecord[];
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek"?: CalendarWeekday;
+        /**
+          * @default 'en-US'
+         */
+        "locale"?: string;
+        "selectedDate"?: string;
+    }
     interface UiCard {
         /**
           * @default 'surface'
@@ -533,6 +578,12 @@ declare namespace LocalJSX {
     interface UiCalendarToolbarAttributes {
         "rangeLabel": string;
     }
+    interface UiCalendarWeekViewAttributes {
+        "anchorDate": string;
+        "selectedDate": string;
+        "locale": string;
+        "firstDayOfWeek": CalendarWeekday;
+    }
     interface UiCardAttributes {
         "tone": 'surface' | 'accent';
     }
@@ -559,6 +610,7 @@ declare namespace LocalJSX {
         "ui-calendar-event-chip": Omit<UiCalendarEventChip, keyof UiCalendarEventChipAttributes> & { [K in keyof UiCalendarEventChip & keyof UiCalendarEventChipAttributes]?: UiCalendarEventChip[K] } & { [K in keyof UiCalendarEventChip & keyof UiCalendarEventChipAttributes as `attr:${K}`]?: UiCalendarEventChipAttributes[K] } & { [K in keyof UiCalendarEventChip & keyof UiCalendarEventChipAttributes as `prop:${K}`]?: UiCalendarEventChip[K] };
         "ui-calendar-month-view": Omit<UiCalendarMonthView, keyof UiCalendarMonthViewAttributes> & { [K in keyof UiCalendarMonthView & keyof UiCalendarMonthViewAttributes]?: UiCalendarMonthView[K] } & { [K in keyof UiCalendarMonthView & keyof UiCalendarMonthViewAttributes as `attr:${K}`]?: UiCalendarMonthViewAttributes[K] } & { [K in keyof UiCalendarMonthView & keyof UiCalendarMonthViewAttributes as `prop:${K}`]?: UiCalendarMonthView[K] };
         "ui-calendar-toolbar": Omit<UiCalendarToolbar, keyof UiCalendarToolbarAttributes> & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes]?: UiCalendarToolbar[K] } & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes as `attr:${K}`]?: UiCalendarToolbarAttributes[K] } & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes as `prop:${K}`]?: UiCalendarToolbar[K] };
+        "ui-calendar-week-view": Omit<UiCalendarWeekView, keyof UiCalendarWeekViewAttributes> & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes]?: UiCalendarWeekView[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `attr:${K}`]?: UiCalendarWeekViewAttributes[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `prop:${K}`]?: UiCalendarWeekView[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
         "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
         "ui-page-section": UiPageSection;
@@ -579,6 +631,7 @@ declare module "@stencil/core" {
             "ui-calendar-event-chip": LocalJSX.IntrinsicElements["ui-calendar-event-chip"] & JSXBase.HTMLAttributes<HTMLUiCalendarEventChipElement>;
             "ui-calendar-month-view": LocalJSX.IntrinsicElements["ui-calendar-month-view"] & JSXBase.HTMLAttributes<HTMLUiCalendarMonthViewElement>;
             "ui-calendar-toolbar": LocalJSX.IntrinsicElements["ui-calendar-toolbar"] & JSXBase.HTMLAttributes<HTMLUiCalendarToolbarElement>;
+            "ui-calendar-week-view": LocalJSX.IntrinsicElements["ui-calendar-week-view"] & JSXBase.HTMLAttributes<HTMLUiCalendarWeekViewElement>;
             "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
             "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
             "ui-page-section": LocalJSX.IntrinsicElements["ui-page-section"] & JSXBase.HTMLAttributes<HTMLUiPageSectionElement>;

@@ -9,6 +9,9 @@ const monthCalendarStatus = document.getElementById('calendar-status');
 const dayCalendar = document.getElementById('demo-day-calendar');
 const dayCalendarSelection = document.getElementById('calendar-day-selection');
 const dayCalendarStatus = document.getElementById('calendar-day-status');
+const weekCalendar = document.getElementById('demo-week-calendar');
+const weekCalendarSelection = document.getElementById('calendar-week-selection');
+const weekCalendarStatus = document.getElementById('calendar-week-status');
 const designSystemLoaderPath = '../../packages/design-system/dist/loader/index.js';
 
 const themeColors = {
@@ -171,8 +174,44 @@ const dayCalendarState = {
   ],
 };
 
+const weekCalendarState = {
+  view: 'week',
+  anchorDate: today,
+  selectedDate: today,
+  locale,
+  firstDayOfWeek: 1,
+  events: [
+    {
+      id: 'design-review',
+      title: 'Design review',
+      startDate: shiftDay(today, -1),
+      tone: 'accent',
+    },
+    {
+      id: 'backlog-triage',
+      title: 'Backlog triage',
+      startDate: today,
+      tone: 'neutral',
+    },
+    {
+      id: 'release-window',
+      title: 'Release window',
+      startDate: shiftDay(today, 2),
+      endDate: shiftDay(today, 3),
+      tone: 'accent',
+    },
+    {
+      id: 'weekly-review',
+      title: 'Weekly review',
+      startDate: shiftDay(today, 5),
+      tone: 'neutral',
+    },
+  ],
+};
+
 let activeMonthEvent = null;
 let activeDayEvent = null;
+let activeWeekEvent = null;
 
 function updateMonthReadouts() {
   if (monthCalendarSelection) {
@@ -214,6 +253,26 @@ function updateDayReadouts() {
   }
 }
 
+function updateWeekReadouts() {
+  if (weekCalendarSelection) {
+    weekCalendarSelection.textContent = `Selected: ${formatDisplayDate(
+      weekCalendarState.selectedDate,
+      weekCalendarState.locale,
+    )}`;
+  }
+
+  if (weekCalendarStatus) {
+    if (activeWeekEvent) {
+      weekCalendarStatus.textContent = `Activated ${activeWeekEvent.event.title} on ${formatDisplayDate(
+        activeWeekEvent.date,
+        weekCalendarState.locale,
+      )}.`;
+    } else {
+      weekCalendarStatus.textContent = 'Move the week anchor, select a day, or activate a chip to inspect the visible range.';
+    }
+  }
+}
+
 function syncMonthCalendar() {
   syncCalendar(monthCalendar, monthCalendarState);
   updateMonthReadouts();
@@ -222,6 +281,11 @@ function syncMonthCalendar() {
 function syncDayCalendar() {
   syncCalendar(dayCalendar, dayCalendarState);
   updateDayReadouts();
+}
+
+function syncWeekCalendar() {
+  syncCalendar(weekCalendar, weekCalendarState);
+  updateWeekReadouts();
 }
 
 applyTheme(getTheme());
@@ -297,7 +361,37 @@ if (dayCalendar) {
   });
 }
 
+if (weekCalendar) {
+  weekCalendar.addEventListener('uiCalendarNavigate', (event) => {
+    const { direction } = event.detail;
+
+    if (direction === 'today') {
+      weekCalendarState.anchorDate = today;
+      weekCalendarState.selectedDate = today;
+    } else if (direction === 'previous') {
+      weekCalendarState.anchorDate = shiftDay(weekCalendarState.anchorDate, -7);
+    } else if (direction === 'next') {
+      weekCalendarState.anchorDate = shiftDay(weekCalendarState.anchorDate, 7);
+    }
+
+    activeWeekEvent = null;
+    syncWeekCalendar();
+  });
+
+  weekCalendar.addEventListener('uiCalendarDateSelect', (event) => {
+    weekCalendarState.selectedDate = event.detail.date;
+    activeWeekEvent = null;
+    syncWeekCalendar();
+  });
+
+  weekCalendar.addEventListener('uiCalendarEventActivate', (event) => {
+    activeWeekEvent = event.detail;
+    syncWeekCalendar();
+  });
+}
+
 registerDesignSystem().then(() => {
   syncMonthCalendar();
   syncDayCalendar();
+  syncWeekCalendar();
 });

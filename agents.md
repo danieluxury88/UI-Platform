@@ -9,6 +9,6 @@ This project is currently being developed with the following agents:
 
 Current focus:
 
-- `Heisenberg` is working on `ui-card` as the next design-system surface component.
-- `Archimedes` has aligned the architecture and roadmap with the current implementation.
-- `Lagrange` will review code changes, report risks and improvements, and handle commit responsibility.
+- `Heisenberg` is paused while the next phase is defined around component hierarchy.
+- `Archimedes` is aligning the architecture, roadmap, and decisions with the current repo state.
+- `Lagrange` is reviewing the latest committed calendar milestone and preparing follow-up findings.

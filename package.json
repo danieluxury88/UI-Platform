@@ -4,9 +4,13 @@
   "version": "0.0.0",
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "dev": "pnpm --filter @ui-platform/web dev",
-    "lint": "pnpm -r run lint",
-    "test": "pnpm -r run test",
-    "typecheck": "pnpm -r run typecheck"
+    "build": "corepack pnpm --filter @ui-platform/design-system build",
+    "dev": "corepack pnpm --filter @ui-platform/web dev",
+    "dev:design-system": "corepack pnpm --filter @ui-platform/design-system dev",
+    "dev:mobile": "corepack pnpm --filter @ui-platform/mobile dev",
+    "dev:web": "corepack pnpm --filter @ui-platform/web dev",
+    "lint": "corepack pnpm -r run lint",
+    "test": "corepack pnpm -r run test",
+    "typecheck": "corepack pnpm -r run typecheck"
   }
 }

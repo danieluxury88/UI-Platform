@@ -211,6 +211,40 @@
           </ui-panel>
         </div>
       </ui-page-section>
+
+      <ui-page-section id="calendar-week">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Week view</p>
+            <h2 class="ui-section-title">The shell now covers a narrow seven-day planning slice.</h2>
+          </div>
+          <p class="ui-section-copy">
+            This keeps the week contract controlled without adding collisions, drag and drop, or a
+            multi-week bridge.
+          </p>
+        </div>
+
+        <div class="ui-calendar-layout ui-calendar-layout--week">
+          <ui-calendar id="demo-week-calendar" view="week"></ui-calendar>
+
+          <ui-panel tone="surface" class="ui-calendar-meta">
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Week focus</p>
+                <h3 class="ui-card-title">Seven days, compact events, and the same event model.</h3>
+              </div>
+              <ui-badge id="calendar-week-selection" tone="accent">Selected day</ui-badge>
+              <p id="calendar-week-status" class="ui-calendar-status">
+                Move the week anchor, select a day, or activate a chip to inspect the visible range.
+              </p>
+              <p class="ui-calendar-note">
+                The week view is intentionally thin so later week-specific layout can evolve
+                without changing the shell contract.
+              </p>
+            </ui-stack>
+          </ui-panel>
+        </div>
+      </ui-page-section>
     </main>
     <script src="./app.js" type="module"></script>
   </body>

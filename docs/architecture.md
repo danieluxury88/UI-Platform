@@ -12,9 +12,9 @@ The repository is already past the planning-only stage. It now has:
 - Shared primitives, surfaces, layout helpers, feedback components, and the first composition layer
 - A web demo that loads built custom elements and still uses some shared CSS during migration
 - A thin mobile package consuming the shared layers
-- A business-widget track started through the calendar family
+- A committed calendar baseline at the month/day/week milestone
 
-The main architectural job now is not bootstrap. Lower shared layers are committed and stable enough to support business widgets. The active work is the calendar family, starting with a month-first baseline and expanding carefully into day and later week views without collapsing into a single monolithic component.
+The main architectural job now is not bootstrap. Lower shared layers are committed and stable enough to support business widgets. Phase 7 closes at the first committed calendar baseline. The next architecture focus is tightening hierarchy, layer boundaries, and recommended implementation order across the full design system before adding more deferred calendar views.
 
 ## Goals
 
@@ -145,6 +145,20 @@ The agreed component taxonomy is:
 
 This order is also the dependency direction. Higher layers may compose lower layers, but not the reverse.
 
+Current layer map:
+
+- Primitives: `ui-button`
+- Surfaces: `ui-card`, `ui-panel`
+- Layout: `ui-stack`, `ui-page-section`
+- Feedback: `ui-chip`, `ui-badge`
+- Compositions: `ui-toolbar`
+- Business widgets: `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-view`, `ui-calendar-week-view`, `ui-calendar-day-cell`, `ui-calendar-event-chip`
+
+Deferred calendar views:
+
+- multi-week view
+- year view
+
 ### 1. Tokens
 
 Examples:
@@ -226,6 +240,7 @@ Rules:
 
 - Compositions may use lower shared layers but must remain product-agnostic.
 - If a composition starts encoding one app's workflow, it should stay in the app instead.
+- Widget-specific support components should not be promoted into this layer just because they have controls or slots.
 
 ### 7. Business widgets
 
@@ -240,6 +255,7 @@ Rules:
 - Business widgets sit at the top of the hierarchy and should arrive last.
 - They require a concrete product need and stable lower layers first.
 - Calendar planning should follow the component-family approach described in `docs/calendar-brief.md`, with a shared shell, separate view components, and month-first rollout.
+- The committed calendar baseline currently stops at month, day, and a narrow week view; broader calendar expansion is deferred until the design-system hierarchy is tighter.
 
 ## Layer dependency rules
 
@@ -252,6 +268,12 @@ The design-system package should enforce these rules in code review:
 - Feedback should not import compositions or business widgets.
 - Compositions may import primitives, surfaces, layout, and feedback.
 - Business widgets may use any lower shared layer, but app-specific workflows still stay outside the shared package unless reuse is proven.
+
+Classification rule:
+
+- When a component could fit in more than one layer, keep it in the lowest layer that still matches its real responsibility.
+- Do not promote a component upward just because a business widget uses it.
+- Do not pull widget-specific helpers downward just to increase reuse on paper.
 
 ## Token usage guidance for component authors
 
@@ -327,13 +349,13 @@ Recommended working loop:
 4. Remove or reduce transitional shared CSS when the new component replaces it.
 5. Add tests once the API is stable enough to defend.
 
-## Current recommended component order
+## Current recommended implementation order
 
-Based on the live repo state, the next layers should progress like this:
+Based on the live repo state, the next work should progress like this:
 
-1. Finish the first layout-helper and cleanup pass around `ui-stack`
-2. Reduce transitional wrappers and CSS around the existing surface layer
-3. Add the next layout helper only if the same structure repeats in more than one place
-4. Add feedback variants only after the layout-helper pass settles
-5. Add compositions after repeated page patterns exist
-6. Delay business widgets until at least one shared page structure feels stable
+1. Confirm and document the layer assignment of every existing shared component
+2. Tighten primitives and surfaces before adding more breadth anywhere else
+3. Re-check layout and feedback boundaries for overlap or leakage
+4. Keep generic compositions separate from business-widget support pieces
+5. Treat the committed calendar month/day baseline as stable and defer week, multi-week, and year
+6. Add new shared breadth only after the hierarchy rules hold up under review
