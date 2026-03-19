@@ -145,6 +145,46 @@ ui-page-section:not(:defined) {
   margin-top: var(--ui-space-8);
 }
 
+ui-dashboard-grid:not(:defined) {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--ui-space-4);
+}
+
+ui-dashboard-panel:not(:defined) {
+  display: block;
+  grid-column: span 4;
+  padding: var(--ui-space-5);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+ui-dashboard-header:not(:defined) {
+  display: block;
+}
+
+ui-dashboard-filters:not(:defined) {
+  display: block;
+}
+
+ui-dashboard-kpi-row:not(:defined) {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--ui-space-3);
+}
+
+ui-stat-card:not(:defined) {
+  display: block;
+  min-height: 7rem;
+  padding: var(--ui-space-4);
+  border-radius: var(--ui-radius-md);
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface-elevated);
+  box-shadow: var(--ui-shadow-1);
+}
+
 ui-calendar:not(:defined) {
   display: block;
   min-height: 32rem;
@@ -381,6 +421,34 @@ ui-checklist-item:not(:defined) {
   max-width: 60ch;
   margin: 0;
   color: var(--ui-color-text-muted);
+}
+
+.ui-dashboard-shell {
+  display: block;
+}
+
+.ui-dashboard-filter-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: var(--ui-space-3);
+  flex: 1 1 28rem;
+}
+
+.ui-dashboard-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--ui-space-3);
+}
+
+.ui-dashboard-status {
+  margin: 0;
+  padding: var(--ui-space-3) var(--ui-space-4);
+  border-left: 3px solid var(--ui-color-accent);
+  border-radius: var(--ui-radius-sm);
+  background: color-mix(in srgb, var(--ui-color-accent-soft) 55%, transparent);
+  color: var(--ui-color-text-muted);
+  font-size: 0.92rem;
 }
 
 .ui-card-label {
@@ -658,7 +726,14 @@ ui-checklist-item:not(:defined) {
     grid-column: auto;
   }
 
-  .ui-stat-grid {
+  .ui-stat-grid,
+  .ui-dashboard-filter-fields,
+  .ui-dashboard-filter-actions,
+  ui-dashboard-kpi-row:not(:defined) {
     grid-template-columns: 1fr;
+  }
+
+  .ui-dashboard-filter-actions {
+    justify-content: stretch;
   }
 }

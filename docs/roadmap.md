@@ -13,9 +13,11 @@ The repo already has the foundation in place:
 - `apps/web` loads the Stencil loader and consumes shared components incrementally
 - `apps/mobile` is a thin shared-package consumer
 - Phase 7 closes at the first committed calendar baseline
+- Phase 8 hierarchy tightening is complete enough to treat the layer map and folder structure as the working baseline
+- the current business-widget baseline now includes Kanban, Task List, Activity Timeline, and Checklist in addition to Calendar
 - multi-week and year calendar views are deferred by product decision
 
-The roadmap now needs to focus on the next phase: tightening component hierarchy, clarifying layer boundaries, and making the implementation order across the design system more explicit.
+The roadmap now needs to focus on the next phase: adding a dashboard assembly layer on top of the current hierarchy, then using that dashboard to tighten cross-widget API consistency and expose any remaining accessibility or boundary issues before adding more breadth.
 
 ## Delivery phases
 
@@ -206,7 +208,7 @@ Product decision:
 
 Status:
 
-- Next
+- Complete and committed as the current hierarchy baseline
 
 Objective:
 
@@ -233,25 +235,93 @@ Expected output:
 - Fewer ambiguous responsibilities between layout, feedback, compositions, and business widgets
 - A stricter review standard for where new shared code belongs
 
+Delivered outcome:
+
+- `src/components` now mirrors the layer hierarchy directly
+- the design-system structure validator enforces the expected folder layout
+- lower-layer cleanup landed before additional business-widget families were introduced
+
+### Phase 9: Business-widget validation and API consistency
+
+Status:
+
+- Next
+
+Objective:
+
+- Validate the current widget set before introducing another family.
+
+Primary goals:
+
+- Normalize event naming and controlled-state expectations across business widgets
+- Tighten keyboard and accessibility behavior for interactive widgets
+- Use `apps/web` to expose remaining boundary leaks before adding more shared breadth
+- Decide whether another family is justified only after the current baseline feels stable
+
+Recommended implementation order:
+
+1. Review interactive widget APIs across Calendar, Kanban, Task List, and Checklist
+2. Review read-only widget APIs across Activity Timeline and supporting status surfaces
+3. Confirm event names, toggle patterns, and controlled props are consistent where they should be
+4. Tighten accessibility semantics and keyboard behavior where the current baseline is weak
+5. Reassess whether a repeated product gap still justifies another family
+
+Expected output:
+
+- A more coherent business-widget API surface
+- Fewer family-specific naming quirks
+- Higher confidence that the next shared family is solving a real gap instead of following momentum
+
+### Phase 10: Dashboard assembly layer
+
+Status:
+
+- In progress
+
+Objective:
+
+- Make dashboards easy to build from shared layout and composition pieces without turning dashboard structure into another business-widget family.
+
+Primary goals:
+
+- Add dashboard-specific layout and composition building blocks
+- Prove that the current widget baseline can sit inside a coherent shared dashboard shell
+- Keep app workflow and data orchestration out of the shared package
+
+Recommended implementation order:
+
+1. Add `ui-dashboard-grid` to the layout layer
+2. Add `ui-dashboard-panel`, `ui-dashboard-header`, and `ui-stat-card` to the composition layer
+3. Build a realistic dashboard surface in `apps/web` using existing widgets
+4. Use that dashboard to identify cross-widget API and accessibility inconsistencies
+
+Expected output:
+
+- A shared dashboard assembly baseline
+- Less app-specific dashboard framing code
+- Better evidence about where the current widget contracts are still rough
+
 ## Near-term execution sequence
 
 This is the recommended next order for a developer working in `packages/design-system` and `apps/web`.
 
-1. Freeze the Phase 7 calendar baseline.
-   - Treat month, day, and the current narrow week view as the committed business-widget contract.
-   - Do not expand into multi-week or year during the next phase.
-2. Audit the current component layer map.
-   - Confirm what is primitive, surface, layout, feedback, composition, or business widget.
-   - Resolve ambiguous cases explicitly instead of letting them drift.
-3. Tighten lower-layer boundaries first.
-   - Keep primitives free of surface, layout, and widget concerns.
-   - Keep surfaces focused on framing rather than page structure.
-4. Re-check layout, feedback, and composition responsibilities.
-   - Layout should stay structural.
-   - Feedback should stay state-oriented.
-   - Generic compositions should stay separate from calendar-specific support pieces.
-5. Normalize shared utilities and APIs around the agreed hierarchy.
-   - Keep widget-specific helpers inside business widgets unless reuse below that layer is proven.
+1. Keep the current business-widget baseline stable.
+   - Treat Calendar, Kanban, Task List, Activity Timeline, and Checklist as the current shared baseline.
+   - Do not add deferred calendar views or workflow-heavy widgets by default.
+2. Add the dashboard assembly layer.
+   - Land shared layout and composition pieces for dashboard construction.
+   - Keep dashboard structure product-agnostic.
+3. Build and review the dashboard surface in `apps/web`.
+   - Use the existing widget baseline inside the shared dashboard shell.
+   - Expose API friction before adding more breadth.
+4. Review the current business-widget APIs.
+   - Confirm controlled props, event names, and interaction patterns are coherent across families.
+   - Resolve inconsistencies explicitly instead of carrying them forward.
+5. Tighten accessibility and interaction contracts.
+   - Review keyboard behavior, toggle semantics, and read-only versus interactive expectations.
+   - Keep product workflow rules in the app layer.
+6. Reassess the next family only after the current baseline is stable.
+   - Add more shared breadth only if a repeated gap remains after the validation pass.
 
 ## Recommended `apps/web` migration order
 
@@ -305,7 +375,7 @@ Success means:
 - Multi-week and year views are explicitly deferred
 - The next phase can focus on hierarchy and boundaries instead of more calendar breadth
 
-### Milestone 6: Hierarchy tightening is underway
+### Milestone 6: Hierarchy tightening is complete enough to be the baseline
 
 Success means:
 
@@ -313,9 +383,25 @@ Success means:
 - The recommended implementation order is lower layers first, business widgets last
 - Reviews can reject cross-layer leakage using a documented standard
 
+### Milestone 7: A shared dashboard assembly baseline lands
+
+Success means:
+
+- The repo can build a coherent dashboard from shared layout and composition pieces
+- Existing business widgets fit into dashboard panels without bespoke app wrappers
+- Dashboard framing is shared while product workflow stays app-local
+
+### Milestone 8: The current business-widget set is validated before more breadth
+
+Success means:
+
+- Business-widget event naming and controlled-state rules are coherent enough to review consistently
+- `apps/web` exposes remaining accessibility and API issues in the current widget set
+- The team can justify the next family based on a repeated gap instead of momentum
+
 ## Guardrails
 
-- Do not add business widgets while surfaces and layout are still moving.
+- Do not add another business-widget family by default before the current widget baseline is reviewed.
 - Do not promote one-off demo markup into shared components.
 - Do not introduce new tokens for a single component without checking whether an existing semantic token works first.
 - Do not start Ionic work until the web consumer path stops exposing basic component API churn.

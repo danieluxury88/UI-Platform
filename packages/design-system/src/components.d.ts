@@ -217,6 +217,60 @@ export namespace Components {
          */
         "tone": 'neutral' | 'accent';
     }
+    interface UiDashboardFilters {
+        /**
+          * @default 'Dashboard controls'
+         */
+        "label": string;
+    }
+    interface UiDashboardGrid {
+        /**
+          * @default 'md'
+         */
+        "gap": 'sm' | 'md' | 'lg';
+        /**
+          * @default 'Dashboard layout'
+         */
+        "label": string;
+    }
+    interface UiDashboardHeader {
+        /**
+          * @default ''
+         */
+        "detail": string;
+        /**
+          * @default ''
+         */
+        "eyebrow": string;
+        /**
+          * @default ''
+         */
+        "heading": string;
+        /**
+          * @default '2'
+         */
+        "headingLevel": '2' | '3' | '4';
+    }
+    interface UiDashboardKpiRow {
+        /**
+          * @default 'compact'
+         */
+        "density": 'default' | 'compact';
+    }
+    interface UiDashboardPanel {
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default '4'
+         */
+        "span": '3' | '4' | '5' | '6' | '7' | '8' | '12';
+        /**
+          * @default 'surface'
+         */
+        "tone": 'surface' | 'accent';
+    }
     interface UiInput {
         /**
           * @default false
@@ -349,6 +403,32 @@ export namespace Components {
           * @default 'md'
          */
         "space": 'sm' | 'md' | 'lg';
+    }
+    interface UiStatCard {
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default ''
+         */
+        "meta": string;
+        /**
+          * @default 'default'
+         */
+        "size": 'default' | 'compact';
+        /**
+          * @default ''
+         */
+        "status": string;
+        /**
+          * @default 'surface'
+         */
+        "tone": 'surface' | 'accent';
+        /**
+          * @default ''
+         */
+        "value": string;
     }
     interface UiTaskList {
         /**
@@ -602,6 +682,36 @@ declare global {
         prototype: HTMLUiChipElement;
         new (): HTMLUiChipElement;
     };
+    interface HTMLUiDashboardFiltersElement extends Components.UiDashboardFilters, HTMLStencilElement {
+    }
+    var HTMLUiDashboardFiltersElement: {
+        prototype: HTMLUiDashboardFiltersElement;
+        new (): HTMLUiDashboardFiltersElement;
+    };
+    interface HTMLUiDashboardGridElement extends Components.UiDashboardGrid, HTMLStencilElement {
+    }
+    var HTMLUiDashboardGridElement: {
+        prototype: HTMLUiDashboardGridElement;
+        new (): HTMLUiDashboardGridElement;
+    };
+    interface HTMLUiDashboardHeaderElement extends Components.UiDashboardHeader, HTMLStencilElement {
+    }
+    var HTMLUiDashboardHeaderElement: {
+        prototype: HTMLUiDashboardHeaderElement;
+        new (): HTMLUiDashboardHeaderElement;
+    };
+    interface HTMLUiDashboardKpiRowElement extends Components.UiDashboardKpiRow, HTMLStencilElement {
+    }
+    var HTMLUiDashboardKpiRowElement: {
+        prototype: HTMLUiDashboardKpiRowElement;
+        new (): HTMLUiDashboardKpiRowElement;
+    };
+    interface HTMLUiDashboardPanelElement extends Components.UiDashboardPanel, HTMLStencilElement {
+    }
+    var HTMLUiDashboardPanelElement: {
+        prototype: HTMLUiDashboardPanelElement;
+        new (): HTMLUiDashboardPanelElement;
+    };
     interface HTMLUiInputElementEventMap {
         "uiFieldInput": { name: string; value: string };
         "uiFieldChange": { name: string; value: string };
@@ -685,6 +795,12 @@ declare global {
         prototype: HTMLUiStackElement;
         new (): HTMLUiStackElement;
     };
+    interface HTMLUiStatCardElement extends Components.UiStatCard, HTMLStencilElement {
+    }
+    var HTMLUiStatCardElement: {
+        prototype: HTMLUiStatCardElement;
+        new (): HTMLUiStatCardElement;
+    };
     interface HTMLUiTaskListElement extends Components.UiTaskList, HTMLStencilElement {
     }
     var HTMLUiTaskListElement: {
@@ -748,6 +864,11 @@ declare global {
         "ui-checklist": HTMLUiChecklistElement;
         "ui-checklist-item": HTMLUiChecklistItemElement;
         "ui-chip": HTMLUiChipElement;
+        "ui-dashboard-filters": HTMLUiDashboardFiltersElement;
+        "ui-dashboard-grid": HTMLUiDashboardGridElement;
+        "ui-dashboard-header": HTMLUiDashboardHeaderElement;
+        "ui-dashboard-kpi-row": HTMLUiDashboardKpiRowElement;
+        "ui-dashboard-panel": HTMLUiDashboardPanelElement;
         "ui-input": HTMLUiInputElement;
         "ui-kanban-board": HTMLUiKanbanBoardElement;
         "ui-kanban-card": HTMLUiKanbanCardElement;
@@ -756,6 +877,7 @@ declare global {
         "ui-panel": HTMLUiPanelElement;
         "ui-select": HTMLUiSelectElement;
         "ui-stack": HTMLUiStackElement;
+        "ui-stat-card": HTMLUiStatCardElement;
         "ui-task-list": HTMLUiTaskListElement;
         "ui-task-list-item": HTMLUiTaskListItemElement;
         "ui-textarea": HTMLUiTextareaElement;
@@ -959,6 +1081,60 @@ declare namespace LocalJSX {
          */
         "tone"?: 'neutral' | 'accent';
     }
+    interface UiDashboardFilters {
+        /**
+          * @default 'Dashboard controls'
+         */
+        "label"?: string;
+    }
+    interface UiDashboardGrid {
+        /**
+          * @default 'md'
+         */
+        "gap"?: 'sm' | 'md' | 'lg';
+        /**
+          * @default 'Dashboard layout'
+         */
+        "label"?: string;
+    }
+    interface UiDashboardHeader {
+        /**
+          * @default ''
+         */
+        "detail"?: string;
+        /**
+          * @default ''
+         */
+        "eyebrow"?: string;
+        /**
+          * @default ''
+         */
+        "heading"?: string;
+        /**
+          * @default '2'
+         */
+        "headingLevel"?: '2' | '3' | '4';
+    }
+    interface UiDashboardKpiRow {
+        /**
+          * @default 'compact'
+         */
+        "density"?: 'default' | 'compact';
+    }
+    interface UiDashboardPanel {
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * @default '4'
+         */
+        "span"?: '3' | '4' | '5' | '6' | '7' | '8' | '12';
+        /**
+          * @default 'surface'
+         */
+        "tone"?: 'surface' | 'accent';
+    }
     interface UiInput {
         /**
           * @default false
@@ -1097,6 +1273,32 @@ declare namespace LocalJSX {
          */
         "space"?: 'sm' | 'md' | 'lg';
     }
+    interface UiStatCard {
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * @default ''
+         */
+        "meta"?: string;
+        /**
+          * @default 'default'
+         */
+        "size"?: 'default' | 'compact';
+        /**
+          * @default ''
+         */
+        "status"?: string;
+        /**
+          * @default 'surface'
+         */
+        "tone"?: 'surface' | 'accent';
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface UiTaskList {
         /**
           * @default []
@@ -1234,6 +1436,27 @@ declare namespace LocalJSX {
         "label": string;
         "tone": 'neutral' | 'accent';
     }
+    interface UiDashboardFiltersAttributes {
+        "label": string;
+    }
+    interface UiDashboardGridAttributes {
+        "gap": 'sm' | 'md' | 'lg';
+        "label": string;
+    }
+    interface UiDashboardHeaderAttributes {
+        "eyebrow": string;
+        "heading": string;
+        "detail": string;
+        "headingLevel": '2' | '3' | '4';
+    }
+    interface UiDashboardKpiRowAttributes {
+        "density": 'default' | 'compact';
+    }
+    interface UiDashboardPanelAttributes {
+        "span": '3' | '4' | '5' | '6' | '7' | '8' | '12';
+        "tone": 'surface' | 'accent';
+        "label": string;
+    }
     interface UiInputAttributes {
         "label": string;
         "name": string;
@@ -1271,6 +1494,14 @@ declare namespace LocalJSX {
     }
     interface UiStackAttributes {
         "space": 'sm' | 'md' | 'lg';
+    }
+    interface UiStatCardAttributes {
+        "label": string;
+        "value": string;
+        "meta": string;
+        "status": string;
+        "size": 'default' | 'compact';
+        "tone": 'surface' | 'accent';
     }
     interface UiTaskListAttributes {
         "label": string;
@@ -1310,6 +1541,11 @@ declare namespace LocalJSX {
         "ui-checklist": Omit<UiChecklist, keyof UiChecklistAttributes> & { [K in keyof UiChecklist & keyof UiChecklistAttributes]?: UiChecklist[K] } & { [K in keyof UiChecklist & keyof UiChecklistAttributes as `attr:${K}`]?: UiChecklistAttributes[K] } & { [K in keyof UiChecklist & keyof UiChecklistAttributes as `prop:${K}`]?: UiChecklist[K] };
         "ui-checklist-item": Omit<UiChecklistItem, keyof UiChecklistItemAttributes> & { [K in keyof UiChecklistItem & keyof UiChecklistItemAttributes]?: UiChecklistItem[K] } & { [K in keyof UiChecklistItem & keyof UiChecklistItemAttributes as `attr:${K}`]?: UiChecklistItemAttributes[K] } & { [K in keyof UiChecklistItem & keyof UiChecklistItemAttributes as `prop:${K}`]?: UiChecklistItem[K] };
         "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
+        "ui-dashboard-filters": Omit<UiDashboardFilters, keyof UiDashboardFiltersAttributes> & { [K in keyof UiDashboardFilters & keyof UiDashboardFiltersAttributes]?: UiDashboardFilters[K] } & { [K in keyof UiDashboardFilters & keyof UiDashboardFiltersAttributes as `attr:${K}`]?: UiDashboardFiltersAttributes[K] } & { [K in keyof UiDashboardFilters & keyof UiDashboardFiltersAttributes as `prop:${K}`]?: UiDashboardFilters[K] };
+        "ui-dashboard-grid": Omit<UiDashboardGrid, keyof UiDashboardGridAttributes> & { [K in keyof UiDashboardGrid & keyof UiDashboardGridAttributes]?: UiDashboardGrid[K] } & { [K in keyof UiDashboardGrid & keyof UiDashboardGridAttributes as `attr:${K}`]?: UiDashboardGridAttributes[K] } & { [K in keyof UiDashboardGrid & keyof UiDashboardGridAttributes as `prop:${K}`]?: UiDashboardGrid[K] };
+        "ui-dashboard-header": Omit<UiDashboardHeader, keyof UiDashboardHeaderAttributes> & { [K in keyof UiDashboardHeader & keyof UiDashboardHeaderAttributes]?: UiDashboardHeader[K] } & { [K in keyof UiDashboardHeader & keyof UiDashboardHeaderAttributes as `attr:${K}`]?: UiDashboardHeaderAttributes[K] } & { [K in keyof UiDashboardHeader & keyof UiDashboardHeaderAttributes as `prop:${K}`]?: UiDashboardHeader[K] };
+        "ui-dashboard-kpi-row": Omit<UiDashboardKpiRow, keyof UiDashboardKpiRowAttributes> & { [K in keyof UiDashboardKpiRow & keyof UiDashboardKpiRowAttributes]?: UiDashboardKpiRow[K] } & { [K in keyof UiDashboardKpiRow & keyof UiDashboardKpiRowAttributes as `attr:${K}`]?: UiDashboardKpiRowAttributes[K] } & { [K in keyof UiDashboardKpiRow & keyof UiDashboardKpiRowAttributes as `prop:${K}`]?: UiDashboardKpiRow[K] };
+        "ui-dashboard-panel": Omit<UiDashboardPanel, keyof UiDashboardPanelAttributes> & { [K in keyof UiDashboardPanel & keyof UiDashboardPanelAttributes]?: UiDashboardPanel[K] } & { [K in keyof UiDashboardPanel & keyof UiDashboardPanelAttributes as `attr:${K}`]?: UiDashboardPanelAttributes[K] } & { [K in keyof UiDashboardPanel & keyof UiDashboardPanelAttributes as `prop:${K}`]?: UiDashboardPanel[K] };
         "ui-input": Omit<UiInput, keyof UiInputAttributes> & { [K in keyof UiInput & keyof UiInputAttributes]?: UiInput[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `attr:${K}`]?: UiInputAttributes[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `prop:${K}`]?: UiInput[K] };
         "ui-kanban-board": UiKanbanBoard;
         "ui-kanban-card": Omit<UiKanbanCard, keyof UiKanbanCardAttributes> & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes]?: UiKanbanCard[K] } & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes as `attr:${K}`]?: UiKanbanCardAttributes[K] } & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes as `prop:${K}`]?: UiKanbanCard[K] };
@@ -1318,6 +1554,7 @@ declare namespace LocalJSX {
         "ui-panel": Omit<UiPanel, keyof UiPanelAttributes> & { [K in keyof UiPanel & keyof UiPanelAttributes]?: UiPanel[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `attr:${K}`]?: UiPanelAttributes[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `prop:${K}`]?: UiPanel[K] };
         "ui-select": Omit<UiSelect, keyof UiSelectAttributes> & { [K in keyof UiSelect & keyof UiSelectAttributes]?: UiSelect[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `attr:${K}`]?: UiSelectAttributes[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `prop:${K}`]?: UiSelect[K] };
         "ui-stack": Omit<UiStack, keyof UiStackAttributes> & { [K in keyof UiStack & keyof UiStackAttributes]?: UiStack[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `attr:${K}`]?: UiStackAttributes[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `prop:${K}`]?: UiStack[K] };
+        "ui-stat-card": Omit<UiStatCard, keyof UiStatCardAttributes> & { [K in keyof UiStatCard & keyof UiStatCardAttributes]?: UiStatCard[K] } & { [K in keyof UiStatCard & keyof UiStatCardAttributes as `attr:${K}`]?: UiStatCardAttributes[K] } & { [K in keyof UiStatCard & keyof UiStatCardAttributes as `prop:${K}`]?: UiStatCard[K] };
         "ui-task-list": Omit<UiTaskList, keyof UiTaskListAttributes> & { [K in keyof UiTaskList & keyof UiTaskListAttributes]?: UiTaskList[K] } & { [K in keyof UiTaskList & keyof UiTaskListAttributes as `attr:${K}`]?: UiTaskListAttributes[K] } & { [K in keyof UiTaskList & keyof UiTaskListAttributes as `prop:${K}`]?: UiTaskList[K] };
         "ui-task-list-item": Omit<UiTaskListItem, keyof UiTaskListItemAttributes> & { [K in keyof UiTaskListItem & keyof UiTaskListItemAttributes]?: UiTaskListItem[K] } & { [K in keyof UiTaskListItem & keyof UiTaskListItemAttributes as `attr:${K}`]?: UiTaskListItemAttributes[K] } & { [K in keyof UiTaskListItem & keyof UiTaskListItemAttributes as `prop:${K}`]?: UiTaskListItem[K] };
         "ui-textarea": Omit<UiTextarea, keyof UiTextareaAttributes> & { [K in keyof UiTextarea & keyof UiTextareaAttributes]?: UiTextarea[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `attr:${K}`]?: UiTextareaAttributes[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `prop:${K}`]?: UiTextarea[K] };
@@ -1343,6 +1580,11 @@ declare module "@stencil/core" {
             "ui-checklist": LocalJSX.IntrinsicElements["ui-checklist"] & JSXBase.HTMLAttributes<HTMLUiChecklistElement>;
             "ui-checklist-item": LocalJSX.IntrinsicElements["ui-checklist-item"] & JSXBase.HTMLAttributes<HTMLUiChecklistItemElement>;
             "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
+            "ui-dashboard-filters": LocalJSX.IntrinsicElements["ui-dashboard-filters"] & JSXBase.HTMLAttributes<HTMLUiDashboardFiltersElement>;
+            "ui-dashboard-grid": LocalJSX.IntrinsicElements["ui-dashboard-grid"] & JSXBase.HTMLAttributes<HTMLUiDashboardGridElement>;
+            "ui-dashboard-header": LocalJSX.IntrinsicElements["ui-dashboard-header"] & JSXBase.HTMLAttributes<HTMLUiDashboardHeaderElement>;
+            "ui-dashboard-kpi-row": LocalJSX.IntrinsicElements["ui-dashboard-kpi-row"] & JSXBase.HTMLAttributes<HTMLUiDashboardKpiRowElement>;
+            "ui-dashboard-panel": LocalJSX.IntrinsicElements["ui-dashboard-panel"] & JSXBase.HTMLAttributes<HTMLUiDashboardPanelElement>;
             "ui-input": LocalJSX.IntrinsicElements["ui-input"] & JSXBase.HTMLAttributes<HTMLUiInputElement>;
             "ui-kanban-board": LocalJSX.IntrinsicElements["ui-kanban-board"] & JSXBase.HTMLAttributes<HTMLUiKanbanBoardElement>;
             "ui-kanban-card": LocalJSX.IntrinsicElements["ui-kanban-card"] & JSXBase.HTMLAttributes<HTMLUiKanbanCardElement>;
@@ -1351,6 +1593,7 @@ declare module "@stencil/core" {
             "ui-panel": LocalJSX.IntrinsicElements["ui-panel"] & JSXBase.HTMLAttributes<HTMLUiPanelElement>;
             "ui-select": LocalJSX.IntrinsicElements["ui-select"] & JSXBase.HTMLAttributes<HTMLUiSelectElement>;
             "ui-stack": LocalJSX.IntrinsicElements["ui-stack"] & JSXBase.HTMLAttributes<HTMLUiStackElement>;
+            "ui-stat-card": LocalJSX.IntrinsicElements["ui-stat-card"] & JSXBase.HTMLAttributes<HTMLUiStatCardElement>;
             "ui-task-list": LocalJSX.IntrinsicElements["ui-task-list"] & JSXBase.HTMLAttributes<HTMLUiTaskListElement>;
             "ui-task-list-item": LocalJSX.IntrinsicElements["ui-task-list-item"] & JSXBase.HTMLAttributes<HTMLUiTaskListItemElement>;
             "ui-textarea": LocalJSX.IntrinsicElements["ui-textarea"] & JSXBase.HTMLAttributes<HTMLUiTextareaElement>;

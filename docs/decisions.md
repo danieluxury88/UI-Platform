@@ -153,6 +153,26 @@ Consequences:
 - Multi-week and year are deferred.
 - The next phase should focus on hierarchy tightening, layer boundaries, and implementation order across the design system rather than more calendar breadth.
 
+## D-009: Validate the current widget baseline before adding another family
+
+Status: Accepted
+
+Decision:
+
+- After the initial business-widget expansion, prioritize API consistency, accessibility, and app-level validation of the current widget set before introducing another shared family.
+
+Rationale:
+
+- The repo now has multiple business-widget families, which increases the cost of inconsistent event naming and interaction rules.
+- Adding more breadth before validating the current baseline would make cross-family cleanup more expensive.
+- `apps/web` is already rich enough to expose the next round of API and accessibility issues.
+
+Consequences:
+
+- The next implementation slice should review Calendar, Kanban, Task List, Activity Timeline, and Checklist before proposing another family.
+- New widget families need a clearer justification than “we can add more components now”.
+- Documentation should treat the current widget baseline as something to validate, not just to expand.
+
 ## Open questions
 
 ### O-002: Is a component documentation site required in the first milestone?

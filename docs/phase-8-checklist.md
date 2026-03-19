@@ -2,197 +2,84 @@
 
 ## Purpose
 
-This checklist turns the Phase 8 documentation into an implementation-ready sequence.
+This checklist now records the Phase 8 baseline that has already been established in the repo.
 
-Phase 8 is not about adding more calendar breadth. It is about tightening component hierarchy, clarifying layer boundaries, and making the next shared-component decisions easier to review.
+Phase 8 was about tightening component hierarchy, clarifying layer boundaries, and making `src/components` easy to navigate by filesystem order.
 
-## Scope
+## Status
 
-In scope:
+- Phase 8 hierarchy baseline: complete and committed
 
-- Confirm layer ownership for every existing shared component
-- Make `src/components` easier to navigate by reflecting the layer hierarchy in the folder structure
-- Tighten lower-layer boundaries before changing business widgets
-- Reduce API and utility leakage across layers
-- Keep `apps/web` as the proving ground for hierarchy work
+## What Phase 8 established
 
-Out of scope:
+- `packages/design-system/src/components` now reflects the layer hierarchy directly
+- lower shared layers were tightened before adding more business-widget breadth
+- app-specific styling and workflow glue stayed in `apps/web`
+- the business-widget layer now sits on top of a clearer shared foundation
 
-- Multi-week calendar view
-- Year calendar view
-- New business-widget families
-- Ionic or Capacitor expansion
-- Product-specific workflows in shared packages
+## Current layer map
 
-## Source-structure goal
+- Primitives: `ui-button`, `ui-input`, `ui-textarea`, `ui-select`
+- Surfaces: `ui-card`, `ui-panel`
+- Layout: `ui-stack`, `ui-page-section`
+- Feedback: `ui-chip`, `ui-badge`
+- Compositions: `ui-toolbar`
+- Business widgets:
+  - calendar family
+  - kanban family
+  - task-list family
+  - activity-timeline family
+  - checklist family
 
-The component hierarchy should be visible in the filesystem, not only in the docs.
+## Source-structure outcome
 
-Target outcome:
+The component hierarchy is now visible in the filesystem instead of being implied only by documentation.
 
-- A developer can open `packages/design-system/src/components` and understand the layer model immediately
-- Lower layers appear first and are easier to inspect than higher-layer widgets
-- Calendar-specific code is grouped under the business-widget layer instead of appearing as peer folders next to primitives and surfaces
-
-Suggested target structure:
+Current structure:
 
 ```text
 src/components/
 |-- primitives/
-|   `-- ui-button/
 |-- surfaces/
-|   |-- ui-card/
-|   `-- ui-panel/
 |-- layout/
-|   |-- ui-page-section/
-|   `-- ui-stack/
 |-- feedback/
-|   |-- ui-badge/
-|   `-- ui-chip/
 |-- compositions/
-|   `-- ui-toolbar/
 `-- business-widgets/
-    `-- calendar/
-        |-- ui-calendar/
-        |-- ui-calendar-toolbar/
-        |-- ui-calendar-month-view/
-        |-- ui-calendar-day-view/
-        |-- ui-calendar-week-view/
-        |-- ui-calendar-day-cell/
-        |-- ui-calendar-event-chip/
-        `-- shared/
-            |-- calendar-utils.ts
-            `-- calendar-utils.spec.ts
+    |-- calendar/
+    |-- kanban/
+    |-- task-list/
+    |-- activity-timeline/
+    `-- checklist/
 ```
 
-Implementation note:
+## Phase 8 completion checklist
 
-- The Phase 8 goal is not to reshuffle folders for aesthetics alone
-- Reorganization should happen only when it makes the hierarchy easier to follow and does not blur component ownership
-- If the folder structure changes, imports and build configuration must keep the package behavior unchanged
+- Layer ownership is explicit for the shared component set
+- `src/components` navigation matches the layer hierarchy
+- lower-layer APIs are narrower than they were before the reorganization
+- shared validation guards the expected folder structure
+- `apps/web` remains the proving ground for widget APIs and boundary leaks
 
-## Immediate implementation slice
+## What Phase 8 did not mean
 
-### 1. Freeze the current calendar baseline
+- It did not reopen deferred calendar breadth
+- It did not move product workflow logic into the design system
+- It did not make every next step “add another widget family”
 
-Checklist:
+## Follow-on work
 
-- Treat `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-view`, `ui-calendar-week-view`, `ui-calendar-day-cell`, and `ui-calendar-event-chip` as the committed Phase 7 baseline
-- Do not add new calendar views
-- Do not add dense scheduling, creation flows, or product workflows to shared calendar components
-- Keep demo-specific behavior in `apps/web`
+The next move after Phase 8 is not another hierarchy reshuffle.
 
-Definition of done:
+Recommended follow-on sequence:
 
-- No new calendar breadth is introduced while hierarchy work is underway
+1. Validate the current business-widget APIs in `apps/web`
+2. Tighten event naming, controlled-state rules, and accessibility across the current widget set
+3. Only then decide whether another business-widget family is justified
 
-### 2. Audit the current layer map
+## Review checklist for the next phase
 
-Checklist:
-
-- Create a single source of truth for the layer assignment of every component in `packages/design-system`
-- Confirm these current assignments:
-  - Primitives: `ui-button`
-  - Surfaces: `ui-card`, `ui-panel`
-  - Layout: `ui-stack`, `ui-page-section`
-  - Feedback: `ui-chip`, `ui-badge`
-  - Compositions: `ui-toolbar`
-  - Business widgets: calendar family
-- Call out any ambiguous cases explicitly instead of leaving them implied
-- Record which components are allowed to depend on which lower layers
-- Record the target folder location for each component so the filesystem order matches the layer order
-
-Definition of done:
-
-- The repo has a clear component-to-layer map that reviewers can use
-
-### 3. Tighten primitives and surfaces first
-
-Checklist:
-
-- Review `ui-button` for props or styling behavior that pull in higher-layer concerns
-- Review `ui-card` and `ui-panel` for layout or page-structure responsibilities that do not belong in surfaces
-- Move one-off page structure back to `apps/web` if it is not reusable
-- Keep lower-layer APIs narrow and predictable
-
-Definition of done:
-
-- Primitives depend only on tokens
-- Surfaces frame content without absorbing page structure
-
-### 4. Re-check layout and feedback boundaries
-
-Checklist:
-
-- Verify `ui-stack` and `ui-page-section` solve repeated structure rather than page-specific composition
-- Verify `ui-chip` and `ui-badge` stay state-oriented rather than workflow-oriented
-- Remove or reject any app-specific semantics that leaked into layout or feedback APIs
-- Keep fallback CSS shrinking as real shared components replace raw markup
-
-Definition of done:
-
-- Layout stays structural
-- Feedback stays state-oriented
-
-### 5. Separate generic compositions from widget support
-
-Checklist:
-
-- Review `ui-toolbar` and confirm it remains product-agnostic
-- Keep calendar-specific controls and view logic in the business-widget layer
-- Do not promote calendar support pieces into the composition layer just because they have slots or controls
-- Keep shared composition APIs neutral enough to be reused outside the calendar
-
-Definition of done:
-
-- Generic compositions are clearly separate from calendar-specific support components
-
-### 6. Normalize shared APIs and utilities
-
-Checklist:
-
-- Review shared utilities and keep widget-specific helpers in the widget layer unless lower-layer reuse is proven
-- Normalize event names, prop naming, and controlled-state expectations where hierarchy is unclear
-- Keep selection state separate from focus state in calendar-related APIs
-- Avoid introducing new shared abstractions until repeated use is proven
-
-Definition of done:
-
-- API boundaries match the documented layer model
-
-## `apps/web` proving-ground checklist
-
-- Keep the current month, day, and week scenarios stable
-- Keep app-level demo glue in `apps/web/app.js`
-- Use the demo to expose boundary leaks
-- Do not move product behavior into `packages/design-system` just to make the demo look richer
-- Keep class-based or fallback styling only where the migration still genuinely needs it
-
-## Suggested execution order
-
-1. Document the final component layer map and target folder structure in the repo
-2. Decide whether the current flat folder layout should be reorganized now or after the first audit pass
-3. Review and tighten `ui-button`, `ui-card`, and `ui-panel`
-4. Review and tighten `ui-stack`, `ui-page-section`, `ui-chip`, and `ui-badge`
-5. Review `ui-toolbar` against the composition rules
-6. Review the calendar family for hierarchy leaks without adding new breadth
-7. If approved, reorganize `src/components` to reflect the agreed hierarchy
-8. Rebuild, typecheck, and test after each slice
-
-## Review checklist
-
-- Does this change respect the documented layer map?
-- Is a lower-layer component taking on a higher-layer responsibility?
-- Is app behavior being pushed into a shared package?
-- Is a widget-specific helper being promoted too early?
-- Is new shared code justified by repetition rather than convenience?
-- Are deferred calendar views still out of scope?
-
-## Exit criteria
-
-Phase 8 is underway when:
-
-- Every shared component has a clear layer assignment
-- Lower-layer boundaries are tighter than they were at the end of Phase 7
-- Review comments can point to a documented hierarchy standard
-- The next implementation slice is lower-layers first, business widgets last
+- Do the current business widgets expose consistent controlled-state contracts?
+- Are event names predictable across widget families?
+- Are keyboard and screen-reader expectations clear for interactive widgets?
+- Is app-owned workflow logic still staying out of shared packages?
+- Does a proposed next family solve a repeated gap rather than adding breadth by default?

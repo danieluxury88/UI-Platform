@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  grid-column: span 4;
+  padding: var(--ui-space-5);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-radius-lg);
+  background: linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+:host([tone='accent']) {
+  background:
+    radial-gradient(circle at top right, var(--ui-color-accent-glow), transparent 34%),
+    linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+}
+
+:host([span='3']) {
+  grid-column: span 3;
+}
+
+:host([span='4']) {
+  grid-column: span 4;
+}
+
+:host([span='5']) {
+  grid-column: span 5;
+}
+
+:host([span='6']) {
+  grid-column: span 6;
+}
+
+:host([span='7']) {
+  grid-column: span 7;
+}
+
+:host([span='8']) {
+  grid-column: span 8;
+}
+
+:host([span='12']) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  :host {
+    grid-column: auto;
+  }
+}

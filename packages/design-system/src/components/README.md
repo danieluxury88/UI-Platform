@@ -25,9 +25,15 @@ Lower layers come first. Higher layers may compose lower layers, but not the rev
 - `surfaces/ui-panel`
 - `layout/ui-stack`
 - `layout/ui-page-section`
+- `layout/ui-dashboard-grid`
 - `feedback/ui-chip`
 - `feedback/ui-badge`
 - `compositions/ui-toolbar`
+- `compositions/ui-dashboard-panel`
+- `compositions/ui-dashboard-header`
+- `compositions/ui-dashboard-filters`
+- `compositions/ui-dashboard-kpi-row`
+- `compositions/ui-stat-card`
 - `business-widgets/calendar/ui-calendar`
 - `business-widgets/calendar/ui-calendar-toolbar`
 - `business-widgets/calendar/ui-calendar-month-view`

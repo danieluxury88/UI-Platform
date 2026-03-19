@@ -1,0 +1,28 @@
+:host {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--ui-space-4);
+  align-items: start;
+}
+
+:host([gap='sm']) {
+  gap: var(--ui-space-3);
+}
+
+:host([gap='md']) {
+  gap: var(--ui-space-4);
+}
+
+:host([gap='lg']) {
+  gap: var(--ui-space-6);
+}
+
+::slotted(*) {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  :host {
+    grid-template-columns: 1fr;
+  }
+}

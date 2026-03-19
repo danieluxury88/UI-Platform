@@ -19,6 +19,19 @@ const taskListStatus = document.getElementById('task-list-status');
 const activityTimeline = document.getElementById('demo-activity-timeline');
 const checklist = document.getElementById('demo-checklist');
 const checklistStatus = document.getElementById('checklist-status');
+const dashboardKanban = document.getElementById('dashboard-kanban');
+const dashboardTaskList = document.getElementById('dashboard-task-list');
+const dashboardTimeline = document.getElementById('dashboard-timeline');
+const dashboardChecklist = document.getElementById('dashboard-checklist');
+const dashboardRangeSelect = document.getElementById('dashboard-range');
+const dashboardFocusSelect = document.getElementById('dashboard-focus');
+const dashboardResetFiltersButton = document.getElementById('dashboard-reset-filters');
+const dashboardOpenIntakeButton = document.getElementById('dashboard-open-intake');
+const dashboardStatus = document.getElementById('dashboard-status');
+const dashboardOpenTasks = document.getElementById('dashboard-open-tasks');
+const dashboardReadiness = document.getElementById('dashboard-readiness');
+const dashboardEvents = document.getElementById('dashboard-events');
+const dashboardWidgets = document.getElementById('dashboard-widgets');
 const intakeForm = document.getElementById('demo-intake-form');
 const formNameInput = document.getElementById('demo-form-name');
 const formOwnerInput = document.getElementById('demo-form-owner');
@@ -296,6 +309,23 @@ const formPriorityOptions = [
   { value: 'exploratory', label: 'Exploratory' },
 ];
 
+const dashboardRangeOptions = [
+  { value: 'quarter', label: 'Quarter view' },
+  { value: 'sprint', label: 'Sprint view' },
+  { value: 'today', label: 'Today view' },
+];
+
+const dashboardFocusOptions = [
+  { value: 'all', label: 'All streams' },
+  { value: 'execution', label: 'Execution focus' },
+  { value: 'review', label: 'Review focus' },
+];
+
+const dashboardState = {
+  range: 'quarter',
+  focus: 'all',
+};
+
 const activityTimelineState = {
   events: [
     {
@@ -411,11 +441,13 @@ function syncWeekCalendar() {
 }
 
 function syncKanbanBoard() {
-  if (!kanbanBoard) {
-    return;
+  if (kanbanBoard) {
+    kanbanBoard.columns = kanbanBoardState.columns;
   }
 
-  kanbanBoard.columns = kanbanBoardState.columns;
+  if (dashboardKanban) {
+    dashboardKanban.columns = getDashboardKanbanColumns();
+  }
 
   if (kanbanStatus) {
     kanbanStatus.textContent = activeKanbanCard
@@ -437,13 +469,175 @@ function buildTaskListItems(columns) {
   );
 }
 
-function syncTaskList() {
-  if (!taskList) {
-    return;
+function getDashboardRangeLabel() {
+  return dashboardRangeOptions.find((option) => option.value === dashboardState.range)?.label ?? 'Quarter view';
+}
+
+function getDashboardFocusLabel() {
+  return dashboardFocusOptions.find((option) => option.value === dashboardState.focus)?.label ?? 'All streams';
+}
+
+function includesDashboardKeyword(parts, keywords) {
+  const content = parts.filter(Boolean).join(' ').toLowerCase();
+  return keywords.some((keyword) => content.includes(keyword));
+}
+
+function isReviewCard(card) {
+  return includesDashboardKeyword(
+    [card.id, card.title, card.description ?? '', card.meta ?? ''],
+    ['review', 'copy', 'handoff', 'scope'],
+  );
+}
+
+function isReviewEvent(event) {
+  return includesDashboardKeyword(
+    [event.id, event.title, event.description ?? '', event.meta ?? ''],
+    ['review', 'intake', 'handoff', 'scope'],
+  );
+}
+
+function isReviewChecklistItem(item) {
+  return includesDashboardKeyword(
+    [item.id, item.title, item.note ?? '', item.meta ?? ''],
+    ['review', 'handoff', 'owner', 'scope', 'priority'],
+  );
+}
+
+function matchesDashboardCard(card) {
+  if (dashboardState.focus === 'execution') {
+    return !isReviewCard(card);
   }
 
-  taskList.label = 'Shared task queue';
-  taskList.items = buildTaskListItems(kanbanBoardState.columns);
+  if (dashboardState.focus === 'review') {
+    return isReviewCard(card);
+  }
+
+  return true;
+}
+
+function getDashboardKanbanColumns() {
+  const columns = kanbanBoardState.columns
+    .map((column) => {
+      let cards = column.cards.filter((card) => matchesDashboardCard(card));
+
+      if (dashboardState.range === 'sprint') {
+        if (column.id === 'backlog') {
+          cards = cards.slice(0, 1);
+        } else if (column.id === 'done') {
+          cards = cards.slice(-1);
+        }
+      }
+
+      if (dashboardState.range === 'today') {
+        if (column.id === 'active') {
+          cards = cards.slice(0, 2);
+        } else {
+          cards = [];
+        }
+      }
+
+      return {
+        ...column,
+        cards,
+      };
+    })
+    .filter((column) => column.cards.length > 0);
+
+  if (columns.length > 0) {
+    return columns;
+  }
+
+  const activeColumn = kanbanBoardState.columns.find((column) => column.id === 'active');
+
+  return activeColumn
+    ? [
+        {
+          ...activeColumn,
+          cards: activeColumn.cards.slice(0, 1),
+        },
+      ]
+    : [];
+}
+
+function getDashboardTaskItems() {
+  return buildTaskListItems(getDashboardKanbanColumns());
+}
+
+function getDashboardTimelineEvents() {
+  let events = activityTimelineState.events.filter((event) => {
+    if (dashboardState.focus === 'execution') {
+      return !isReviewEvent(event);
+    }
+
+    if (dashboardState.focus === 'review') {
+      return isReviewEvent(event);
+    }
+
+    return true;
+  });
+
+  if (dashboardState.range === 'sprint') {
+    events = events.slice(-2);
+  } else if (dashboardState.range === 'today') {
+    events = events.slice(-1);
+  }
+
+  return events.length > 0 ? events : activityTimelineState.events.slice(-1);
+}
+
+function getDashboardChecklistItems() {
+  const items = buildChecklistItems();
+
+  if (dashboardState.focus === 'execution') {
+    return items.filter((item) => !isReviewChecklistItem(item));
+  }
+
+  if (dashboardState.focus === 'review') {
+    return items.filter((item) => isReviewChecklistItem(item));
+  }
+
+  return items;
+}
+
+function syncDashboardControls() {
+  updateFormControl(dashboardRangeSelect, {
+    value: dashboardState.range,
+    invalid: false,
+    message: '',
+  });
+
+  if (dashboardRangeSelect) {
+    dashboardRangeSelect.options = dashboardRangeOptions;
+  }
+
+  updateFormControl(dashboardFocusSelect, {
+    value: dashboardState.focus,
+    invalid: false,
+    message: '',
+  });
+
+  if (dashboardFocusSelect) {
+    dashboardFocusSelect.options = dashboardFocusOptions;
+  }
+
+  if (dashboardStatus) {
+    dashboardStatus.textContent = `Showing ${getDashboardRangeLabel().toLowerCase()} with ${getDashboardFocusLabel().toLowerCase()}.`;
+  }
+}
+
+function syncTaskList() {
+  const items = buildTaskListItems(kanbanBoardState.columns);
+  const dashboardItems = getDashboardTaskItems();
+
+  if (taskList) {
+    taskList.label = 'Shared task queue';
+    taskList.items = items;
+  }
+
+  if (dashboardTaskList) {
+    dashboardTaskList.label = 'Active work summary';
+    dashboardTaskList.items = dashboardItems;
+  }
 
   if (taskListStatus) {
     taskListStatus.textContent = activeTaskListItem
@@ -453,12 +647,15 @@ function syncTaskList() {
 }
 
 function syncActivityTimeline() {
-  if (!activityTimeline) {
-    return;
+  if (activityTimeline) {
+    activityTimeline.label = 'Workspace activity';
+    activityTimeline.events = activityTimelineState.events;
   }
 
-  activityTimeline.label = 'Workspace activity';
-  activityTimeline.events = activityTimelineState.events;
+  if (dashboardTimeline) {
+    dashboardTimeline.label = 'Recent activity';
+    dashboardTimeline.events = getDashboardTimelineEvents();
+  }
 }
 
 function buildChecklistItems() {
@@ -507,13 +704,18 @@ function buildChecklistItems() {
 }
 
 function syncChecklist() {
-  if (!checklist) {
-    return;
+  const items = buildChecklistItems();
+  const dashboardItems = getDashboardChecklistItems();
+
+  if (checklist) {
+    checklist.label = 'Review handoff checklist';
+    checklist.items = items;
   }
 
-  const items = buildChecklistItems();
-  checklist.label = 'Review handoff checklist';
-  checklist.items = items;
+  if (dashboardChecklist) {
+    dashboardChecklist.label = 'Handoff checklist';
+    dashboardChecklist.items = dashboardItems;
+  }
 
   if (checklistStatus) {
     const activeItem = activeChecklistItem ? items.find((item) => item.id === activeChecklistItem.id) : null;
@@ -521,6 +723,42 @@ function syncChecklist() {
     checklistStatus.textContent = activeItem
       ? `${activeItem.title} is currently ${activeItem.completed ? 'complete' : 'open'}.`
       : 'Toggle a review item to inspect the controlled checklist interaction contract.';
+  }
+}
+
+function syncDashboardStats() {
+  const dashboardTasks = getDashboardTaskItems();
+  const dashboardEventsList = getDashboardTimelineEvents();
+  const dashboardChecklistItems = getDashboardChecklistItems();
+  const openTasks = dashboardTasks.filter((item) => item.statusLabel !== 'Done').length;
+  const errors = getFormErrors();
+  const isReady = Object.keys(errors).length === 0 && Boolean(formState.projectName && formState.ownerEmail && formState.priority);
+  const completedChecklistItems = dashboardChecklistItems.filter((item) => item.completed).length;
+
+  if (dashboardOpenTasks) {
+    dashboardOpenTasks.value = String(openTasks);
+    dashboardOpenTasks.status = openTasks > 0 ? 'Needs focus' : 'Clear';
+    dashboardOpenTasks.meta = `${getDashboardRangeLabel()} · ${getDashboardFocusLabel()}`;
+  }
+
+  if (dashboardReadiness) {
+    dashboardReadiness.value = isReady ? 'Ready' : 'Open';
+    dashboardReadiness.status = `${completedChecklistItems}/${dashboardChecklistItems.length || 0} checks`;
+    dashboardReadiness.meta = isReady ? 'Intake can move to handoff' : 'Checklist still has open items';
+    dashboardReadiness.tone = isReady ? 'accent' : 'surface';
+  }
+
+  if (dashboardEvents) {
+    dashboardEvents.value = String(dashboardEventsList.length);
+    dashboardEvents.status = dashboardState.range === 'today' ? 'Immediate window' : 'Read only';
+    dashboardEvents.meta = `${getDashboardRangeLabel()} activity trail`;
+  }
+
+  if (dashboardWidgets) {
+    dashboardWidgets.value = '10';
+    dashboardWidgets.status = 'Dashboard ready';
+    dashboardWidgets.meta = 'Shell + widget families';
+    dashboardWidgets.tone = 'accent';
   }
 }
 
@@ -633,6 +871,8 @@ function syncFormDemo() {
   }
 
   syncChecklist();
+  syncDashboardControls();
+  syncDashboardStats();
 }
 
 applyTheme(getTheme());
@@ -737,33 +977,40 @@ if (weekCalendar) {
   });
 }
 
-if (kanbanBoard) {
-  kanbanBoard.addEventListener('uiKanbanCardActivate', (event) => {
-    const column = kanbanBoardState.columns.find((candidate) => candidate.id === event.detail.columnId);
-    activeKanbanCard = {
-      card: event.detail.card,
-      columnTitle: column ? column.title : event.detail.columnId,
-    };
-    syncKanbanBoard();
-  });
+for (const board of [kanbanBoard, dashboardKanban]) {
+  if (board) {
+    board.addEventListener('uiKanbanCardActivate', (event) => {
+      const column = kanbanBoardState.columns.find((candidate) => candidate.id === event.detail.columnId);
+      activeKanbanCard = {
+        card: event.detail.card,
+        columnTitle: column ? column.title : event.detail.columnId,
+      };
+      syncKanbanBoard();
+    });
+  }
 }
 
-if (taskList) {
-  taskList.addEventListener('uiTaskListItemActivate', (event) => {
-    activeTaskListItem = event.detail.item;
-    syncTaskList();
-  });
+for (const list of [taskList, dashboardTaskList]) {
+  if (list) {
+    list.addEventListener('uiTaskListItemActivate', (event) => {
+      activeTaskListItem = event.detail.item;
+      syncTaskList();
+    });
+  }
 }
 
-if (checklist) {
-  checklist.addEventListener('uiChecklistItemToggle', (event) => {
-    if (event.detail.item.id === 'handoff-review') {
-      checklistState.handoffConfirmed = event.detail.nextCompleted;
-    }
+for (const list of [checklist, dashboardChecklist]) {
+  if (list) {
+    list.addEventListener('uiChecklistItemToggle', (event) => {
+      if (event.detail.item.id === 'handoff-review') {
+        checklistState.handoffConfirmed = event.detail.nextCompleted;
+      }
 
-    activeChecklistItem = { id: event.detail.item.id };
-    syncChecklist();
-  });
+      activeChecklistItem = { id: event.detail.item.id };
+      syncChecklist();
+      syncDashboardStats();
+    });
+  }
 }
 
 if (intakeForm) {
@@ -791,12 +1038,65 @@ if (formResetButton) {
   });
 }
 
+if (dashboardRangeSelect) {
+  dashboardRangeSelect.addEventListener('uiFieldInput', (event) => {
+    if (event.detail.name !== 'dashboard-range') {
+      return;
+    }
+
+    dashboardState.range = event.detail.value || 'quarter';
+    syncDashboardControls();
+    syncKanbanBoard();
+    syncTaskList();
+    syncActivityTimeline();
+    syncChecklist();
+    syncDashboardStats();
+  });
+}
+
+if (dashboardFocusSelect) {
+  dashboardFocusSelect.addEventListener('uiFieldInput', (event) => {
+    if (event.detail.name !== 'dashboard-focus') {
+      return;
+    }
+
+    dashboardState.focus = event.detail.value || 'all';
+    syncDashboardControls();
+    syncKanbanBoard();
+    syncTaskList();
+    syncActivityTimeline();
+    syncChecklist();
+    syncDashboardStats();
+  });
+}
+
+if (dashboardResetFiltersButton) {
+  dashboardResetFiltersButton.addEventListener('click', () => {
+    dashboardState.range = 'quarter';
+    dashboardState.focus = 'all';
+    syncDashboardControls();
+    syncKanbanBoard();
+    syncTaskList();
+    syncActivityTimeline();
+    syncChecklist();
+    syncDashboardStats();
+  });
+}
+
+if (dashboardOpenIntakeButton) {
+  dashboardOpenIntakeButton.addEventListener('click', () => {
+    document.getElementById('forms')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
 registerDesignSystem().then(() => {
   syncMonthCalendar();
   syncDayCalendar();
   syncWeekCalendar();
+  syncDashboardControls();
   syncKanbanBoard();
   syncTaskList();
   syncActivityTimeline();
   syncFormDemo();
+  syncDashboardStats();
 });

@@ -143,6 +143,126 @@
         </div>
       </ui-page-section>
 
+      <ui-page-section id="dashboard">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Dashboard assembly</p>
+            <h2 class="ui-section-title">The current widget set can now drop into a shared dashboard shell.</h2>
+          </div>
+          <p class="ui-section-copy">
+            This slice adds reusable dashboard layout and composition pieces so app teams can build real workspaces without turning dashboard structure into another business-widget family.
+          </p>
+        </div>
+
+        <ui-dashboard-grid class="ui-dashboard-shell" gap="md" label="Quarterly planning dashboard">
+          <ui-dashboard-panel span="12" tone="accent" label="Quarterly planning dashboard overview">
+            <ui-stack space="lg">
+              <ui-dashboard-header
+                eyebrow="Shared assembly layer"
+                heading="Quarterly planning dashboard"
+                heading-level="2"
+                detail="A shared grid, shared panels, dashboard controls, and existing widgets composed into one coherent workspace."
+              >
+                <ui-badge tone="accent">Dashboard shell</ui-badge>
+              </ui-dashboard-header>
+
+              <ui-dashboard-filters label="Dashboard filters and dashboard actions">
+                <div slot="filters" class="ui-dashboard-filter-fields">
+                  <ui-select
+                    id="dashboard-range"
+                    name="dashboard-range"
+                    label="Window"
+                    placeholder="Choose a time window"
+                  ></ui-select>
+                  <ui-select
+                    id="dashboard-focus"
+                    name="dashboard-focus"
+                    label="Focus"
+                    placeholder="Choose a focus lane"
+                  ></ui-select>
+                </div>
+
+                <div slot="actions" class="ui-dashboard-filter-actions">
+                  <ui-button id="dashboard-reset-filters" variant="secondary" type="button">
+                    Reset view
+                  </ui-button>
+                  <ui-button id="dashboard-open-intake" variant="primary" type="button">
+                    Open intake
+                  </ui-button>
+                </div>
+              </ui-dashboard-filters>
+
+              <p id="dashboard-status" class="ui-dashboard-status">
+                Showing quarter coverage across all streams.
+              </p>
+
+              <ui-dashboard-kpi-row density="compact">
+                <ui-stat-card id="dashboard-open-tasks" label="Open tasks" value="0" meta="" size="compact"></ui-stat-card>
+                <ui-stat-card id="dashboard-readiness" label="Intake readiness" value="Open" status="" meta="" size="compact"></ui-stat-card>
+                <ui-stat-card id="dashboard-events" label="Activity events" value="0" meta="" size="compact"></ui-stat-card>
+                <ui-stat-card id="dashboard-widgets" label="Shared pieces" value="0" status="Dashboard ready" meta="" tone="accent" size="compact"></ui-stat-card>
+              </ui-dashboard-kpi-row>
+            </ui-stack>
+          </ui-dashboard-panel>
+
+          <ui-dashboard-panel span="7" label="Delivery board panel">
+            <ui-stack space="md">
+              <ui-dashboard-header
+                eyebrow="Execution"
+                heading="Delivery board"
+                heading-level="3"
+                detail="The existing Kanban family becomes the primary work surface inside the shared dashboard shell."
+              >
+                <ui-badge tone="accent">Interactive</ui-badge>
+              </ui-dashboard-header>
+              <ui-kanban-board id="dashboard-kanban"></ui-kanban-board>
+            </ui-stack>
+          </ui-dashboard-panel>
+
+          <ui-dashboard-panel span="5" label="Recent activity panel">
+            <ui-stack space="md">
+              <ui-dashboard-header
+                eyebrow="Audit"
+                heading="Recent activity"
+                heading-level="3"
+                detail="Read-only history fits as a secondary dashboard rail without extra app framing code."
+              >
+                <ui-badge tone="neutral">Read only</ui-badge>
+              </ui-dashboard-header>
+              <ui-activity-timeline id="dashboard-timeline"></ui-activity-timeline>
+            </ui-stack>
+          </ui-dashboard-panel>
+
+          <ui-dashboard-panel span="6" label="Task queue panel">
+            <ui-stack space="md">
+              <ui-dashboard-header
+                eyebrow="Summary"
+                heading="Task queue"
+                heading-level="3"
+                detail="The same underlying records can collapse into a denser list view for triage and handoff."
+              >
+                <ui-badge tone="neutral">Shared data</ui-badge>
+              </ui-dashboard-header>
+              <ui-task-list id="dashboard-task-list"></ui-task-list>
+            </ui-stack>
+          </ui-dashboard-panel>
+
+          <ui-dashboard-panel span="6" label="Review handoff panel">
+            <ui-stack space="md">
+              <ui-dashboard-header
+                eyebrow="Readiness"
+                heading="Review handoff"
+                heading-level="3"
+                detail="Checklist state stays app-controlled while the shared shell handles structure and presentation."
+              >
+                <ui-badge tone="accent">Controlled</ui-badge>
+              </ui-dashboard-header>
+              <ui-checklist id="dashboard-checklist"></ui-checklist>
+            </ui-stack>
+          </ui-dashboard-panel>
+        </ui-dashboard-grid>
+      </ui-page-section>
+
       <ui-page-section id="calendar">
         <div class="ui-section-head">
           <div>

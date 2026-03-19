@@ -14,7 +14,7 @@ The repository is already past the planning-only stage. It now has:
 - A thin mobile package consuming the shared layers
 - A committed calendar baseline at the month/day/week milestone
 
-The main architectural job now is not bootstrap. Lower shared layers are committed and stable enough to support business widgets. Phase 7 closes at the first committed calendar baseline. The next architecture focus is tightening hierarchy, layer boundaries, and recommended implementation order across the full design system before adding more deferred calendar views.
+The main architectural job now is not bootstrap. Lower shared layers are committed and stable enough to support business widgets. Phase 7 closes at the first committed calendar baseline. The next architecture focus is using the current hierarchy to support dashboard assembly cleanly while keeping product workflow logic in the app layer.
 
 ## Goals
 
@@ -150,9 +150,9 @@ Current layer map:
 
 - Primitives: `ui-button`, `ui-input`, `ui-textarea`, `ui-select`
 - Surfaces: `ui-card`, `ui-panel`
-- Layout: `ui-stack`, `ui-page-section`
+- Layout: `ui-stack`, `ui-page-section`, `ui-dashboard-grid`
 - Feedback: `ui-chip`, `ui-badge`
-- Compositions: `ui-toolbar`
+- Compositions: `ui-toolbar`, `ui-dashboard-panel`, `ui-dashboard-header`, `ui-dashboard-filters`, `ui-dashboard-kpi-row`, `ui-stat-card`
 - Business widgets: `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-view`, `ui-calendar-week-view`, `ui-calendar-day-cell`, `ui-calendar-event-chip`, `ui-kanban-board`, `ui-kanban-column`, `ui-kanban-card`, `ui-task-list`, `ui-task-list-item`, `ui-activity-timeline`, `ui-activity-timeline-item`, `ui-checklist`, `ui-checklist-item`
 
 Filesystem note:
@@ -215,6 +215,7 @@ Examples:
 - Grid
 - Page shell
 - Section header wrapper
+- Dashboard region grid
 
 Rules:
 
@@ -243,6 +244,7 @@ Examples:
 - Filter bar
 - Widget shell
 - Reusable dashboard blocks
+- Dashboard panel header
 
 Rules:
 
