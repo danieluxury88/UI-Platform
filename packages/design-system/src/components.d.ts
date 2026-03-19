@@ -6,7 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
+import { KanbanColumnRecord } from "./components/business-widgets/kanban/shared/kanban-utils";
+import { KanbanCardRecord, KanbanCardTone } from "./components/business-widgets/kanban/shared/kanban-types";
 export { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
+export { KanbanColumnRecord } from "./components/business-widgets/kanban/shared/kanban-utils";
+export { KanbanCardRecord, KanbanCardTone } from "./components/business-widgets/kanban/shared/kanban-types";
 export namespace Components {
     interface UiBadge {
         /**
@@ -161,6 +165,41 @@ export namespace Components {
          */
         "tone": 'neutral' | 'accent';
     }
+    interface UiKanbanBoard {
+        /**
+          * @default []
+         */
+        "columns": KanbanColumnRecord[];
+    }
+    interface UiKanbanCard {
+        "card": KanbanCardRecord;
+        /**
+          * @default ''
+         */
+        "columnId": string;
+        /**
+          * @default 'neutral'
+         */
+        "tone": KanbanCardTone;
+    }
+    interface UiKanbanColumn {
+        /**
+          * @default 0
+         */
+        "cardCount": number;
+        /**
+          * @default []
+         */
+        "cards": KanbanCardRecord[];
+        /**
+          * @default ''
+         */
+        "columnId": string;
+        /**
+          * @default ''
+         */
+        "columnTitle": string;
+    }
     interface UiPageSection {
     }
     interface UiPanel {
@@ -197,6 +236,10 @@ export interface UiCalendarEventChipCustomEvent<T> extends CustomEvent<T> {
 export interface UiCalendarToolbarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiCalendarToolbarElement;
+}
+export interface UiKanbanCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiKanbanCardElement;
 }
 declare global {
     interface HTMLUiBadgeElement extends Components.UiBadge, HTMLStencilElement {
@@ -309,6 +352,35 @@ declare global {
         prototype: HTMLUiChipElement;
         new (): HTMLUiChipElement;
     };
+    interface HTMLUiKanbanBoardElement extends Components.UiKanbanBoard, HTMLStencilElement {
+    }
+    var HTMLUiKanbanBoardElement: {
+        prototype: HTMLUiKanbanBoardElement;
+        new (): HTMLUiKanbanBoardElement;
+    };
+    interface HTMLUiKanbanCardElementEventMap {
+        "uiKanbanCardActivate": { columnId: string; card: KanbanCardRecord };
+    }
+    interface HTMLUiKanbanCardElement extends Components.UiKanbanCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiKanbanCardElementEventMap>(type: K, listener: (this: HTMLUiKanbanCardElement, ev: UiKanbanCardCustomEvent<HTMLUiKanbanCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiKanbanCardElementEventMap>(type: K, listener: (this: HTMLUiKanbanCardElement, ev: UiKanbanCardCustomEvent<HTMLUiKanbanCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiKanbanCardElement: {
+        prototype: HTMLUiKanbanCardElement;
+        new (): HTMLUiKanbanCardElement;
+    };
+    interface HTMLUiKanbanColumnElement extends Components.UiKanbanColumn, HTMLStencilElement {
+    }
+    var HTMLUiKanbanColumnElement: {
+        prototype: HTMLUiKanbanColumnElement;
+        new (): HTMLUiKanbanColumnElement;
+    };
     interface HTMLUiPageSectionElement extends Components.UiPageSection, HTMLStencilElement {
     }
     var HTMLUiPageSectionElement: {
@@ -345,6 +417,9 @@ declare global {
         "ui-calendar-week-view": HTMLUiCalendarWeekViewElement;
         "ui-card": HTMLUiCardElement;
         "ui-chip": HTMLUiChipElement;
+        "ui-kanban-board": HTMLUiKanbanBoardElement;
+        "ui-kanban-card": HTMLUiKanbanCardElement;
+        "ui-kanban-column": HTMLUiKanbanColumnElement;
         "ui-page-section": HTMLUiPageSectionElement;
         "ui-panel": HTMLUiPanelElement;
         "ui-stack": HTMLUiStackElement;
@@ -509,6 +584,42 @@ declare namespace LocalJSX {
          */
         "tone"?: 'neutral' | 'accent';
     }
+    interface UiKanbanBoard {
+        /**
+          * @default []
+         */
+        "columns"?: KanbanColumnRecord[];
+    }
+    interface UiKanbanCard {
+        "card": KanbanCardRecord;
+        /**
+          * @default ''
+         */
+        "columnId"?: string;
+        "onUiKanbanCardActivate"?: (event: UiKanbanCardCustomEvent<{ columnId: string; card: KanbanCardRecord }>) => void;
+        /**
+          * @default 'neutral'
+         */
+        "tone"?: KanbanCardTone;
+    }
+    interface UiKanbanColumn {
+        /**
+          * @default 0
+         */
+        "cardCount"?: number;
+        /**
+          * @default []
+         */
+        "cards"?: KanbanCardRecord[];
+        /**
+          * @default ''
+         */
+        "columnId"?: string;
+        /**
+          * @default ''
+         */
+        "columnTitle"?: string;
+    }
     interface UiPageSection {
     }
     interface UiPanel {
@@ -585,6 +696,15 @@ declare namespace LocalJSX {
         "label": string;
         "tone": 'neutral' | 'accent';
     }
+    interface UiKanbanCardAttributes {
+        "columnId": string;
+        "tone": KanbanCardTone;
+    }
+    interface UiKanbanColumnAttributes {
+        "columnId": string;
+        "columnTitle": string;
+        "cardCount": number;
+    }
     interface UiPanelAttributes {
         "tone": 'surface' | 'accent';
     }
@@ -607,6 +727,9 @@ declare namespace LocalJSX {
         "ui-calendar-week-view": Omit<UiCalendarWeekView, keyof UiCalendarWeekViewAttributes> & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes]?: UiCalendarWeekView[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `attr:${K}`]?: UiCalendarWeekViewAttributes[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `prop:${K}`]?: UiCalendarWeekView[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
         "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
+        "ui-kanban-board": UiKanbanBoard;
+        "ui-kanban-card": Omit<UiKanbanCard, keyof UiKanbanCardAttributes> & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes]?: UiKanbanCard[K] } & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes as `attr:${K}`]?: UiKanbanCardAttributes[K] } & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes as `prop:${K}`]?: UiKanbanCard[K] };
+        "ui-kanban-column": Omit<UiKanbanColumn, keyof UiKanbanColumnAttributes> & { [K in keyof UiKanbanColumn & keyof UiKanbanColumnAttributes]?: UiKanbanColumn[K] } & { [K in keyof UiKanbanColumn & keyof UiKanbanColumnAttributes as `attr:${K}`]?: UiKanbanColumnAttributes[K] } & { [K in keyof UiKanbanColumn & keyof UiKanbanColumnAttributes as `prop:${K}`]?: UiKanbanColumn[K] };
         "ui-page-section": UiPageSection;
         "ui-panel": Omit<UiPanel, keyof UiPanelAttributes> & { [K in keyof UiPanel & keyof UiPanelAttributes]?: UiPanel[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `attr:${K}`]?: UiPanelAttributes[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `prop:${K}`]?: UiPanel[K] };
         "ui-stack": Omit<UiStack, keyof UiStackAttributes> & { [K in keyof UiStack & keyof UiStackAttributes]?: UiStack[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `attr:${K}`]?: UiStackAttributes[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `prop:${K}`]?: UiStack[K] };
@@ -628,6 +751,9 @@ declare module "@stencil/core" {
             "ui-calendar-week-view": LocalJSX.IntrinsicElements["ui-calendar-week-view"] & JSXBase.HTMLAttributes<HTMLUiCalendarWeekViewElement>;
             "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
             "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
+            "ui-kanban-board": LocalJSX.IntrinsicElements["ui-kanban-board"] & JSXBase.HTMLAttributes<HTMLUiKanbanBoardElement>;
+            "ui-kanban-card": LocalJSX.IntrinsicElements["ui-kanban-card"] & JSXBase.HTMLAttributes<HTMLUiKanbanCardElement>;
+            "ui-kanban-column": LocalJSX.IntrinsicElements["ui-kanban-column"] & JSXBase.HTMLAttributes<HTMLUiKanbanColumnElement>;
             "ui-page-section": LocalJSX.IntrinsicElements["ui-page-section"] & JSXBase.HTMLAttributes<HTMLUiPageSectionElement>;
             "ui-panel": LocalJSX.IntrinsicElements["ui-panel"] & JSXBase.HTMLAttributes<HTMLUiPanelElement>;
             "ui-stack": LocalJSX.IntrinsicElements["ui-stack"] & JSXBase.HTMLAttributes<HTMLUiStackElement>;

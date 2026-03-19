@@ -18,12 +18,16 @@
 
  - [ui-calendar](../../business-widgets/calendar/ui-calendar)
  - [ui-calendar-day-view](../../business-widgets/calendar/ui-calendar-day-view)
+ - [ui-kanban-card](../../business-widgets/kanban/ui-kanban-card)
+ - [ui-kanban-column](../../business-widgets/kanban/ui-kanban-column)
 
 ### Graph
 ```mermaid
 graph TD;
   ui-calendar --> ui-stack
   ui-calendar-day-view --> ui-stack
+  ui-kanban-card --> ui-stack
+  ui-kanban-column --> ui-stack
   style ui-stack fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

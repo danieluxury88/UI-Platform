@@ -153,7 +153,7 @@ Current layer map:
 - Layout: `ui-stack`, `ui-page-section`
 - Feedback: `ui-chip`, `ui-badge`
 - Compositions: `ui-toolbar`
-- Business widgets: `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-view`, `ui-calendar-week-view`, `ui-calendar-day-cell`, `ui-calendar-event-chip`
+- Business widgets: `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-view`, `ui-calendar-week-view`, `ui-calendar-day-cell`, `ui-calendar-event-chip`, `ui-kanban-board`, `ui-kanban-column`, `ui-kanban-card`
 
 Filesystem note:
 

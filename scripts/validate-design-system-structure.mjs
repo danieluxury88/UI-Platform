@@ -58,6 +58,10 @@ const requiredComponentDirs = [
   'business-widgets/calendar/ui-calendar-day-cell',
   'business-widgets/calendar/ui-calendar-event-chip',
   'business-widgets/calendar/shared',
+  'business-widgets/kanban/ui-kanban-board',
+  'business-widgets/kanban/ui-kanban-column',
+  'business-widgets/kanban/ui-kanban-card',
+  'business-widgets/kanban/shared',
 ];
 
 for (const relativePath of requiredComponentDirs) {
@@ -70,6 +74,9 @@ for (const relativePath of requiredComponentDirs) {
 for (const relativePath of [
   'business-widgets/calendar/shared/calendar-utils.ts',
   'business-widgets/calendar/shared/calendar-utils.spec.ts',
+  'business-widgets/kanban/shared/kanban-types.ts',
+  'business-widgets/kanban/shared/kanban-utils.ts',
+  'business-widgets/kanban/shared/kanban-utils.spec.ts',
 ]) {
   const absolutePath = path.join(componentsDir, relativePath);
   if (!existsSync(absolutePath)) {

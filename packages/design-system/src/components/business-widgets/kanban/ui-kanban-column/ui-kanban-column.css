@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.ui-kanban-column {
+  padding: var(--ui-space-4);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-kanban-column__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ui-space-3);
+}
+
+.ui-kanban-column__title {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.ui-kanban-column__cards {
+  display: grid;
+  gap: var(--ui-space-3);
+}

@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+
+.ui-kanban-card {
+  display: block;
+  width: 100%;
+  padding: var(--ui-space-4);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-radius-md);
+  background: var(--ui-color-surface-elevated);
+  color: var(--ui-color-text);
+  text-align: left;
+  box-shadow: var(--ui-shadow-1);
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.ui-kanban-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--ui-color-accent-border);
+}
+
+.ui-kanban-card:focus-visible {
+  outline: 2px solid var(--ui-color-accent);
+  outline-offset: 2px;
+}
+
+:host([tone='accent']) .ui-kanban-card {
+  background:
+    radial-gradient(circle at top right, var(--ui-color-accent-soft), transparent 34%),
+    var(--ui-color-surface-elevated);
+}
+
+.ui-kanban-card__head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--ui-space-3);
+}
+
+.ui-kanban-card__title {
+  margin: 0;
+  font-size: 0.98rem;
+  letter-spacing: -0.02em;
+}
+
+.ui-kanban-card__meta {
+  color: var(--ui-color-text-muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.ui-kanban-card__description {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+  font-size: 0.92rem;
+}

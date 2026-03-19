@@ -244,6 +244,38 @@
           </ui-panel>
         </div>
       </ui-page-section>
+
+      <ui-page-section id="kanban">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Kanban candidate</p>
+            <h2 class="ui-section-title">A second business-widget family can stay thin and still feel useful.</h2>
+          </div>
+          <p class="ui-section-copy">
+            This first slice keeps the board controlled, card activation simple, and product workflow rules out of the shared package.
+          </p>
+        </div>
+
+        <div class="ui-kanban-layout">
+          <ui-kanban-board id="demo-kanban"></ui-kanban-board>
+
+          <ui-panel tone="surface" class="ui-kanban-meta">
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Board focus</p>
+                <h3 class="ui-card-title">Columns and cards without product logic leakage.</h3>
+              </div>
+              <ui-badge tone="accent">Kanban baseline</ui-badge>
+              <p id="kanban-status" class="ui-kanban-status">
+                Activate a card to inspect the current board interaction contract.
+              </p>
+              <p class="ui-kanban-note">
+                Drag and drop, assignee controls, and persistence stay out of scope for the first shared board slice.
+              </p>
+            </ui-stack>
+          </ui-panel>
+        </div>
+      </ui-page-section>
     </main>
     <script src="./app.js" type="module"></script>
   </body>

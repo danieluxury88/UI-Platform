@@ -31,6 +31,11 @@ Lower layers come first. Higher layers may compose lower layers, but not the rev
 - `business-widgets/calendar/ui-calendar-day-cell`
 - `business-widgets/calendar/ui-calendar-event-chip`
 - `business-widgets/calendar/shared/calendar-utils.ts`
+- `business-widgets/kanban/ui-kanban-board`
+- `business-widgets/kanban/ui-kanban-column`
+- `business-widgets/kanban/ui-kanban-card`
+- `business-widgets/kanban/shared/kanban-types.ts`
+- `business-widgets/kanban/shared/kanban-utils.ts`
 
 ## Dependency rules
 

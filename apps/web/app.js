@@ -12,6 +12,8 @@ const dayCalendarStatus = document.getElementById('calendar-day-status');
 const weekCalendar = document.getElementById('demo-week-calendar');
 const weekCalendarSelection = document.getElementById('calendar-week-selection');
 const weekCalendarStatus = document.getElementById('calendar-week-status');
+const kanbanBoard = document.getElementById('demo-kanban');
+const kanbanStatus = document.getElementById('kanban-status');
 const designSystemLoaderPath = '../../packages/design-system/dist/loader/index.js';
 
 const themeColors = {
@@ -208,9 +210,65 @@ const weekCalendarState = {
   ],
 };
 
+const kanbanBoardState = {
+  columns: [
+    {
+      id: 'backlog',
+      title: 'Backlog',
+      cards: [
+        {
+          id: 'hierarchy-audit',
+          title: 'Audit widget hierarchy',
+          description: 'Confirm the next widget family still respects lower-layer boundaries.',
+          meta: 'Today',
+        },
+        {
+          id: 'copy-pass',
+          title: 'Refine board copy',
+          description: 'Keep shared widget language generic enough for multiple products.',
+          meta: 'Queued',
+          tone: 'accent',
+        },
+      ],
+    },
+    {
+      id: 'active',
+      title: 'In progress',
+      cards: [
+        {
+          id: 'kanban-shell',
+          title: 'Build kanban shell',
+          description: 'Land a controlled board and thin activation events first.',
+          meta: 'Owner: DS',
+          tone: 'accent',
+        },
+        {
+          id: 'demo-wiring',
+          title: 'Wire web demo',
+          description: 'Keep interaction glue in the app while the shared contract stays stable.',
+          meta: 'Review',
+        },
+      ],
+    },
+    {
+      id: 'done',
+      title: 'Done',
+      cards: [
+        {
+          id: 'layer-cleanup',
+          title: 'Tighten lower layers',
+          description: 'Finish the boundary cleanup before expanding business widgets again.',
+          meta: 'Complete',
+        },
+      ],
+    },
+  ],
+};
+
 let activeMonthEvent = null;
 let activeDayEvent = null;
 let activeWeekEvent = null;
+let activeKanbanCard = null;
 
 function updateMonthReadouts() {
   if (monthCalendarSelection) {
@@ -285,6 +343,20 @@ function syncDayCalendar() {
 function syncWeekCalendar() {
   syncCalendar(weekCalendar, weekCalendarState);
   updateWeekReadouts();
+}
+
+function syncKanbanBoard() {
+  if (!kanbanBoard) {
+    return;
+  }
+
+  kanbanBoard.columns = kanbanBoardState.columns;
+
+  if (kanbanStatus) {
+    kanbanStatus.textContent = activeKanbanCard
+      ? `Activated ${activeKanbanCard.card.title} in ${activeKanbanCard.columnTitle}.`
+      : 'Activate a card to inspect the current board interaction contract.';
+  }
 }
 
 applyTheme(getTheme());
@@ -389,8 +461,20 @@ if (weekCalendar) {
   });
 }
 
+if (kanbanBoard) {
+  kanbanBoard.addEventListener('uiKanbanCardActivate', (event) => {
+    const column = kanbanBoardState.columns.find((candidate) => candidate.id === event.detail.columnId);
+    activeKanbanCard = {
+      card: event.detail.card,
+      columnTitle: column ? column.title : event.detail.columnId,
+    };
+    syncKanbanBoard();
+  });
+}
+
 registerDesignSystem().then(() => {
   syncMonthCalendar();
   syncDayCalendar();
   syncWeekCalendar();
+  syncKanbanBoard();
 });
