@@ -7,7 +7,7 @@
     "jsx": "react",
     "jsxFactory": "h",
     "noEmit": false,
-    "types": ["@stencil/core"]
+    "types": ["@stencil/core", "jest"]
   },
   "include": ["src"]
 }

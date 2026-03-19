@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/calendar/calendar-utils";
-export { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/calendar/calendar-utils";
+import { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
+export { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
 export namespace Components {
     interface UiBadge {
         /**

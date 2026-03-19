@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "python3 -m http.server 4174 --directory ../..",
-    "lint": "echo 'TODO: lint mobile shell'",
-    "test": "echo 'TODO: test mobile shell'",
-    "typecheck": "echo 'TODO: typecheck mobile shell'"
+    "lint": "node ../../scripts/validate-app.mjs --mode lint",
+    "test": "node ../../scripts/validate-app.mjs --mode test",
+    "typecheck": "node ../../scripts/validate-app.mjs --mode typecheck"
   }
 }

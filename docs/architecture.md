@@ -79,6 +79,7 @@ Should contain:
 - Component source
 - Global styles required by the Stencil package
 - Component-level docs and tests
+- A `src/components` folder layout that reflects the shared layer hierarchy
 
 Should not contain:
 
@@ -153,6 +154,11 @@ Current layer map:
 - Feedback: `ui-chip`, `ui-badge`
 - Compositions: `ui-toolbar`
 - Business widgets: `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-view`, `ui-calendar-week-view`, `ui-calendar-day-cell`, `ui-calendar-event-chip`
+
+Filesystem note:
+
+- `packages/design-system/src/components` should mirror this hierarchy directly so navigation and review are aligned
+- The local layer index for the folder lives in `packages/design-system/src/components/README.md`
 
 Deferred calendar views:
 

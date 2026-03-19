@@ -8,9 +8,9 @@
     "./src/tokens.css": "./src/tokens.css"
   },
   "scripts": {
-    "build": "echo 'TODO: build design tokens'",
-    "lint": "echo 'TODO: lint design tokens'",
-    "test": "echo 'TODO: test design tokens'",
-    "typecheck": "echo 'TODO: typecheck design tokens'"
+    "build": "node ../../scripts/validate-tokens.mjs --mode build",
+    "lint": "node ../../scripts/validate-tokens.mjs --mode lint",
+    "test": "node ../../scripts/validate-tokens.mjs --mode test",
+    "typecheck": "node ../../scripts/validate-tokens.mjs --mode typecheck"
   }
 }

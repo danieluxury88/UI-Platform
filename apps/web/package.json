@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "python3 -m http.server 4173 --directory ../..",
-    "lint": "echo 'TODO: lint web app'",
-    "test": "echo 'TODO: test web app'",
-    "typecheck": "echo 'TODO: typecheck web app'"
+    "lint": "node ../../scripts/validate-app.mjs --mode lint",
+    "test": "node ../../scripts/validate-app.mjs --mode test",
+    "typecheck": "node ../../scripts/validate-app.mjs --mode typecheck"
   }
 }
