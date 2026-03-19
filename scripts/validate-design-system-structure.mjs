@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 
 const designSystemDir = process.cwd();
@@ -74,6 +74,19 @@ for (const relativePath of [
   const absolutePath = path.join(componentsDir, relativePath);
   if (!existsSync(absolutePath)) {
     throw new Error(`Missing required calendar shared file: ${relativePath}`);
+  }
+}
+
+const sharedStylesheet = path.join(designSystemDir, 'src', 'styles.css');
+if (!existsSync(sharedStylesheet)) {
+  throw new Error('src/styles.css is missing');
+}
+
+const sharedStylesheetContents = readFileSync(sharedStylesheet, 'utf8');
+
+for (const leakedSelector of ['.ui-page', '.ui-topbar', '.ui-hero', '.ui-grid', '.mobile-shell']) {
+  if (sharedStylesheetContents.includes(leakedSelector)) {
+    throw new Error(`App-specific selector leaked into design-system src/styles.css: ${leakedSelector}`);
   }
 }
 

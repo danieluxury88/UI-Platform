@@ -17,8 +17,7 @@ function applyTheme(theme) {
   root.dataset.theme = theme;
   if (toggle) {
     toggle.textContent = theme === 'dark' ? 'Switch to light' : 'Switch to dark';
-    toggle.setAttribute('pressed', String(theme === 'dark'));
-    toggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    toggle.pressed = theme === 'dark';
   }
   if (themeColorMeta) {
     themeColorMeta.setAttribute('content', themeColors[theme]);

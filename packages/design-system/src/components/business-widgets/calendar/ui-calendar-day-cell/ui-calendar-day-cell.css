@@ -18,7 +18,7 @@
 }
 
 .ui-calendar-day-cell:hover {
-  border-color: rgba(207, 90, 43, 0.35);
+  border-color: var(--ui-color-accent-border);
   box-shadow: var(--ui-shadow-1);
 }
 
@@ -39,7 +39,7 @@
 }
 
 .ui-calendar-day-cell__button:hover {
-  background: rgba(207, 90, 43, 0.12);
+  background: var(--ui-color-accent-soft-strong);
 }
 
 :host([today]) .ui-calendar-day-cell__button {

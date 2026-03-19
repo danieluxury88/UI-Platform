@@ -29,8 +29,8 @@
 }
 
 :host([tone='accent']) .ui-calendar-event-chip__button {
-  border-color: rgba(207, 90, 43, 0.3);
-  background: rgba(207, 90, 43, 0.08);
+  border-color: var(--ui-color-accent-border);
+  background: var(--ui-color-accent-soft);
   color: var(--ui-color-accent);
 }
 

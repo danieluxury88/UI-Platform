@@ -7,6 +7,11 @@
   --ui-color-text: #1f1b16;
   --ui-color-text-muted: #6c635a;
   --ui-color-accent: #cf5a2b;
+  --ui-color-accent-soft: rgba(207, 90, 43, 0.08);
+  --ui-color-accent-soft-strong: rgba(207, 90, 43, 0.12);
+  --ui-color-accent-border: rgba(207, 90, 43, 0.3);
+  --ui-color-accent-glow: rgba(207, 90, 43, 0.18);
+  --ui-color-accent-wash: rgba(207, 90, 43, 0.14);
   --ui-color-border: #ded2c4;
   --ui-space-1: 0.25rem;
   --ui-space-2: 0.5rem;
@@ -31,6 +36,11 @@
   --ui-color-text: #f7efe7;
   --ui-color-text-muted: #b7a99b;
   --ui-color-accent: #f07a4a;
+  --ui-color-accent-soft: rgba(240, 122, 74, 0.12);
+  --ui-color-accent-soft-strong: rgba(240, 122, 74, 0.18);
+  --ui-color-accent-border: rgba(240, 122, 74, 0.36);
+  --ui-color-accent-glow: rgba(240, 122, 74, 0.24);
+  --ui-color-accent-wash: rgba(240, 122, 74, 0.18);
   --ui-color-border: #3a2f29;
   --ui-shadow-1: 0 12px 30px rgba(0, 0, 0, 0.3);
 }

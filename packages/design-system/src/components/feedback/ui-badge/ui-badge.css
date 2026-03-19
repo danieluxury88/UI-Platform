@@ -17,6 +17,6 @@
 
 :host([tone='accent']) {
   border-color: var(--ui-color-accent);
-  background: rgba(207, 90, 43, 0.08);
+  background: var(--ui-color-accent-soft);
   color: var(--ui-color-accent);
 }

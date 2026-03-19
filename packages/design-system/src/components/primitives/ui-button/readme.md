@@ -10,7 +10,7 @@
 | Property   | Attribute  | Description | Type                              | Default       |
 | ---------- | ---------- | ----------- | --------------------------------- | ------------- |
 | `disabled` | `disabled` |             | `boolean`                         | `false`       |
-| `pressed`  | `pressed`  |             | `boolean`                         | `false`       |
+| `pressed`  | `pressed`  |             | `boolean \| undefined`            | `undefined`   |
 | `type`     | `type`     |             | `"button" \| "reset" \| "submit"` | `'button'`    |
 | `variant`  | `variant`  |             | `"primary" \| "secondary"`        | `'secondary'` |
 

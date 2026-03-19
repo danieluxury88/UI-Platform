@@ -19,10 +19,7 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
-        /**
-          * @default false
-         */
-        "pressed": boolean;
+        "pressed"?: boolean;
         /**
           * @default 'button'
          */
@@ -366,9 +363,6 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
-        /**
-          * @default false
-         */
         "pressed"?: boolean;
         /**
           * @default 'button'

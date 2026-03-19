@@ -12,9 +12,11 @@ export class UiButton {
 
   @Prop({ reflect: true }) disabled = false;
 
-  @Prop({ reflect: true }) pressed = false;
+  @Prop({ reflect: true }) pressed?: boolean;
 
   render() {
+    const ariaPressed = this.pressed === undefined ? undefined : String(this.pressed);
+
     return (
       <Host>
         <button
@@ -25,7 +27,7 @@ export class UiButton {
           }}
           type={this.type}
           disabled={this.disabled}
-          aria-pressed={String(this.pressed)}
+          aria-pressed={ariaPressed}
         >
           <slot />
         </button>
