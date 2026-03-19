@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI Platform Mobile</title>
+    <meta name="theme-color" content="#171311" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('ui-platform-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = stored || (prefersDark ? 'dark' : 'light');
+        } catch (error) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="../../packages/tokens/tokens.css" />
+    <link rel="stylesheet" href="../../packages/design-system/styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="mobile-shell">
+      <ui-panel tone="accent" class="mobile-hero">
+        <ui-stack space="md">
+          <div class="mobile-brand">
+            <ui-badge tone="accent">Mobile shell</ui-badge>
+            <h1>Shared UI, framed for a phone.</h1>
+            <p>
+              This shell consumes the token package and the Stencil design-system package directly
+              so the mobile path stays downstream from the shared contract.
+            </p>
+          </div>
+
+          <ui-toolbar justify="start" class="mobile-actions">
+            <ui-button id="theme-toggle" variant="secondary" type="button" aria-pressed="false">
+              Toggle theme
+            </ui-button>
+            <ui-button id="primary-action" variant="primary" type="button">
+              Review status
+            </ui-button>
+          </ui-toolbar>
+        </ui-stack>
+      </ui-panel>
+
+      <ui-page-section>
+        <ui-stack space="md">
+          <div class="mobile-section-head">
+            <p class="mobile-kicker">Preview</p>
+            <h2>Ready for Ionic and Capacitor later.</h2>
+          </div>
+
+          <ui-card>
+            <ui-stack space="sm">
+              <div class="mobile-card-head">
+                <span class="mobile-card-title">Design system</span>
+                <ui-badge tone="neutral">Shared package</ui-badge>
+              </div>
+              <p>
+                The app is using the same shared buttons, badges, cards, stacks, and page sections
+                as the web demo.
+              </p>
+            </ui-stack>
+          </ui-card>
+
+          <ui-card>
+            <ui-stack space="sm">
+              <div class="mobile-card-head">
+                <span class="mobile-card-title">Next setup path</span>
+                <ui-badge tone="accent">Explicit</ui-badge>
+              </div>
+              <p>
+                Add Ionic routing and a Capacitor wrapper after the shared shell behavior is
+                stable.
+              </p>
+            </ui-stack>
+          </ui-card>
+        </ui-stack>
+      </ui-page-section>
+    </main>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

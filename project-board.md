@@ -6,8 +6,8 @@ It is intended to be updated as work moves between agents.
 
 ## Status
 
-- Project stage: Phase 5 complete
-- Current focus: Phase 5 composition slice is ready to land
+- Project stage: Phase 6 complete
+- Current focus: Phase 6 mobile shell slice is ready to land
 - Current highest-priority implementation: await next phase assignment after commit
 - Review model: Lagrange remains available for the next phase boundary
 
@@ -25,7 +25,7 @@ Current responsibilities:
 
 Next tasks:
 
-1. Commit the completed Phase 5 slice
+1. Commit the completed Phase 6 slice
 2. Queue the next phase once commit is complete
 
 ### Heisenberg
@@ -34,20 +34,19 @@ Status: completed for current phase
 
 Current task:
 
-- Phase 5 implementation complete
-- `ui-toolbar` landed as the first justified composition-level addition
+- Phase 6 implementation complete
+- `apps/mobile` now has a real thin shell consuming the shared packages
 
 Definition of done:
 
-- One new composition-level shared component exists and is used in `apps/web`
-- The API is narrow and product-agnostic
-- The Stencil build passes
-- Transitional CSS or app-local structure is reduced where the new component truly replaces it
+- The mobile shell consumes the existing shared packages without redefining them
+- The initial mobile setup stays thin and does not fork the component model
+- The setup path is explicit enough to continue in later slices
 
 Next after current task:
 
-1. Evaluate whether another repeated composition pattern deserves promotion
-2. Reduce duplicated fallback/shared CSS
+1. Add one or two representative mobile integration surfaces
+2. Keep platform-specific logic isolated to the app shell
 3. Address token-alignment cleanup called out in prior review notes
 
 ### Lagrange
@@ -89,9 +88,9 @@ Next tasks if needed:
 
 ## Immediate Queue
 
-1. Commit the completed Phase 5 work
-2. Decide the next phase focus
-3. Re-activate Heisenberg on the next slice
+1. Commit the completed Phase 6 work
+2. Ask Archimedes to write the calendar brief
+3. Start the first calendar milestone after the brief is in place
 
 ## Deferred Review Notes
 
@@ -100,6 +99,7 @@ Next tasks if needed:
 - Shared layout should only be promoted when repetition is real across the demo surface.
 - `ui-stack` and `ui-page-section` are now the current layout baseline.
 - Composition work should stay product-agnostic and avoid business semantics.
+- Mobile work should not fork or reimplement the shared design-system contract.
 
 ## Notes
 
