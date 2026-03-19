@@ -32,6 +32,9 @@ ui-badge:not(:defined),
 ui-card:not(:defined),
 ui-panel:not(:defined),
 ui-toolbar:not(:defined),
+ui-input:not(:defined),
+ui-textarea:not(:defined),
+ui-select:not(:defined),
 .ui-link-button {
   display: inline-flex;
   align-items: center;
@@ -190,6 +193,13 @@ ui-stack:not(:defined)[space='lg'] {
 
 ui-stack:not(:defined)[space='md'] {
   gap: var(--ui-space-4);
+}
+
+ui-input:not(:defined),
+ui-textarea:not(:defined),
+ui-select:not(:defined) {
+  display: block;
+  min-height: 4.25rem;
 }
 
 .ui-page {
@@ -464,6 +474,46 @@ ui-stack:not(:defined)[space='md'] {
   font-size: 0.92rem;
 }
 
+.ui-form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.85fr);
+  gap: var(--ui-space-4);
+  align-items: start;
+}
+
+.ui-form-surface {
+  margin: 0;
+  padding: var(--ui-space-6);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ui-space-4);
+}
+
+.ui-form-actions {
+  padding-top: var(--ui-space-2);
+}
+
+.ui-form-meta {
+  display: block;
+}
+
+.ui-form-status {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-form-summary {
+  display: grid;
+  gap: var(--ui-space-3);
+}
+
 @media (max-width: 900px) {
   .ui-topbar,
   .ui-section-head {
@@ -476,7 +526,9 @@ ui-stack:not(:defined)[space='md'] {
   .ui-calendar-layout,
   .ui-calendar-layout--day,
   .ui-calendar-layout--week,
-  .ui-kanban-layout {
+  .ui-kanban-layout,
+  .ui-form-layout,
+  .ui-form-grid {
     grid-template-columns: 1fr;
   }
 

@@ -43,6 +43,10 @@ for (const entry of topLevelEntries) {
 
 const requiredComponentDirs = [
   'primitives/ui-button',
+  'primitives/ui-input',
+  'primitives/ui-textarea',
+  'primitives/ui-select',
+  'primitives/shared',
   'surfaces/ui-card',
   'surfaces/ui-panel',
   'layout/ui-stack',
@@ -72,6 +76,9 @@ for (const relativePath of requiredComponentDirs) {
 }
 
 for (const relativePath of [
+  'primitives/shared/form-types.ts',
+  'primitives/shared/form-utils.ts',
+  'primitives/shared/form-utils.spec.ts',
   'business-widgets/calendar/shared/calendar-utils.ts',
   'business-widgets/calendar/shared/calendar-utils.spec.ts',
   'business-widgets/kanban/shared/kanban-types.ts',
@@ -80,7 +87,7 @@ for (const relativePath of [
 ]) {
   const absolutePath = path.join(componentsDir, relativePath);
   if (!existsSync(absolutePath)) {
-    throw new Error(`Missing required calendar shared file: ${relativePath}`);
+    throw new Error(`Missing required shared file: ${relativePath}`);
   }
 }
 

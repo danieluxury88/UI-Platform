@@ -148,7 +148,7 @@ This order is also the dependency direction. Higher layers may compose lower lay
 
 Current layer map:
 
-- Primitives: `ui-button`
+- Primitives: `ui-button`, `ui-input`, `ui-textarea`, `ui-select`
 - Surfaces: `ui-card`, `ui-panel`
 - Layout: `ui-stack`, `ui-page-section`
 - Feedback: `ui-chip`, `ui-badge`
@@ -182,6 +182,8 @@ Examples:
 
 - `ui-button`
 - text inputs
+- textareas
+- selects
 - icon wrappers
 - basic interactive controls
 

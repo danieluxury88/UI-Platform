@@ -276,6 +276,102 @@
           </ui-panel>
         </div>
       </ui-page-section>
+
+      <ui-page-section id="forms">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Forms foundation</p>
+            <h2 class="ui-section-title">Interactive forms now have a real primitive baseline.</h2>
+          </div>
+          <p class="ui-section-copy">
+            This slice adds reusable inputs, textareas, and selects while keeping validation and submission rules in the host app.
+          </p>
+        </div>
+
+        <div class="ui-form-layout">
+          <form id="demo-intake-form" class="ui-form-surface" novalidate>
+            <ui-stack space="md">
+              <ui-input
+                id="demo-form-name"
+                label="Project name"
+                name="projectName"
+                placeholder="Quarterly planning workspace"
+                hint="Use a short internal name for the request."
+                required
+              ></ui-input>
+
+              <div class="ui-form-grid">
+                <ui-input
+                  id="demo-form-owner"
+                  label="Owner email"
+                  name="ownerEmail"
+                  type="email"
+                  placeholder="owner@company.com"
+                  hint="We'll use this for follow-up updates."
+                  required
+                ></ui-input>
+
+                <ui-select
+                  id="demo-form-priority"
+                  label="Priority"
+                  name="priority"
+                  hint="Keep the option set narrow and product-neutral."
+                  required
+                ></ui-select>
+              </div>
+
+              <ui-textarea
+                id="demo-form-notes"
+                label="Request notes"
+                name="notes"
+                placeholder="Describe the workflow, target users, and what the form should collect."
+                hint="A short summary is enough for this baseline."
+                rows="6"
+              ></ui-textarea>
+
+              <ui-toolbar class="ui-form-actions" justify="start">
+                <ui-button id="demo-form-submit" variant="primary" type="button">
+                  Review form request
+                </ui-button>
+                <ui-button id="demo-form-reset" variant="secondary" type="button">
+                  Reset
+                </ui-button>
+              </ui-toolbar>
+            </ui-stack>
+          </form>
+
+          <ui-panel tone="surface" class="ui-form-meta">
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Form state</p>
+                <h3 class="ui-card-title">Validation stays app-local while the controls stay reusable.</h3>
+              </div>
+              <ui-badge id="form-readiness" tone="neutral">Incomplete</ui-badge>
+              <p id="form-status" class="ui-form-status">
+                Fill the required fields to preview the current request summary.
+              </p>
+              <div class="ui-form-summary">
+                <div class="ui-list-item">
+                  <span>Project</span>
+                  <strong id="form-summary-project">Not set</strong>
+                </div>
+                <div class="ui-list-item">
+                  <span>Owner</span>
+                  <strong id="form-summary-owner">Not set</strong>
+                </div>
+                <div class="ui-list-item">
+                  <span>Priority</span>
+                  <strong id="form-summary-priority">Not set</strong>
+                </div>
+                <div class="ui-list-item">
+                  <span>Notes</span>
+                  <strong id="form-summary-notes">0 chars</strong>
+                </div>
+              </div>
+            </ui-stack>
+          </ui-panel>
+        </div>
+      </ui-page-section>
     </main>
     <script src="./app.js" type="module"></script>
   </body>

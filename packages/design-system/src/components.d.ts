@@ -8,9 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
 import { KanbanColumnRecord } from "./components/business-widgets/kanban/shared/kanban-utils";
 import { KanbanCardRecord, KanbanCardTone } from "./components/business-widgets/kanban/shared/kanban-types";
+import { UiSelectOptionRecord } from "./components/primitives/shared/form-utils";
 export { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
 export { KanbanColumnRecord } from "./components/business-widgets/kanban/shared/kanban-utils";
 export { KanbanCardRecord, KanbanCardTone } from "./components/business-widgets/kanban/shared/kanban-types";
+export { UiSelectOptionRecord } from "./components/primitives/shared/form-utils";
 export namespace Components {
     interface UiBadge {
         /**
@@ -165,6 +167,48 @@ export namespace Components {
          */
         "tone": 'neutral' | 'accent';
     }
+    interface UiInput {
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default ''
+         */
+        "hint": string;
+        /**
+          * @default false
+         */
+        "invalid": boolean;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default ''
+         */
+        "message": string;
+        /**
+          * @default ''
+         */
+        "name": string;
+        /**
+          * @default ''
+         */
+        "placeholder": string;
+        /**
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * @default 'text'
+         */
+        "type": 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
     interface UiKanbanBoard {
         /**
           * @default []
@@ -208,11 +252,95 @@ export namespace Components {
          */
         "tone": 'surface' | 'accent';
     }
+    interface UiSelect {
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default ''
+         */
+        "hint": string;
+        /**
+          * @default false
+         */
+        "invalid": boolean;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default ''
+         */
+        "message": string;
+        /**
+          * @default ''
+         */
+        "name": string;
+        /**
+          * @default []
+         */
+        "options": UiSelectOptionRecord[];
+        /**
+          * @default 'Select an option'
+         */
+        "placeholder": string;
+        /**
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
     interface UiStack {
         /**
           * @default 'md'
          */
         "space": 'sm' | 'md' | 'lg';
+    }
+    interface UiTextarea {
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default ''
+         */
+        "hint": string;
+        /**
+          * @default false
+         */
+        "invalid": boolean;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default ''
+         */
+        "message": string;
+        /**
+          * @default ''
+         */
+        "name": string;
+        /**
+          * @default ''
+         */
+        "placeholder": string;
+        /**
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * @default 5
+         */
+        "rows": number;
+        /**
+          * @default ''
+         */
+        "value": string;
     }
     interface UiToolbar {
         /**
@@ -237,9 +365,21 @@ export interface UiCalendarToolbarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiCalendarToolbarElement;
 }
+export interface UiInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiInputElement;
+}
 export interface UiKanbanCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiKanbanCardElement;
+}
+export interface UiSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiSelectElement;
+}
+export interface UiTextareaCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiTextareaElement;
 }
 declare global {
     interface HTMLUiBadgeElement extends Components.UiBadge, HTMLStencilElement {
@@ -352,6 +492,24 @@ declare global {
         prototype: HTMLUiChipElement;
         new (): HTMLUiChipElement;
     };
+    interface HTMLUiInputElementEventMap {
+        "uiFieldInput": { name: string; value: string };
+        "uiFieldChange": { name: string; value: string };
+    }
+    interface HTMLUiInputElement extends Components.UiInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiInputElementEventMap>(type: K, listener: (this: HTMLUiInputElement, ev: UiInputCustomEvent<HTMLUiInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiInputElementEventMap>(type: K, listener: (this: HTMLUiInputElement, ev: UiInputCustomEvent<HTMLUiInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiInputElement: {
+        prototype: HTMLUiInputElement;
+        new (): HTMLUiInputElement;
+    };
     interface HTMLUiKanbanBoardElement extends Components.UiKanbanBoard, HTMLStencilElement {
     }
     var HTMLUiKanbanBoardElement: {
@@ -393,11 +551,47 @@ declare global {
         prototype: HTMLUiPanelElement;
         new (): HTMLUiPanelElement;
     };
+    interface HTMLUiSelectElementEventMap {
+        "uiFieldInput": { name: string; value: string };
+        "uiFieldChange": { name: string; value: string };
+    }
+    interface HTMLUiSelectElement extends Components.UiSelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiSelectElementEventMap>(type: K, listener: (this: HTMLUiSelectElement, ev: UiSelectCustomEvent<HTMLUiSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiSelectElementEventMap>(type: K, listener: (this: HTMLUiSelectElement, ev: UiSelectCustomEvent<HTMLUiSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiSelectElement: {
+        prototype: HTMLUiSelectElement;
+        new (): HTMLUiSelectElement;
+    };
     interface HTMLUiStackElement extends Components.UiStack, HTMLStencilElement {
     }
     var HTMLUiStackElement: {
         prototype: HTMLUiStackElement;
         new (): HTMLUiStackElement;
+    };
+    interface HTMLUiTextareaElementEventMap {
+        "uiFieldInput": { name: string; value: string };
+        "uiFieldChange": { name: string; value: string };
+    }
+    interface HTMLUiTextareaElement extends Components.UiTextarea, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiTextareaElementEventMap>(type: K, listener: (this: HTMLUiTextareaElement, ev: UiTextareaCustomEvent<HTMLUiTextareaElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiTextareaElementEventMap>(type: K, listener: (this: HTMLUiTextareaElement, ev: UiTextareaCustomEvent<HTMLUiTextareaElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiTextareaElement: {
+        prototype: HTMLUiTextareaElement;
+        new (): HTMLUiTextareaElement;
     };
     interface HTMLUiToolbarElement extends Components.UiToolbar, HTMLStencilElement {
     }
@@ -417,12 +611,15 @@ declare global {
         "ui-calendar-week-view": HTMLUiCalendarWeekViewElement;
         "ui-card": HTMLUiCardElement;
         "ui-chip": HTMLUiChipElement;
+        "ui-input": HTMLUiInputElement;
         "ui-kanban-board": HTMLUiKanbanBoardElement;
         "ui-kanban-card": HTMLUiKanbanCardElement;
         "ui-kanban-column": HTMLUiKanbanColumnElement;
         "ui-page-section": HTMLUiPageSectionElement;
         "ui-panel": HTMLUiPanelElement;
+        "ui-select": HTMLUiSelectElement;
         "ui-stack": HTMLUiStackElement;
+        "ui-textarea": HTMLUiTextareaElement;
         "ui-toolbar": HTMLUiToolbarElement;
     }
 }
@@ -584,6 +781,50 @@ declare namespace LocalJSX {
          */
         "tone"?: 'neutral' | 'accent';
     }
+    interface UiInput {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default ''
+         */
+        "hint"?: string;
+        /**
+          * @default false
+         */
+        "invalid"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * @default ''
+         */
+        "message"?: string;
+        /**
+          * @default ''
+         */
+        "name"?: string;
+        "onUiFieldChange"?: (event: UiInputCustomEvent<{ name: string; value: string }>) => void;
+        "onUiFieldInput"?: (event: UiInputCustomEvent<{ name: string; value: string }>) => void;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * @default 'text'
+         */
+        "type"?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface UiKanbanBoard {
         /**
           * @default []
@@ -628,11 +869,99 @@ declare namespace LocalJSX {
          */
         "tone"?: 'surface' | 'accent';
     }
+    interface UiSelect {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default ''
+         */
+        "hint"?: string;
+        /**
+          * @default false
+         */
+        "invalid"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * @default ''
+         */
+        "message"?: string;
+        /**
+          * @default ''
+         */
+        "name"?: string;
+        "onUiFieldChange"?: (event: UiSelectCustomEvent<{ name: string; value: string }>) => void;
+        "onUiFieldInput"?: (event: UiSelectCustomEvent<{ name: string; value: string }>) => void;
+        /**
+          * @default []
+         */
+        "options"?: UiSelectOptionRecord[];
+        /**
+          * @default 'Select an option'
+         */
+        "placeholder"?: string;
+        /**
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface UiStack {
         /**
           * @default 'md'
          */
         "space"?: 'sm' | 'md' | 'lg';
+    }
+    interface UiTextarea {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default ''
+         */
+        "hint"?: string;
+        /**
+          * @default false
+         */
+        "invalid"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * @default ''
+         */
+        "message"?: string;
+        /**
+          * @default ''
+         */
+        "name"?: string;
+        "onUiFieldChange"?: (event: UiTextareaCustomEvent<{ name: string; value: string }>) => void;
+        "onUiFieldInput"?: (event: UiTextareaCustomEvent<{ name: string; value: string }>) => void;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * @default 5
+         */
+        "rows"?: number;
+        /**
+          * @default ''
+         */
+        "value"?: string;
     }
     interface UiToolbar {
         /**
@@ -696,6 +1025,18 @@ declare namespace LocalJSX {
         "label": string;
         "tone": 'neutral' | 'accent';
     }
+    interface UiInputAttributes {
+        "label": string;
+        "name": string;
+        "type": 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+        "value": string;
+        "placeholder": string;
+        "hint": string;
+        "message": string;
+        "required": boolean;
+        "disabled": boolean;
+        "invalid": boolean;
+    }
     interface UiKanbanCardAttributes {
         "columnId": string;
         "tone": KanbanCardTone;
@@ -708,8 +1049,31 @@ declare namespace LocalJSX {
     interface UiPanelAttributes {
         "tone": 'surface' | 'accent';
     }
+    interface UiSelectAttributes {
+        "label": string;
+        "name": string;
+        "value": string;
+        "hint": string;
+        "message": string;
+        "placeholder": string;
+        "required": boolean;
+        "disabled": boolean;
+        "invalid": boolean;
+    }
     interface UiStackAttributes {
         "space": 'sm' | 'md' | 'lg';
+    }
+    interface UiTextareaAttributes {
+        "label": string;
+        "name": string;
+        "value": string;
+        "placeholder": string;
+        "hint": string;
+        "message": string;
+        "rows": number;
+        "required": boolean;
+        "disabled": boolean;
+        "invalid": boolean;
     }
     interface UiToolbarAttributes {
         "justify": 'start' | 'between' | 'center';
@@ -727,12 +1091,15 @@ declare namespace LocalJSX {
         "ui-calendar-week-view": Omit<UiCalendarWeekView, keyof UiCalendarWeekViewAttributes> & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes]?: UiCalendarWeekView[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `attr:${K}`]?: UiCalendarWeekViewAttributes[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `prop:${K}`]?: UiCalendarWeekView[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
         "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
+        "ui-input": Omit<UiInput, keyof UiInputAttributes> & { [K in keyof UiInput & keyof UiInputAttributes]?: UiInput[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `attr:${K}`]?: UiInputAttributes[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `prop:${K}`]?: UiInput[K] };
         "ui-kanban-board": UiKanbanBoard;
         "ui-kanban-card": Omit<UiKanbanCard, keyof UiKanbanCardAttributes> & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes]?: UiKanbanCard[K] } & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes as `attr:${K}`]?: UiKanbanCardAttributes[K] } & { [K in keyof UiKanbanCard & keyof UiKanbanCardAttributes as `prop:${K}`]?: UiKanbanCard[K] };
         "ui-kanban-column": Omit<UiKanbanColumn, keyof UiKanbanColumnAttributes> & { [K in keyof UiKanbanColumn & keyof UiKanbanColumnAttributes]?: UiKanbanColumn[K] } & { [K in keyof UiKanbanColumn & keyof UiKanbanColumnAttributes as `attr:${K}`]?: UiKanbanColumnAttributes[K] } & { [K in keyof UiKanbanColumn & keyof UiKanbanColumnAttributes as `prop:${K}`]?: UiKanbanColumn[K] };
         "ui-page-section": UiPageSection;
         "ui-panel": Omit<UiPanel, keyof UiPanelAttributes> & { [K in keyof UiPanel & keyof UiPanelAttributes]?: UiPanel[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `attr:${K}`]?: UiPanelAttributes[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `prop:${K}`]?: UiPanel[K] };
+        "ui-select": Omit<UiSelect, keyof UiSelectAttributes> & { [K in keyof UiSelect & keyof UiSelectAttributes]?: UiSelect[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `attr:${K}`]?: UiSelectAttributes[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `prop:${K}`]?: UiSelect[K] };
         "ui-stack": Omit<UiStack, keyof UiStackAttributes> & { [K in keyof UiStack & keyof UiStackAttributes]?: UiStack[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `attr:${K}`]?: UiStackAttributes[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `prop:${K}`]?: UiStack[K] };
+        "ui-textarea": Omit<UiTextarea, keyof UiTextareaAttributes> & { [K in keyof UiTextarea & keyof UiTextareaAttributes]?: UiTextarea[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `attr:${K}`]?: UiTextareaAttributes[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `prop:${K}`]?: UiTextarea[K] };
         "ui-toolbar": Omit<UiToolbar, keyof UiToolbarAttributes> & { [K in keyof UiToolbar & keyof UiToolbarAttributes]?: UiToolbar[K] } & { [K in keyof UiToolbar & keyof UiToolbarAttributes as `attr:${K}`]?: UiToolbarAttributes[K] } & { [K in keyof UiToolbar & keyof UiToolbarAttributes as `prop:${K}`]?: UiToolbar[K] };
     }
 }
@@ -751,12 +1118,15 @@ declare module "@stencil/core" {
             "ui-calendar-week-view": LocalJSX.IntrinsicElements["ui-calendar-week-view"] & JSXBase.HTMLAttributes<HTMLUiCalendarWeekViewElement>;
             "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
             "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
+            "ui-input": LocalJSX.IntrinsicElements["ui-input"] & JSXBase.HTMLAttributes<HTMLUiInputElement>;
             "ui-kanban-board": LocalJSX.IntrinsicElements["ui-kanban-board"] & JSXBase.HTMLAttributes<HTMLUiKanbanBoardElement>;
             "ui-kanban-card": LocalJSX.IntrinsicElements["ui-kanban-card"] & JSXBase.HTMLAttributes<HTMLUiKanbanCardElement>;
             "ui-kanban-column": LocalJSX.IntrinsicElements["ui-kanban-column"] & JSXBase.HTMLAttributes<HTMLUiKanbanColumnElement>;
             "ui-page-section": LocalJSX.IntrinsicElements["ui-page-section"] & JSXBase.HTMLAttributes<HTMLUiPageSectionElement>;
             "ui-panel": LocalJSX.IntrinsicElements["ui-panel"] & JSXBase.HTMLAttributes<HTMLUiPanelElement>;
+            "ui-select": LocalJSX.IntrinsicElements["ui-select"] & JSXBase.HTMLAttributes<HTMLUiSelectElement>;
             "ui-stack": LocalJSX.IntrinsicElements["ui-stack"] & JSXBase.HTMLAttributes<HTMLUiStackElement>;
+            "ui-textarea": LocalJSX.IntrinsicElements["ui-textarea"] & JSXBase.HTMLAttributes<HTMLUiTextareaElement>;
             "ui-toolbar": LocalJSX.IntrinsicElements["ui-toolbar"] & JSXBase.HTMLAttributes<HTMLUiToolbarElement>;
         }
     }

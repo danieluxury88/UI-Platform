@@ -16,6 +16,11 @@ Lower layers come first. Higher layers may compose lower layers, but not the rev
 ## Current map
 
 - `primitives/ui-button`
+- `primitives/ui-input`
+- `primitives/ui-textarea`
+- `primitives/ui-select`
+- `primitives/shared/form-types.ts`
+- `primitives/shared/form-utils.ts`
 - `surfaces/ui-card`
 - `surfaces/ui-panel`
 - `layout/ui-stack`

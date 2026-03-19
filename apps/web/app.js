@@ -14,6 +14,19 @@ const weekCalendarSelection = document.getElementById('calendar-week-selection')
 const weekCalendarStatus = document.getElementById('calendar-week-status');
 const kanbanBoard = document.getElementById('demo-kanban');
 const kanbanStatus = document.getElementById('kanban-status');
+const intakeForm = document.getElementById('demo-intake-form');
+const formNameInput = document.getElementById('demo-form-name');
+const formOwnerInput = document.getElementById('demo-form-owner');
+const formPrioritySelect = document.getElementById('demo-form-priority');
+const formNotesTextarea = document.getElementById('demo-form-notes');
+const formSubmitButton = document.getElementById('demo-form-submit');
+const formResetButton = document.getElementById('demo-form-reset');
+const formReadiness = document.getElementById('form-readiness');
+const formStatus = document.getElementById('form-status');
+const formSummaryProject = document.getElementById('form-summary-project');
+const formSummaryOwner = document.getElementById('form-summary-owner');
+const formSummaryPriority = document.getElementById('form-summary-priority');
+const formSummaryNotes = document.getElementById('form-summary-notes');
 const designSystemLoaderPath = '../../packages/design-system/dist/loader/index.js';
 
 const themeColors = {
@@ -265,10 +278,24 @@ const kanbanBoardState = {
   ],
 };
 
+const formState = {
+  projectName: '',
+  ownerEmail: '',
+  priority: '',
+  notes: '',
+};
+
+const formPriorityOptions = [
+  { value: 'urgent', label: 'Urgent' },
+  { value: 'planned', label: 'Planned' },
+  { value: 'exploratory', label: 'Exploratory' },
+];
+
 let activeMonthEvent = null;
 let activeDayEvent = null;
 let activeWeekEvent = null;
 let activeKanbanCard = null;
+let submittedForm = false;
 
 function updateMonthReadouts() {
   if (monthCalendarSelection) {
@@ -356,6 +383,111 @@ function syncKanbanBoard() {
     kanbanStatus.textContent = activeKanbanCard
       ? `Activated ${activeKanbanCard.card.title} in ${activeKanbanCard.columnTitle}.`
       : 'Activate a card to inspect the current board interaction contract.';
+  }
+}
+
+function getFormErrors() {
+  const errors = {};
+
+  if (!formState.projectName.trim()) {
+    errors.projectName = 'Project name is required.';
+  }
+
+  if (!formState.ownerEmail.trim()) {
+    errors.ownerEmail = 'Owner email is required.';
+  } else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(formState.ownerEmail)) {
+    errors.ownerEmail = 'Enter a valid email address.';
+  }
+
+  if (!formState.priority) {
+    errors.priority = 'Choose a priority.';
+  }
+
+  if (formState.notes.trim().length > 220) {
+    errors.notes = 'Keep the notes under 220 characters for this demo.';
+  }
+
+  return errors;
+}
+
+function updateFormControl(control, next) {
+  if (!control) {
+    return;
+  }
+
+  if ('value' in control) {
+    control.value = next.value;
+  }
+
+  if ('invalid' in control) {
+    control.invalid = Boolean(next.invalid);
+  }
+
+  if ('message' in control) {
+    control.message = next.message ?? '';
+  }
+}
+
+function syncFormDemo() {
+  const errors = getFormErrors();
+  const isReady = Object.keys(errors).length === 0 && Boolean(formState.projectName && formState.ownerEmail && formState.priority);
+
+  updateFormControl(formNameInput, {
+    value: formState.projectName,
+    invalid: submittedForm && errors.projectName,
+    message: submittedForm ? errors.projectName : '',
+  });
+
+  updateFormControl(formOwnerInput, {
+    value: formState.ownerEmail,
+    invalid: submittedForm && errors.ownerEmail,
+    message: submittedForm ? errors.ownerEmail : '',
+  });
+
+  updateFormControl(formPrioritySelect, {
+    value: formState.priority,
+    invalid: submittedForm && errors.priority,
+    message: submittedForm ? errors.priority : '',
+  });
+
+  if (formPrioritySelect) {
+    formPrioritySelect.options = formPriorityOptions;
+  }
+
+  updateFormControl(formNotesTextarea, {
+    value: formState.notes,
+    invalid: submittedForm && errors.notes,
+    message: submittedForm ? errors.notes : '',
+  });
+
+  if (formReadiness) {
+    formReadiness.textContent = isReady ? 'Ready' : 'Incomplete';
+    formReadiness.tone = isReady ? 'accent' : 'neutral';
+  }
+
+  if (formStatus) {
+    formStatus.textContent = submittedForm
+      ? isReady
+        ? 'The current form request is valid and ready for review.'
+        : 'The form still has validation issues to resolve.'
+      : 'Fill the required fields to preview the current request summary.';
+  }
+
+  if (formSummaryProject) {
+    formSummaryProject.textContent = formState.projectName.trim() || 'Not set';
+  }
+
+  if (formSummaryOwner) {
+    formSummaryOwner.textContent = formState.ownerEmail.trim() || 'Not set';
+  }
+
+  if (formSummaryPriority) {
+    const selected = formPriorityOptions.find((option) => option.value === formState.priority);
+    formSummaryPriority.textContent = selected ? selected.label : 'Not set';
+  }
+
+  if (formSummaryNotes) {
+    formSummaryNotes.textContent = `${formState.notes.trim().length} chars`;
   }
 }
 
@@ -472,9 +604,35 @@ if (kanbanBoard) {
   });
 }
 
+if (intakeForm) {
+  intakeForm.addEventListener('uiFieldInput', (event) => {
+    formState[event.detail.name] = event.detail.value;
+    syncFormDemo();
+  });
+}
+
+if (formSubmitButton) {
+  formSubmitButton.addEventListener('click', () => {
+    submittedForm = true;
+    syncFormDemo();
+  });
+}
+
+if (formResetButton) {
+  formResetButton.addEventListener('click', () => {
+    submittedForm = false;
+    formState.projectName = '';
+    formState.ownerEmail = '';
+    formState.priority = '';
+    formState.notes = '';
+    syncFormDemo();
+  });
+}
+
 registerDesignSystem().then(() => {
   syncMonthCalendar();
   syncDayCalendar();
   syncWeekCalendar();
   syncKanbanBoard();
+  syncFormDemo();
 });
