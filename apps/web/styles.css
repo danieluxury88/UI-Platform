@@ -202,6 +202,61 @@ ui-select:not(:defined) {
   min-height: 4.25rem;
 }
 
+ui-task-list:not(:defined) {
+  display: block;
+  min-height: 20rem;
+  padding: var(--ui-space-5);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+ui-task-list-item:not(:defined) {
+  display: block;
+  min-height: 5.5rem;
+  padding: var(--ui-space-4);
+  border-radius: var(--ui-radius-md);
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface-elevated);
+}
+
+ui-activity-timeline:not(:defined) {
+  display: block;
+  min-height: 20rem;
+  padding: var(--ui-space-5);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+ui-activity-timeline-item:not(:defined) {
+  display: block;
+  min-height: 5rem;
+  padding: var(--ui-space-3) 0;
+  border-bottom: 1px solid var(--ui-color-border);
+}
+
+ui-checklist:not(:defined) {
+  display: block;
+  min-height: 20rem;
+  padding: var(--ui-space-5);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+ui-checklist-item:not(:defined) {
+  display: block;
+  min-height: 5.25rem;
+  padding: var(--ui-space-4);
+  border-radius: var(--ui-radius-md);
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface-elevated);
+}
+
 .ui-page {
   max-width: 1180px;
   margin: 0 auto;
@@ -474,6 +529,69 @@ ui-select:not(:defined) {
   font-size: 0.92rem;
 }
 
+.ui-task-list-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.78fr);
+  gap: var(--ui-space-4);
+  align-items: start;
+}
+
+.ui-task-list-meta {
+  display: block;
+}
+
+.ui-task-list-status,
+.ui-task-list-note {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-task-list-note {
+  font-size: 0.92rem;
+}
+
+.ui-timeline-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.8fr);
+  gap: var(--ui-space-4);
+  align-items: start;
+}
+
+.ui-timeline-meta {
+  display: block;
+}
+
+.ui-timeline-status,
+.ui-timeline-note {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-timeline-note {
+  font-size: 0.92rem;
+}
+
+.ui-checklist-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.82fr);
+  gap: var(--ui-space-4);
+  align-items: start;
+}
+
+.ui-checklist-meta {
+  display: block;
+}
+
+.ui-checklist-status,
+.ui-checklist-note {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-checklist-note {
+  font-size: 0.92rem;
+}
+
 .ui-form-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.85fr);
@@ -527,6 +645,9 @@ ui-select:not(:defined) {
   .ui-calendar-layout--day,
   .ui-calendar-layout--week,
   .ui-kanban-layout,
+  .ui-task-list-layout,
+  .ui-timeline-layout,
+  .ui-checklist-layout,
   .ui-form-layout,
   .ui-form-grid {
     grid-template-columns: 1fr;

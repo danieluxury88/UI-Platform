@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.ui-task-list {
+  padding: var(--ui-space-5);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-radius-lg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ui-color-surface) 88%, transparent), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-task-list__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ui-space-3);
+}
+
+.ui-task-list__title {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.ui-task-list__items {
+  display: grid;
+  gap: var(--ui-space-3);
+}

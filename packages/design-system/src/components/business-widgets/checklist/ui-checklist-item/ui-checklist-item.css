@@ -1,0 +1,95 @@
+:host {
+  display: block;
+}
+
+.ui-checklist-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--ui-space-3);
+  width: 100%;
+  padding: var(--ui-space-4);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-radius-md);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ui-color-surface) 94%, transparent), var(--ui-color-surface-elevated));
+  color: var(--ui-color-text);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.ui-checklist-item:hover {
+  transform: translateY(-1px);
+  border-color: var(--ui-color-accent-border);
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-checklist-item:focus-visible {
+  outline: 2px solid var(--ui-color-accent);
+  outline-offset: 2px;
+}
+
+.ui-checklist-item__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.1rem;
+  border: 1px solid var(--ui-color-border);
+  border-radius: 0.4rem;
+  background: var(--ui-color-surface);
+}
+
+.ui-checklist-item__mark-icon {
+  width: 0.55rem;
+  height: 0.3rem;
+  border-left: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  transform: rotate(-45deg) translate(0.02rem, -0.02rem);
+}
+
+.ui-checklist-item__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--ui-space-3);
+  flex-wrap: wrap;
+}
+
+.ui-checklist-item__title {
+  margin: 0;
+  font-size: 0.98rem;
+  letter-spacing: -0.02em;
+}
+
+.ui-checklist-item__note {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+  font-size: 0.92rem;
+}
+
+:host([completed]) .ui-checklist-item {
+  border-color: var(--ui-color-accent-border);
+  background:
+    radial-gradient(circle at top left, var(--ui-color-accent-soft), transparent 42%),
+    linear-gradient(135deg, color-mix(in srgb, var(--ui-color-surface) 94%, transparent), var(--ui-color-surface-elevated));
+}
+
+:host([completed]) .ui-checklist-item__mark {
+  border-color: var(--ui-color-accent);
+  background: var(--ui-color-accent);
+}
+
+:host([completed]) .ui-checklist-item__mark-icon {
+  border-left-color: var(--ui-color-surface);
+  border-bottom-color: var(--ui-color-surface);
+}
+
+@media (max-width: 640px) {
+  .ui-checklist-item {
+    grid-template-columns: 1fr;
+  }
+}

@@ -41,6 +41,18 @@ Lower layers come first. Higher layers may compose lower layers, but not the rev
 - `business-widgets/kanban/ui-kanban-card`
 - `business-widgets/kanban/shared/kanban-types.ts`
 - `business-widgets/kanban/shared/kanban-utils.ts`
+- `business-widgets/task-list/ui-task-list`
+- `business-widgets/task-list/ui-task-list-item`
+- `business-widgets/task-list/shared/task-list-types.ts`
+- `business-widgets/task-list/shared/task-list-utils.ts`
+- `business-widgets/activity-timeline/ui-activity-timeline`
+- `business-widgets/activity-timeline/ui-activity-timeline-item`
+- `business-widgets/activity-timeline/shared/activity-timeline-types.ts`
+- `business-widgets/activity-timeline/shared/activity-timeline-utils.ts`
+- `business-widgets/checklist/ui-checklist`
+- `business-widgets/checklist/ui-checklist-item`
+- `business-widgets/checklist/shared/checklist-types.ts`
+- `business-widgets/checklist/shared/checklist-utils.ts`
 
 ## Dependency rules
 

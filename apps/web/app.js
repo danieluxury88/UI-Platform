@@ -14,6 +14,11 @@ const weekCalendarSelection = document.getElementById('calendar-week-selection')
 const weekCalendarStatus = document.getElementById('calendar-week-status');
 const kanbanBoard = document.getElementById('demo-kanban');
 const kanbanStatus = document.getElementById('kanban-status');
+const taskList = document.getElementById('demo-task-list');
+const taskListStatus = document.getElementById('task-list-status');
+const activityTimeline = document.getElementById('demo-activity-timeline');
+const checklist = document.getElementById('demo-checklist');
+const checklistStatus = document.getElementById('checklist-status');
 const intakeForm = document.getElementById('demo-intake-form');
 const formNameInput = document.getElementById('demo-form-name');
 const formOwnerInput = document.getElementById('demo-form-owner');
@@ -291,10 +296,43 @@ const formPriorityOptions = [
   { value: 'exploratory', label: 'Exploratory' },
 ];
 
+const activityTimelineState = {
+  events: [
+    {
+      id: 'timeline-intake',
+      title: 'Captured the first interactive request shape',
+      timestamp: '09:10',
+      description: 'The intake form baseline now collects a name, owner, priority, and notes without moving validation into the shared package.',
+      meta: 'Today · Intake surface',
+    },
+    {
+      id: 'timeline-kanban',
+      title: 'Moved “Build kanban shell” into the active lane',
+      timestamp: '10:25',
+      description: 'The board slice stayed controlled while the app kept workflow decisions and persistence out of the design system.',
+      meta: 'Today · Task delivery',
+      tone: 'accent',
+    },
+    {
+      id: 'timeline-task-list',
+      title: 'Flattened the same task records into a compact list view',
+      timestamp: '11:40',
+      description: 'The app now reuses the current work items across Kanban and Task List without inventing a second shared state model.',
+      meta: 'Today · Shared records',
+    },
+  ],
+};
+
+const checklistState = {
+  handoffConfirmed: false,
+};
+
 let activeMonthEvent = null;
 let activeDayEvent = null;
 let activeWeekEvent = null;
 let activeKanbanCard = null;
+let activeTaskListItem = null;
+let activeChecklistItem = null;
 let submittedForm = false;
 
 function updateMonthReadouts() {
@@ -383,6 +421,106 @@ function syncKanbanBoard() {
     kanbanStatus.textContent = activeKanbanCard
       ? `Activated ${activeKanbanCard.card.title} in ${activeKanbanCard.columnTitle}.`
       : 'Activate a card to inspect the current board interaction contract.';
+  }
+}
+
+function buildTaskListItems(columns) {
+  return columns.flatMap((column) =>
+    column.cards.map((card) => ({
+      id: card.id,
+      title: card.title,
+      description: card.description,
+      meta: card.meta,
+      statusLabel: column.title,
+      tone: card.tone ?? 'neutral',
+    })),
+  );
+}
+
+function syncTaskList() {
+  if (!taskList) {
+    return;
+  }
+
+  taskList.label = 'Shared task queue';
+  taskList.items = buildTaskListItems(kanbanBoardState.columns);
+
+  if (taskListStatus) {
+    taskListStatus.textContent = activeTaskListItem
+      ? `Activated ${activeTaskListItem.title} from ${activeTaskListItem.statusLabel}.`
+      : 'Activate a row to inspect the shared task-list interaction contract.';
+  }
+}
+
+function syncActivityTimeline() {
+  if (!activityTimeline) {
+    return;
+  }
+
+  activityTimeline.label = 'Workspace activity';
+  activityTimeline.events = activityTimelineState.events;
+}
+
+function buildChecklistItems() {
+  const hasProjectName = Boolean(formState.projectName.trim());
+  const hasValidOwner = Boolean(formState.ownerEmail.trim()) && !getFormErrors().ownerEmail;
+  const hasPriority = Boolean(formState.priority);
+  const notesLength = formState.notes.trim().length;
+  const reviewReady = Object.keys(getFormErrors()).length === 0 && hasProjectName && hasValidOwner && hasPriority;
+
+  return [
+    {
+      id: 'capture-name',
+      title: 'Capture a clear request name',
+      note: hasProjectName ? `Using “${formState.projectName.trim()}”.` : 'Add a short internal name so the handoff has a clear label.',
+      meta: hasProjectName ? 'Complete' : 'Open',
+      completed: hasProjectName,
+    },
+    {
+      id: 'assign-owner',
+      title: 'Assign an accountable owner',
+      note: hasValidOwner ? `Owner set to ${formState.ownerEmail.trim()}.` : 'Add a valid owner email before review starts.',
+      meta: hasValidOwner ? 'Complete' : 'Open',
+      completed: hasValidOwner,
+    },
+    {
+      id: 'confirm-scope',
+      title: 'Confirm priority and scope notes',
+      note: hasPriority
+        ? `Priority selected${notesLength ? ` with ${notesLength} characters of supporting notes.` : ' with no additional notes yet.'}`
+        : 'Choose a priority so the request can be triaged correctly.',
+      meta: hasPriority ? 'Ready' : 'Needs triage',
+      completed: hasPriority,
+      tone: hasPriority ? 'accent' : 'neutral',
+    },
+    {
+      id: 'handoff-review',
+      title: 'Mark the review handoff as acknowledged',
+      note: reviewReady
+        ? 'This is the only manual step in the demo. Toggle it once the request is ready to leave intake.'
+        : 'Finish the required intake fields before acknowledging handoff.',
+      meta: checklistState.handoffConfirmed ? 'Acknowledged' : 'Pending',
+      completed: reviewReady && checklistState.handoffConfirmed,
+      tone: reviewReady ? 'accent' : 'neutral',
+    },
+  ];
+}
+
+function syncChecklist() {
+  if (!checklist) {
+    return;
+  }
+
+  const items = buildChecklistItems();
+  checklist.label = 'Review handoff checklist';
+  checklist.items = items;
+
+  if (checklistStatus) {
+    const activeItem = activeChecklistItem ? items.find((item) => item.id === activeChecklistItem.id) : null;
+
+    checklistStatus.textContent = activeItem
+      ? `${activeItem.title} is currently ${activeItem.completed ? 'complete' : 'open'}.`
+      : 'Toggle a review item to inspect the controlled checklist interaction contract.';
   }
 }
 
@@ -489,6 +627,12 @@ function syncFormDemo() {
   if (formSummaryNotes) {
     formSummaryNotes.textContent = `${formState.notes.trim().length} chars`;
   }
+
+  if (!isReady) {
+    checklistState.handoffConfirmed = false;
+  }
+
+  syncChecklist();
 }
 
 applyTheme(getTheme());
@@ -604,6 +748,24 @@ if (kanbanBoard) {
   });
 }
 
+if (taskList) {
+  taskList.addEventListener('uiTaskListItemActivate', (event) => {
+    activeTaskListItem = event.detail.item;
+    syncTaskList();
+  });
+}
+
+if (checklist) {
+  checklist.addEventListener('uiChecklistItemToggle', (event) => {
+    if (event.detail.item.id === 'handoff-review') {
+      checklistState.handoffConfirmed = event.detail.nextCompleted;
+    }
+
+    activeChecklistItem = { id: event.detail.item.id };
+    syncChecklist();
+  });
+}
+
 if (intakeForm) {
   intakeForm.addEventListener('uiFieldInput', (event) => {
     formState[event.detail.name] = event.detail.value;
@@ -634,5 +796,7 @@ registerDesignSystem().then(() => {
   syncDayCalendar();
   syncWeekCalendar();
   syncKanbanBoard();
+  syncTaskList();
+  syncActivityTimeline();
   syncFormDemo();
 });

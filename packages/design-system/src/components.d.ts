@@ -5,15 +5,44 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ActivityTimelineEventRecord } from "./components/business-widgets/activity-timeline/shared/activity-timeline-utils";
+import { ActivityTimelineEventRecord as ActivityTimelineEventRecord1, ActivityTimelineEventTone } from "./components/business-widgets/activity-timeline/shared/activity-timeline-types";
 import { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
+import { ChecklistItemRecord } from "./components/business-widgets/checklist/shared/checklist-utils";
+import { ChecklistItemRecord as ChecklistItemRecord1, ChecklistItemTone } from "./components/business-widgets/checklist/shared/checklist-types";
 import { KanbanColumnRecord } from "./components/business-widgets/kanban/shared/kanban-utils";
 import { KanbanCardRecord, KanbanCardTone } from "./components/business-widgets/kanban/shared/kanban-types";
 import { UiSelectOptionRecord } from "./components/primitives/shared/form-utils";
+import { TaskListItemRecord } from "./components/business-widgets/task-list/shared/task-list-utils";
+import { TaskListItemRecord as TaskListItemRecord1, TaskListItemTone } from "./components/business-widgets/task-list/shared/task-list-types";
+export { ActivityTimelineEventRecord } from "./components/business-widgets/activity-timeline/shared/activity-timeline-utils";
+export { ActivityTimelineEventRecord as ActivityTimelineEventRecord1, ActivityTimelineEventTone } from "./components/business-widgets/activity-timeline/shared/activity-timeline-types";
 export { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/business-widgets/calendar/shared/calendar-utils";
+export { ChecklistItemRecord } from "./components/business-widgets/checklist/shared/checklist-utils";
+export { ChecklistItemRecord as ChecklistItemRecord1, ChecklistItemTone } from "./components/business-widgets/checklist/shared/checklist-types";
 export { KanbanColumnRecord } from "./components/business-widgets/kanban/shared/kanban-utils";
 export { KanbanCardRecord, KanbanCardTone } from "./components/business-widgets/kanban/shared/kanban-types";
 export { UiSelectOptionRecord } from "./components/primitives/shared/form-utils";
+export { TaskListItemRecord } from "./components/business-widgets/task-list/shared/task-list-utils";
+export { TaskListItemRecord as TaskListItemRecord1, TaskListItemTone } from "./components/business-widgets/task-list/shared/task-list-types";
 export namespace Components {
+    interface UiActivityTimeline {
+        /**
+          * @default []
+         */
+        "events": ActivityTimelineEventRecord[];
+        /**
+          * @default 'Activity timeline'
+         */
+        "label": string;
+    }
+    interface UiActivityTimelineItem {
+        "event": ActivityTimelineEventRecord1;
+        /**
+          * @default 'neutral'
+         */
+        "tone": ActivityTimelineEventTone;
+    }
     interface UiBadge {
         /**
           * @default 'neutral'
@@ -160,6 +189,27 @@ export namespace Components {
          */
         "tone": 'surface' | 'accent';
     }
+    interface UiChecklist {
+        /**
+          * @default []
+         */
+        "items": ChecklistItemRecord[];
+        /**
+          * @default 'Checklist'
+         */
+        "label": string;
+    }
+    interface UiChecklistItem {
+        /**
+          * @default false
+         */
+        "completed": boolean;
+        "item": ChecklistItemRecord1;
+        /**
+          * @default 'neutral'
+         */
+        "tone": ChecklistItemTone;
+    }
     interface UiChip {
         "label"?: string;
         /**
@@ -300,6 +350,23 @@ export namespace Components {
          */
         "space": 'sm' | 'md' | 'lg';
     }
+    interface UiTaskList {
+        /**
+          * @default []
+         */
+        "items": TaskListItemRecord[];
+        /**
+          * @default 'Task list'
+         */
+        "label": string;
+    }
+    interface UiTaskListItem {
+        "item": TaskListItemRecord1;
+        /**
+          * @default 'neutral'
+         */
+        "tone": TaskListItemTone;
+    }
     interface UiTextarea {
         /**
           * @default false
@@ -365,6 +432,10 @@ export interface UiCalendarToolbarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiCalendarToolbarElement;
 }
+export interface UiChecklistItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiChecklistItemElement;
+}
 export interface UiInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiInputElement;
@@ -377,11 +448,27 @@ export interface UiSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiSelectElement;
 }
+export interface UiTaskListItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiTaskListItemElement;
+}
 export interface UiTextareaCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiTextareaElement;
 }
 declare global {
+    interface HTMLUiActivityTimelineElement extends Components.UiActivityTimeline, HTMLStencilElement {
+    }
+    var HTMLUiActivityTimelineElement: {
+        prototype: HTMLUiActivityTimelineElement;
+        new (): HTMLUiActivityTimelineElement;
+    };
+    interface HTMLUiActivityTimelineItemElement extends Components.UiActivityTimelineItem, HTMLStencilElement {
+    }
+    var HTMLUiActivityTimelineItemElement: {
+        prototype: HTMLUiActivityTimelineItemElement;
+        new (): HTMLUiActivityTimelineItemElement;
+    };
     interface HTMLUiBadgeElement extends Components.UiBadge, HTMLStencilElement {
     }
     var HTMLUiBadgeElement: {
@@ -486,6 +573,29 @@ declare global {
         prototype: HTMLUiCardElement;
         new (): HTMLUiCardElement;
     };
+    interface HTMLUiChecklistElement extends Components.UiChecklist, HTMLStencilElement {
+    }
+    var HTMLUiChecklistElement: {
+        prototype: HTMLUiChecklistElement;
+        new (): HTMLUiChecklistElement;
+    };
+    interface HTMLUiChecklistItemElementEventMap {
+        "uiChecklistItemToggle": { item: ChecklistItemRecord1; nextCompleted: boolean };
+    }
+    interface HTMLUiChecklistItemElement extends Components.UiChecklistItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiChecklistItemElementEventMap>(type: K, listener: (this: HTMLUiChecklistItemElement, ev: UiChecklistItemCustomEvent<HTMLUiChecklistItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiChecklistItemElementEventMap>(type: K, listener: (this: HTMLUiChecklistItemElement, ev: UiChecklistItemCustomEvent<HTMLUiChecklistItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiChecklistItemElement: {
+        prototype: HTMLUiChecklistItemElement;
+        new (): HTMLUiChecklistItemElement;
+    };
     interface HTMLUiChipElement extends Components.UiChip, HTMLStencilElement {
     }
     var HTMLUiChipElement: {
@@ -575,6 +685,29 @@ declare global {
         prototype: HTMLUiStackElement;
         new (): HTMLUiStackElement;
     };
+    interface HTMLUiTaskListElement extends Components.UiTaskList, HTMLStencilElement {
+    }
+    var HTMLUiTaskListElement: {
+        prototype: HTMLUiTaskListElement;
+        new (): HTMLUiTaskListElement;
+    };
+    interface HTMLUiTaskListItemElementEventMap {
+        "uiTaskListItemActivate": { item: TaskListItemRecord1 };
+    }
+    interface HTMLUiTaskListItemElement extends Components.UiTaskListItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiTaskListItemElementEventMap>(type: K, listener: (this: HTMLUiTaskListItemElement, ev: UiTaskListItemCustomEvent<HTMLUiTaskListItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiTaskListItemElementEventMap>(type: K, listener: (this: HTMLUiTaskListItemElement, ev: UiTaskListItemCustomEvent<HTMLUiTaskListItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiTaskListItemElement: {
+        prototype: HTMLUiTaskListItemElement;
+        new (): HTMLUiTaskListItemElement;
+    };
     interface HTMLUiTextareaElementEventMap {
         "uiFieldInput": { name: string; value: string };
         "uiFieldChange": { name: string; value: string };
@@ -600,6 +733,8 @@ declare global {
         new (): HTMLUiToolbarElement;
     };
     interface HTMLElementTagNameMap {
+        "ui-activity-timeline": HTMLUiActivityTimelineElement;
+        "ui-activity-timeline-item": HTMLUiActivityTimelineItemElement;
         "ui-badge": HTMLUiBadgeElement;
         "ui-button": HTMLUiButtonElement;
         "ui-calendar": HTMLUiCalendarElement;
@@ -610,6 +745,8 @@ declare global {
         "ui-calendar-toolbar": HTMLUiCalendarToolbarElement;
         "ui-calendar-week-view": HTMLUiCalendarWeekViewElement;
         "ui-card": HTMLUiCardElement;
+        "ui-checklist": HTMLUiChecklistElement;
+        "ui-checklist-item": HTMLUiChecklistItemElement;
         "ui-chip": HTMLUiChipElement;
         "ui-input": HTMLUiInputElement;
         "ui-kanban-board": HTMLUiKanbanBoardElement;
@@ -619,11 +756,30 @@ declare global {
         "ui-panel": HTMLUiPanelElement;
         "ui-select": HTMLUiSelectElement;
         "ui-stack": HTMLUiStackElement;
+        "ui-task-list": HTMLUiTaskListElement;
+        "ui-task-list-item": HTMLUiTaskListItemElement;
         "ui-textarea": HTMLUiTextareaElement;
         "ui-toolbar": HTMLUiToolbarElement;
     }
 }
 declare namespace LocalJSX {
+    interface UiActivityTimeline {
+        /**
+          * @default []
+         */
+        "events"?: ActivityTimelineEventRecord[];
+        /**
+          * @default 'Activity timeline'
+         */
+        "label"?: string;
+    }
+    interface UiActivityTimelineItem {
+        "event": ActivityTimelineEventRecord1;
+        /**
+          * @default 'neutral'
+         */
+        "tone"?: ActivityTimelineEventTone;
+    }
     interface UiBadge {
         /**
           * @default 'neutral'
@@ -774,6 +930,28 @@ declare namespace LocalJSX {
          */
         "tone"?: 'surface' | 'accent';
     }
+    interface UiChecklist {
+        /**
+          * @default []
+         */
+        "items"?: ChecklistItemRecord[];
+        /**
+          * @default 'Checklist'
+         */
+        "label"?: string;
+    }
+    interface UiChecklistItem {
+        /**
+          * @default false
+         */
+        "completed"?: boolean;
+        "item": ChecklistItemRecord1;
+        "onUiChecklistItemToggle"?: (event: UiChecklistItemCustomEvent<{ item: ChecklistItemRecord1; nextCompleted: boolean }>) => void;
+        /**
+          * @default 'neutral'
+         */
+        "tone"?: ChecklistItemTone;
+    }
     interface UiChip {
         "label"?: string;
         /**
@@ -919,6 +1097,24 @@ declare namespace LocalJSX {
          */
         "space"?: 'sm' | 'md' | 'lg';
     }
+    interface UiTaskList {
+        /**
+          * @default []
+         */
+        "items"?: TaskListItemRecord[];
+        /**
+          * @default 'Task list'
+         */
+        "label"?: string;
+    }
+    interface UiTaskListItem {
+        "item": TaskListItemRecord1;
+        "onUiTaskListItemActivate"?: (event: UiTaskListItemCustomEvent<{ item: TaskListItemRecord1 }>) => void;
+        /**
+          * @default 'neutral'
+         */
+        "tone"?: TaskListItemTone;
+    }
     interface UiTextarea {
         /**
           * @default false
@@ -970,6 +1166,12 @@ declare namespace LocalJSX {
         "justify"?: 'start' | 'between' | 'center';
     }
 
+    interface UiActivityTimelineAttributes {
+        "label": string;
+    }
+    interface UiActivityTimelineItemAttributes {
+        "tone": ActivityTimelineEventTone;
+    }
     interface UiBadgeAttributes {
         "tone": 'neutral' | 'accent';
     }
@@ -1021,6 +1223,13 @@ declare namespace LocalJSX {
     interface UiCardAttributes {
         "tone": 'surface' | 'accent';
     }
+    interface UiChecklistAttributes {
+        "label": string;
+    }
+    interface UiChecklistItemAttributes {
+        "tone": ChecklistItemTone;
+        "completed": boolean;
+    }
     interface UiChipAttributes {
         "label": string;
         "tone": 'neutral' | 'accent';
@@ -1063,6 +1272,12 @@ declare namespace LocalJSX {
     interface UiStackAttributes {
         "space": 'sm' | 'md' | 'lg';
     }
+    interface UiTaskListAttributes {
+        "label": string;
+    }
+    interface UiTaskListItemAttributes {
+        "tone": TaskListItemTone;
+    }
     interface UiTextareaAttributes {
         "label": string;
         "name": string;
@@ -1080,6 +1295,8 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
+        "ui-activity-timeline": Omit<UiActivityTimeline, keyof UiActivityTimelineAttributes> & { [K in keyof UiActivityTimeline & keyof UiActivityTimelineAttributes]?: UiActivityTimeline[K] } & { [K in keyof UiActivityTimeline & keyof UiActivityTimelineAttributes as `attr:${K}`]?: UiActivityTimelineAttributes[K] } & { [K in keyof UiActivityTimeline & keyof UiActivityTimelineAttributes as `prop:${K}`]?: UiActivityTimeline[K] };
+        "ui-activity-timeline-item": Omit<UiActivityTimelineItem, keyof UiActivityTimelineItemAttributes> & { [K in keyof UiActivityTimelineItem & keyof UiActivityTimelineItemAttributes]?: UiActivityTimelineItem[K] } & { [K in keyof UiActivityTimelineItem & keyof UiActivityTimelineItemAttributes as `attr:${K}`]?: UiActivityTimelineItemAttributes[K] } & { [K in keyof UiActivityTimelineItem & keyof UiActivityTimelineItemAttributes as `prop:${K}`]?: UiActivityTimelineItem[K] };
         "ui-badge": Omit<UiBadge, keyof UiBadgeAttributes> & { [K in keyof UiBadge & keyof UiBadgeAttributes]?: UiBadge[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `attr:${K}`]?: UiBadgeAttributes[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `prop:${K}`]?: UiBadge[K] };
         "ui-button": Omit<UiButton, keyof UiButtonAttributes> & { [K in keyof UiButton & keyof UiButtonAttributes]?: UiButton[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `attr:${K}`]?: UiButtonAttributes[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `prop:${K}`]?: UiButton[K] };
         "ui-calendar": Omit<UiCalendar, keyof UiCalendarAttributes> & { [K in keyof UiCalendar & keyof UiCalendarAttributes]?: UiCalendar[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `attr:${K}`]?: UiCalendarAttributes[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `prop:${K}`]?: UiCalendar[K] };
@@ -1090,6 +1307,8 @@ declare namespace LocalJSX {
         "ui-calendar-toolbar": Omit<UiCalendarToolbar, keyof UiCalendarToolbarAttributes> & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes]?: UiCalendarToolbar[K] } & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes as `attr:${K}`]?: UiCalendarToolbarAttributes[K] } & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes as `prop:${K}`]?: UiCalendarToolbar[K] };
         "ui-calendar-week-view": Omit<UiCalendarWeekView, keyof UiCalendarWeekViewAttributes> & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes]?: UiCalendarWeekView[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `attr:${K}`]?: UiCalendarWeekViewAttributes[K] } & { [K in keyof UiCalendarWeekView & keyof UiCalendarWeekViewAttributes as `prop:${K}`]?: UiCalendarWeekView[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
+        "ui-checklist": Omit<UiChecklist, keyof UiChecklistAttributes> & { [K in keyof UiChecklist & keyof UiChecklistAttributes]?: UiChecklist[K] } & { [K in keyof UiChecklist & keyof UiChecklistAttributes as `attr:${K}`]?: UiChecklistAttributes[K] } & { [K in keyof UiChecklist & keyof UiChecklistAttributes as `prop:${K}`]?: UiChecklist[K] };
+        "ui-checklist-item": Omit<UiChecklistItem, keyof UiChecklistItemAttributes> & { [K in keyof UiChecklistItem & keyof UiChecklistItemAttributes]?: UiChecklistItem[K] } & { [K in keyof UiChecklistItem & keyof UiChecklistItemAttributes as `attr:${K}`]?: UiChecklistItemAttributes[K] } & { [K in keyof UiChecklistItem & keyof UiChecklistItemAttributes as `prop:${K}`]?: UiChecklistItem[K] };
         "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
         "ui-input": Omit<UiInput, keyof UiInputAttributes> & { [K in keyof UiInput & keyof UiInputAttributes]?: UiInput[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `attr:${K}`]?: UiInputAttributes[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `prop:${K}`]?: UiInput[K] };
         "ui-kanban-board": UiKanbanBoard;
@@ -1099,6 +1318,8 @@ declare namespace LocalJSX {
         "ui-panel": Omit<UiPanel, keyof UiPanelAttributes> & { [K in keyof UiPanel & keyof UiPanelAttributes]?: UiPanel[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `attr:${K}`]?: UiPanelAttributes[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `prop:${K}`]?: UiPanel[K] };
         "ui-select": Omit<UiSelect, keyof UiSelectAttributes> & { [K in keyof UiSelect & keyof UiSelectAttributes]?: UiSelect[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `attr:${K}`]?: UiSelectAttributes[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `prop:${K}`]?: UiSelect[K] };
         "ui-stack": Omit<UiStack, keyof UiStackAttributes> & { [K in keyof UiStack & keyof UiStackAttributes]?: UiStack[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `attr:${K}`]?: UiStackAttributes[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `prop:${K}`]?: UiStack[K] };
+        "ui-task-list": Omit<UiTaskList, keyof UiTaskListAttributes> & { [K in keyof UiTaskList & keyof UiTaskListAttributes]?: UiTaskList[K] } & { [K in keyof UiTaskList & keyof UiTaskListAttributes as `attr:${K}`]?: UiTaskListAttributes[K] } & { [K in keyof UiTaskList & keyof UiTaskListAttributes as `prop:${K}`]?: UiTaskList[K] };
+        "ui-task-list-item": Omit<UiTaskListItem, keyof UiTaskListItemAttributes> & { [K in keyof UiTaskListItem & keyof UiTaskListItemAttributes]?: UiTaskListItem[K] } & { [K in keyof UiTaskListItem & keyof UiTaskListItemAttributes as `attr:${K}`]?: UiTaskListItemAttributes[K] } & { [K in keyof UiTaskListItem & keyof UiTaskListItemAttributes as `prop:${K}`]?: UiTaskListItem[K] };
         "ui-textarea": Omit<UiTextarea, keyof UiTextareaAttributes> & { [K in keyof UiTextarea & keyof UiTextareaAttributes]?: UiTextarea[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `attr:${K}`]?: UiTextareaAttributes[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `prop:${K}`]?: UiTextarea[K] };
         "ui-toolbar": Omit<UiToolbar, keyof UiToolbarAttributes> & { [K in keyof UiToolbar & keyof UiToolbarAttributes]?: UiToolbar[K] } & { [K in keyof UiToolbar & keyof UiToolbarAttributes as `attr:${K}`]?: UiToolbarAttributes[K] } & { [K in keyof UiToolbar & keyof UiToolbarAttributes as `prop:${K}`]?: UiToolbar[K] };
     }
@@ -1107,6 +1328,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "ui-activity-timeline": LocalJSX.IntrinsicElements["ui-activity-timeline"] & JSXBase.HTMLAttributes<HTMLUiActivityTimelineElement>;
+            "ui-activity-timeline-item": LocalJSX.IntrinsicElements["ui-activity-timeline-item"] & JSXBase.HTMLAttributes<HTMLUiActivityTimelineItemElement>;
             "ui-badge": LocalJSX.IntrinsicElements["ui-badge"] & JSXBase.HTMLAttributes<HTMLUiBadgeElement>;
             "ui-button": LocalJSX.IntrinsicElements["ui-button"] & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
             "ui-calendar": LocalJSX.IntrinsicElements["ui-calendar"] & JSXBase.HTMLAttributes<HTMLUiCalendarElement>;
@@ -1117,6 +1340,8 @@ declare module "@stencil/core" {
             "ui-calendar-toolbar": LocalJSX.IntrinsicElements["ui-calendar-toolbar"] & JSXBase.HTMLAttributes<HTMLUiCalendarToolbarElement>;
             "ui-calendar-week-view": LocalJSX.IntrinsicElements["ui-calendar-week-view"] & JSXBase.HTMLAttributes<HTMLUiCalendarWeekViewElement>;
             "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
+            "ui-checklist": LocalJSX.IntrinsicElements["ui-checklist"] & JSXBase.HTMLAttributes<HTMLUiChecklistElement>;
+            "ui-checklist-item": LocalJSX.IntrinsicElements["ui-checklist-item"] & JSXBase.HTMLAttributes<HTMLUiChecklistItemElement>;
             "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
             "ui-input": LocalJSX.IntrinsicElements["ui-input"] & JSXBase.HTMLAttributes<HTMLUiInputElement>;
             "ui-kanban-board": LocalJSX.IntrinsicElements["ui-kanban-board"] & JSXBase.HTMLAttributes<HTMLUiKanbanBoardElement>;
@@ -1126,6 +1351,8 @@ declare module "@stencil/core" {
             "ui-panel": LocalJSX.IntrinsicElements["ui-panel"] & JSXBase.HTMLAttributes<HTMLUiPanelElement>;
             "ui-select": LocalJSX.IntrinsicElements["ui-select"] & JSXBase.HTMLAttributes<HTMLUiSelectElement>;
             "ui-stack": LocalJSX.IntrinsicElements["ui-stack"] & JSXBase.HTMLAttributes<HTMLUiStackElement>;
+            "ui-task-list": LocalJSX.IntrinsicElements["ui-task-list"] & JSXBase.HTMLAttributes<HTMLUiTaskListElement>;
+            "ui-task-list-item": LocalJSX.IntrinsicElements["ui-task-list-item"] & JSXBase.HTMLAttributes<HTMLUiTaskListItemElement>;
             "ui-textarea": LocalJSX.IntrinsicElements["ui-textarea"] & JSXBase.HTMLAttributes<HTMLUiTextareaElement>;
             "ui-toolbar": LocalJSX.IntrinsicElements["ui-toolbar"] & JSXBase.HTMLAttributes<HTMLUiToolbarElement>;
         }

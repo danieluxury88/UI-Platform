@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.ui-activity-timeline {
+  padding: var(--ui-space-5);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-radius-lg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ui-color-surface) 88%, transparent), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-activity-timeline__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ui-space-3);
+}
+
+.ui-activity-timeline__title {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.ui-activity-timeline__events {
+  display: grid;
+  gap: var(--ui-space-3);
+}

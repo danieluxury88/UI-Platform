@@ -277,6 +277,102 @@
         </div>
       </ui-page-section>
 
+      <ui-page-section id="tasks">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Task list companion</p>
+            <h2 class="ui-section-title">The same work records can collapse into a denser shared list view.</h2>
+          </div>
+          <p class="ui-section-copy">
+            The app flattens the current Kanban columns into task-list items locally, so the shared widget family stays controlled and product-neutral.
+          </p>
+        </div>
+
+        <div class="ui-task-list-layout">
+          <ui-task-list id="demo-task-list"></ui-task-list>
+
+          <ui-panel tone="surface" class="ui-task-list-meta">
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">List focus</p>
+                <h3 class="ui-card-title">A denser companion view without shared sorting or workflow state.</h3>
+              </div>
+              <ui-badge tone="accent">Shared records</ui-badge>
+              <p id="task-list-status" class="ui-task-list-status">
+                Activate a row to inspect the shared task-list interaction contract.
+              </p>
+              <p class="ui-task-list-note">
+                Filtering, ownership rules, and persistence stay in the app even when the same tasks appear in multiple shared widgets.
+              </p>
+            </ui-stack>
+          </ui-panel>
+        </div>
+      </ui-page-section>
+
+      <ui-page-section id="timeline">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Activity timeline</p>
+            <h2 class="ui-section-title">Task views now have a read-only event trail beside them.</h2>
+          </div>
+          <p class="ui-section-copy">
+            This slice keeps the timeline controlled and presentation-focused so history stays reusable without carrying live updates, comments, or workflow engines.
+          </p>
+        </div>
+
+        <div class="ui-timeline-layout">
+          <ui-activity-timeline id="demo-activity-timeline"></ui-activity-timeline>
+
+          <ui-panel tone="surface" class="ui-timeline-meta">
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Timeline focus</p>
+                <h3 class="ui-card-title">A thin audit surface that complements Kanban, Task List, and Forms.</h3>
+              </div>
+              <ui-badge tone="accent">Read only</ui-badge>
+              <p class="ui-timeline-status">
+                The host app owns ordering, filtering, and event generation while the shared widget family stays presentation-first.
+              </p>
+              <p class="ui-timeline-note">
+                Streaming updates, comment threads, and user resolution stay out of scope until the baseline proves durable across more than one workflow.
+              </p>
+            </ui-stack>
+          </ui-panel>
+        </div>
+      </ui-page-section>
+
+      <ui-page-section id="checklist">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Checklist review</p>
+            <h2 class="ui-section-title">Form intake now feeds a generic handoff checklist.</h2>
+          </div>
+          <p class="ui-section-copy">
+            The app computes completion state from the current request fields, while the shared checklist stays focused on presentation and a thin toggle contract.
+          </p>
+        </div>
+
+        <div class="ui-checklist-layout">
+          <ui-checklist id="demo-checklist"></ui-checklist>
+
+          <ui-panel tone="surface" class="ui-checklist-meta">
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Checklist focus</p>
+                <h3 class="ui-card-title">A reusable review surface that sits between intake and execution.</h3>
+              </div>
+              <ui-badge tone="accent">Controlled state</ui-badge>
+              <p id="checklist-status" class="ui-checklist-status">
+                Toggle a review item to inspect the controlled checklist interaction contract.
+              </p>
+              <p class="ui-checklist-note">
+                Completion rules, permissions, and escalation policy stay in the app even when the shared widget exposes toggle interactions.
+              </p>
+            </ui-stack>
+          </ui-panel>
+        </div>
+      </ui-page-section>
+
       <ui-page-section id="forms">
         <div class="ui-section-head">
           <div>
