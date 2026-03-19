@@ -6,8 +6,8 @@ It is intended to be updated as work moves between agents.
 
 ## Status
 
-- Project stage: Phase 4 complete
-- Current focus: Phase 3 and Phase 4 changes are ready to land together
+- Project stage: Phase 5 complete
+- Current focus: Phase 5 composition slice is ready to land
 - Current highest-priority implementation: await next phase assignment after commit
 - Review model: Lagrange remains available for the next phase boundary
 
@@ -25,7 +25,7 @@ Current responsibilities:
 
 Next tasks:
 
-1. Commit the completed Phase 3 and Phase 4 slices
+1. Commit the completed Phase 5 slice
 2. Queue the next phase once commit is complete
 
 ### Heisenberg
@@ -34,19 +34,19 @@ Status: completed for current phase
 
 Current task:
 
-- Phase 4 implementation complete
-- `ui-badge` landed as the first justified feedback-oriented addition
+- Phase 5 implementation complete
+- `ui-toolbar` landed as the first justified composition-level addition
 
 Definition of done:
 
-- One new feedback-oriented shared component or variant is implemented and used in `apps/web`
-- The API is narrow and justified by repeated visible state
+- One new composition-level shared component exists and is used in `apps/web`
+- The API is narrow and product-agnostic
 - The Stencil build passes
-- Transitional CSS is reduced where the new component truly replaces raw UI state handling
+- Transitional CSS or app-local structure is reduced where the new component truly replaces it
 
 Next after current task:
 
-1. Evaluate whether another repeated feedback/state pattern deserves promotion
+1. Evaluate whether another repeated composition pattern deserves promotion
 2. Reduce duplicated fallback/shared CSS
 3. Address token-alignment cleanup called out in prior review notes
 
@@ -89,7 +89,7 @@ Next tasks if needed:
 
 ## Immediate Queue
 
-1. Commit the completed Phase 3 and Phase 4 work
+1. Commit the completed Phase 5 work
 2. Decide the next phase focus
 3. Re-activate Heisenberg on the next slice
 
@@ -99,6 +99,7 @@ Next tasks if needed:
 - Transitional `:not(:defined)` fallback styling should keep shrinking as real components replace raw markup.
 - Shared layout should only be promoted when repetition is real across the demo surface.
 - `ui-stack` and `ui-page-section` are now the current layout baseline.
+- Composition work should stay product-agnostic and avoid business semantics.
 
 ## Notes
 

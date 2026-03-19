@@ -20,6 +20,7 @@ ui-chip:not(:defined),
 ui-badge:not(:defined),
 ui-card:not(:defined),
 ui-panel:not(:defined),
+ui-toolbar:not(:defined),
 .ui-link-button {
   display: inline-flex;
   align-items: center;
@@ -107,6 +108,22 @@ ui-panel:not(:defined)[tone='accent'] {
   background:
     radial-gradient(circle at top right, rgba(207, 90, 43, 0.18), transparent 34%),
     var(--ui-color-surface-elevated);
+}
+
+ui-toolbar:not(:defined) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ui-space-4);
+  flex-wrap: wrap;
+}
+
+ui-toolbar:not(:defined)[justify='start'] {
+  justify-content: flex-start;
+}
+
+ui-toolbar:not(:defined)[justify='center'] {
+  justify-content: center;
 }
 
 ui-page-section:not(:defined) {

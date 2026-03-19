@@ -57,6 +57,12 @@ export namespace Components {
          */
         "space": 'sm' | 'md' | 'lg';
     }
+    interface UiToolbar {
+        /**
+          * @default 'between'
+         */
+        "justify": 'start' | 'between' | 'center';
+    }
 }
 declare global {
     interface HTMLUiBadgeElement extends Components.UiBadge, HTMLStencilElement {
@@ -101,6 +107,12 @@ declare global {
         prototype: HTMLUiStackElement;
         new (): HTMLUiStackElement;
     };
+    interface HTMLUiToolbarElement extends Components.UiToolbar, HTMLStencilElement {
+    }
+    var HTMLUiToolbarElement: {
+        prototype: HTMLUiToolbarElement;
+        new (): HTMLUiToolbarElement;
+    };
     interface HTMLElementTagNameMap {
         "ui-badge": HTMLUiBadgeElement;
         "ui-button": HTMLUiButtonElement;
@@ -109,6 +121,7 @@ declare global {
         "ui-page-section": HTMLUiPageSectionElement;
         "ui-panel": HTMLUiPanelElement;
         "ui-stack": HTMLUiStackElement;
+        "ui-toolbar": HTMLUiToolbarElement;
     }
 }
 declare namespace LocalJSX {
@@ -163,6 +176,12 @@ declare namespace LocalJSX {
          */
         "space"?: 'sm' | 'md' | 'lg';
     }
+    interface UiToolbar {
+        /**
+          * @default 'between'
+         */
+        "justify"?: 'start' | 'between' | 'center';
+    }
 
     interface UiBadgeAttributes {
         "tone": 'neutral' | 'accent';
@@ -186,6 +205,9 @@ declare namespace LocalJSX {
     interface UiStackAttributes {
         "space": 'sm' | 'md' | 'lg';
     }
+    interface UiToolbarAttributes {
+        "justify": 'start' | 'between' | 'center';
+    }
 
     interface IntrinsicElements {
         "ui-badge": Omit<UiBadge, keyof UiBadgeAttributes> & { [K in keyof UiBadge & keyof UiBadgeAttributes]?: UiBadge[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `attr:${K}`]?: UiBadgeAttributes[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `prop:${K}`]?: UiBadge[K] };
@@ -195,6 +217,7 @@ declare namespace LocalJSX {
         "ui-page-section": UiPageSection;
         "ui-panel": Omit<UiPanel, keyof UiPanelAttributes> & { [K in keyof UiPanel & keyof UiPanelAttributes]?: UiPanel[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `attr:${K}`]?: UiPanelAttributes[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `prop:${K}`]?: UiPanel[K] };
         "ui-stack": Omit<UiStack, keyof UiStackAttributes> & { [K in keyof UiStack & keyof UiStackAttributes]?: UiStack[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `attr:${K}`]?: UiStackAttributes[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `prop:${K}`]?: UiStack[K] };
+        "ui-toolbar": Omit<UiToolbar, keyof UiToolbarAttributes> & { [K in keyof UiToolbar & keyof UiToolbarAttributes]?: UiToolbar[K] } & { [K in keyof UiToolbar & keyof UiToolbarAttributes as `attr:${K}`]?: UiToolbarAttributes[K] } & { [K in keyof UiToolbar & keyof UiToolbarAttributes as `prop:${K}`]?: UiToolbar[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -208,6 +231,7 @@ declare module "@stencil/core" {
             "ui-page-section": LocalJSX.IntrinsicElements["ui-page-section"] & JSXBase.HTMLAttributes<HTMLUiPageSectionElement>;
             "ui-panel": LocalJSX.IntrinsicElements["ui-panel"] & JSXBase.HTMLAttributes<HTMLUiPanelElement>;
             "ui-stack": LocalJSX.IntrinsicElements["ui-stack"] & JSXBase.HTMLAttributes<HTMLUiStackElement>;
+            "ui-toolbar": LocalJSX.IntrinsicElements["ui-toolbar"] & JSXBase.HTMLAttributes<HTMLUiToolbarElement>;
         }
     }
 }

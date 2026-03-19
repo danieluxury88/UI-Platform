@@ -22,7 +22,7 @@
   </head>
   <body>
     <main class="ui-page">
-      <header class="ui-topbar">
+      <ui-toolbar class="ui-topbar" justify="between">
         <div class="ui-brand">
           <div class="ui-brand-mark" aria-hidden="true"></div>
           <div class="ui-brand-copy">
@@ -39,7 +39,7 @@
         >
           Toggle theme
         </ui-button>
-      </header>
+      </ui-toolbar>
 
       <section class="ui-hero">
         <div>
@@ -49,14 +49,14 @@
             This static page uses the token package and the shared design-system styles directly.
             It gives the repo a deliberate visual direction before a component runtime exists.
           </p>
-          <div class="ui-actions">
+          <ui-toolbar class="ui-actions" justify="start">
             <ui-button id="jump-to-surface" variant="primary" type="button">
               Open the live surface
             </ui-button>
             <a class="ui-link-button" href="../../packages/design-system/styles.css">
               Inspect the styles
             </a>
-          </div>
+          </ui-toolbar>
         </div>
 
         <ui-panel tone="surface">
