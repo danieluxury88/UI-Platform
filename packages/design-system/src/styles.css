@@ -143,11 +143,6 @@
   box-shadow: var(--ui-shadow-1);
 }
 
-.ui-panel-stack {
-  display: grid;
-  gap: var(--ui-space-4);
-}
-
 .ui-panel-title {
   margin: 0;
   font-size: 1.05rem;

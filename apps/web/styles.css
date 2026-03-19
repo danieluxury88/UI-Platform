@@ -92,6 +92,24 @@ ui-panel:not(:defined)[tone='accent'] {
     var(--ui-color-surface-elevated);
 }
 
+ui-stack:not(:defined) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-4);
+}
+
+ui-stack:not(:defined)[space='sm'] {
+  gap: var(--ui-space-2);
+}
+
+ui-stack:not(:defined)[space='lg'] {
+  gap: var(--ui-space-6);
+}
+
+ui-stack:not(:defined)[space='md'] {
+  gap: var(--ui-space-4);
+}
+
 * {
   box-sizing: border-box;
 }

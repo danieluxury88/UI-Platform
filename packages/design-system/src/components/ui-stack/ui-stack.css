@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-4);
+}
+
+:host([space='sm']) {
+  gap: var(--ui-space-2);
+}
+
+:host([space='md']) {
+  gap: var(--ui-space-4);
+}
+
+:host([space='lg']) {
+  gap: var(--ui-space-6);
+}

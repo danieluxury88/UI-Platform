@@ -9,10 +9,11 @@ The repository is already past the planning-only stage. It now has:
 - A pnpm workspace
 - A token package exporting shared CSS variables
 - A Stencil-based `@ui-platform/design-system` package
+- Shared primitives, surfaces, and the first layout-helper slice
 - A web demo that loads built custom elements and still uses some shared CSS during migration
 - A placeholder mobile package for later Ionic and Capacitor work
 
-The main architectural job now is not bootstrap. It is keeping the design system layered and predictable while shared CSS patterns are converted into reusable components.
+The main architectural job now is not bootstrap. Phase 1 is complete and committed. The active work is Phase 2: landing layout helpers where repetition is real and removing leftover transitional structure around the shared components.
 
 ## Goals
 
@@ -295,7 +296,8 @@ Current baseline:
 
 - Tokens are delivered as shared CSS custom properties.
 - `packages/design-system` is configured with Stencil and produces built output.
-- `ui-button` and `ui-chip` exist as current shared components.
+- `ui-button`, `ui-chip`, `ui-card`, and `ui-panel` are active shared components.
+- `ui-stack` is the first shared layout-helper slice.
 - `apps/web` loads the Stencil loader and uses shared components alongside transitional class-based markup.
 
 ## Testing strategy
@@ -327,9 +329,9 @@ Recommended working loop:
 
 Based on the live repo state, the next layers should progress like this:
 
-1. Finish primitive hardening around `ui-button` and `ui-chip`
-2. Add surface components such as card and panel
-3. Add minimal layout helpers only where the web demo repeats structure
-4. Add feedback variants only after the surface layer is clearer
+1. Finish the first layout-helper and cleanup pass around `ui-stack`
+2. Reduce transitional wrappers and CSS around the existing surface layer
+3. Add the next layout helper only if the same structure repeats in more than one place
+4. Add feedback variants only after the layout-helper pass settles
 5. Add compositions after repeated page patterns exist
 6. Delay business widgets until at least one shared page structure feels stable

@@ -1,6 +1,6 @@
 # UI Platform
 
-UI Platform is a greenfield monorepo plan for a reusable design system and companion applications targeting web and mobile.
+UI Platform is a pnpm monorepo for a reusable design system and companion applications targeting web and mobile.
 
 The project is intended to provide:
 
@@ -9,7 +9,7 @@ The project is intended to provide:
 - A web application shell for early integration and demos
 - A mobile shell built with Ionic and Capacitor
 
-The repository is currently in the planning stage. The documentation in `docs/` defines the proposed architecture, delivery plan, and key decisions before code scaffolding begins.
+The repository now contains the initial token package, the Stencil design-system package, and a web demo consuming shared components. The documentation in `docs/` defines the active architecture, delivery plan, and next implementation steps.
 
 ## Proposed stack
 
@@ -49,11 +49,11 @@ The repository is currently in the planning stage. The documentation in `docs/` 
 
 ## Immediate next steps
 
-1. Bootstrap the monorepo workspace and shared tooling.
-2. Implement the token pipeline and the first primitive components.
-3. Stand up a minimal web app to validate integration.
+1. Finish the Phase 2 layout-helper and cleanup pass.
+2. Reduce transitional CSS around the shared components already in use.
+3. Add the next layout helper only where the web demo proves real repetition.
 4. Add the mobile shell after the web integration path is stable.
 
 ## Status
 
-There is no production code in the repository yet. This documentation set is the implementation plan for the first buildout.
+Phase 1 is complete and committed. Phase 2 is focused on layout-helper and cleanup work in the design-system package and `apps/web`.

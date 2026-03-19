@@ -6,19 +6,171 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface UiButton {
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default false
+         */
+        "pressed": boolean;
+        /**
+          * @default 'button'
+         */
+        "type": 'button' | 'submit' | 'reset';
+        /**
+          * @default 'secondary'
+         */
+        "variant": 'primary' | 'secondary';
+    }
+    interface UiCard {
+        /**
+          * @default 'surface'
+         */
+        "tone": 'surface' | 'accent';
+    }
+    interface UiChip {
+        "label"?: string;
+        /**
+          * @default 'neutral'
+         */
+        "tone": 'neutral' | 'accent';
+    }
+    interface UiPanel {
+        /**
+          * @default 'surface'
+         */
+        "tone": 'surface' | 'accent';
+    }
+    interface UiStack {
+        /**
+          * @default 'md'
+         */
+        "space": 'sm' | 'md' | 'lg';
+    }
 }
 declare global {
+    interface HTMLUiButtonElement extends Components.UiButton, HTMLStencilElement {
+    }
+    var HTMLUiButtonElement: {
+        prototype: HTMLUiButtonElement;
+        new (): HTMLUiButtonElement;
+    };
+    interface HTMLUiCardElement extends Components.UiCard, HTMLStencilElement {
+    }
+    var HTMLUiCardElement: {
+        prototype: HTMLUiCardElement;
+        new (): HTMLUiCardElement;
+    };
+    interface HTMLUiChipElement extends Components.UiChip, HTMLStencilElement {
+    }
+    var HTMLUiChipElement: {
+        prototype: HTMLUiChipElement;
+        new (): HTMLUiChipElement;
+    };
+    interface HTMLUiPanelElement extends Components.UiPanel, HTMLStencilElement {
+    }
+    var HTMLUiPanelElement: {
+        prototype: HTMLUiPanelElement;
+        new (): HTMLUiPanelElement;
+    };
+    interface HTMLUiStackElement extends Components.UiStack, HTMLStencilElement {
+    }
+    var HTMLUiStackElement: {
+        prototype: HTMLUiStackElement;
+        new (): HTMLUiStackElement;
+    };
     interface HTMLElementTagNameMap {
+        "ui-button": HTMLUiButtonElement;
+        "ui-card": HTMLUiCardElement;
+        "ui-chip": HTMLUiChipElement;
+        "ui-panel": HTMLUiPanelElement;
+        "ui-stack": HTMLUiStackElement;
     }
 }
 declare namespace LocalJSX {
+    interface UiButton {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default false
+         */
+        "pressed"?: boolean;
+        /**
+          * @default 'button'
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+        /**
+          * @default 'secondary'
+         */
+        "variant"?: 'primary' | 'secondary';
+    }
+    interface UiCard {
+        /**
+          * @default 'surface'
+         */
+        "tone"?: 'surface' | 'accent';
+    }
+    interface UiChip {
+        "label"?: string;
+        /**
+          * @default 'neutral'
+         */
+        "tone"?: 'neutral' | 'accent';
+    }
+    interface UiPanel {
+        /**
+          * @default 'surface'
+         */
+        "tone"?: 'surface' | 'accent';
+    }
+    interface UiStack {
+        /**
+          * @default 'md'
+         */
+        "space"?: 'sm' | 'md' | 'lg';
+    }
+
+    interface UiButtonAttributes {
+        "variant": 'primary' | 'secondary';
+        "type": 'button' | 'submit' | 'reset';
+        "disabled": boolean;
+        "pressed": boolean;
+    }
+    interface UiCardAttributes {
+        "tone": 'surface' | 'accent';
+    }
+    interface UiChipAttributes {
+        "label": string;
+        "tone": 'neutral' | 'accent';
+    }
+    interface UiPanelAttributes {
+        "tone": 'surface' | 'accent';
+    }
+    interface UiStackAttributes {
+        "space": 'sm' | 'md' | 'lg';
+    }
+
     interface IntrinsicElements {
+        "ui-button": Omit<UiButton, keyof UiButtonAttributes> & { [K in keyof UiButton & keyof UiButtonAttributes]?: UiButton[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `attr:${K}`]?: UiButtonAttributes[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `prop:${K}`]?: UiButton[K] };
+        "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
+        "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
+        "ui-panel": Omit<UiPanel, keyof UiPanelAttributes> & { [K in keyof UiPanel & keyof UiPanelAttributes]?: UiPanel[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `attr:${K}`]?: UiPanelAttributes[K] } & { [K in keyof UiPanel & keyof UiPanelAttributes as `prop:${K}`]?: UiPanel[K] };
+        "ui-stack": Omit<UiStack, keyof UiStackAttributes> & { [K in keyof UiStack & keyof UiStackAttributes]?: UiStack[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `attr:${K}`]?: UiStackAttributes[K] } & { [K in keyof UiStack & keyof UiStackAttributes as `prop:${K}`]?: UiStack[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "ui-button": LocalJSX.IntrinsicElements["ui-button"] & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
+            "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
+            "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
+            "ui-panel": LocalJSX.IntrinsicElements["ui-panel"] & JSXBase.HTMLAttributes<HTMLUiPanelElement>;
+            "ui-stack": LocalJSX.IntrinsicElements["ui-stack"] & JSXBase.HTMLAttributes<HTMLUiStackElement>;
         }
     }
 }

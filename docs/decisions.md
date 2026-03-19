@@ -102,7 +102,7 @@ Status: Accepted
 
 Decision:
 
-- Use the current shared-CSS web demo as the migration baseline while bootstrapping Stencil in `packages/design-system`.
+- Use the current shared-CSS web demo as the migration baseline while expanding the Stencil design system in `packages/design-system`.
 
 Rationale:
 

@@ -60,14 +60,14 @@
         </div>
 
         <ui-panel tone="surface">
-          <div class="ui-panel-stack">
+          <ui-stack space="md">
             <ui-chip tone="accent">Live / static / shared</ui-chip>
             <h2 class="ui-panel-title">Theme-aware shell</h2>
             <p class="ui-panel-copy">
               The toggle updates the existing token model by switching the `data-theme` attribute
               on the root element.
             </p>
-          </div>
+          </ui-stack>
 
           <div class="ui-divider" aria-hidden="true"></div>
 
@@ -97,14 +97,17 @@
 
         <div class="ui-grid">
           <ui-card tone="accent" class="ui-grid-main">
-            <p class="ui-card-label">Executive summary</p>
-            <h3 class="ui-card-title">The shell now reads like a product workspace.</h3>
-            <p class="ui-card-copy">
-              A strong hierarchy, visible status, and compact controls make the page feel like an
-              actual UI platform rather than a blank prototype.
-            </p>
+            <ui-stack space="md">
+              <div>
+                <p class="ui-card-label">Executive summary</p>
+                <h3 class="ui-card-title">The shell now reads like a product workspace.</h3>
+                <p class="ui-card-copy">
+                  A strong hierarchy, visible status, and compact controls make the page feel like
+                  an actual UI platform rather than a blank prototype.
+                </p>
+              </div>
 
-            <div class="ui-stat-grid" style="margin-top: var(--ui-space-6);">
+              <div class="ui-stat-grid">
               <div class="ui-stat">
                 <p class="ui-stat-value">3</p>
                 <p class="ui-stat-label">shared surfaces</p>
@@ -117,7 +120,8 @@
                 <p class="ui-stat-value">0</p>
                 <p class="ui-stat-label">runtime frameworks</p>
               </div>
-            </div>
+              </div>
+            </ui-stack>
           </ui-card>
 
           <aside class="ui-card ui-grid-side">
@@ -149,32 +153,44 @@
         </div>
 
         <div class="ui-grid">
-          <article class="ui-card">
-            <p class="ui-card-label">Page shell</p>
-            <h3 class="ui-card-title">Framing and rhythm</h3>
-            <p class="ui-card-copy">
-              Consistent margins, section headers, and panel spacing provide the backbone for the
-              future component library.
-            </p>
-          </article>
+          <ui-card>
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Page shell</p>
+                <h3 class="ui-card-title">Framing and rhythm</h3>
+              </div>
+              <p class="ui-card-copy">
+                Consistent margins, section headers, and panel spacing provide the backbone for the
+                future component library.
+              </p>
+            </ui-stack>
+          </ui-card>
 
-          <article class="ui-card">
-            <p class="ui-card-label">Control</p>
-            <h3 class="ui-card-title">Buttons and chips</h3>
-            <p class="ui-card-copy">
-              The shared button treatment is already in place for actions, toggles, and status
-              labels.
-            </p>
-          </article>
+          <ui-card>
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Control</p>
+                <h3 class="ui-card-title">Buttons and chips</h3>
+              </div>
+              <p class="ui-card-copy">
+                The shared button treatment is already in place for actions, toggles, and status
+                labels.
+              </p>
+            </ui-stack>
+          </ui-card>
 
-          <article class="ui-card">
-            <p class="ui-card-label">Data</p>
-            <h3 class="ui-card-title">Stats and lists</h3>
-            <p class="ui-card-copy">
-              Small metric blocks and list rows establish a reusable pattern for dashboard-style
-              information.
-            </p>
-          </article>
+          <ui-card>
+            <ui-stack space="sm">
+              <div>
+                <p class="ui-card-label">Data</p>
+                <h3 class="ui-card-title">Stats and lists</h3>
+              </div>
+              <p class="ui-card-copy">
+                Small metric blocks and list rows establish a reusable pattern for dashboard-style
+                information.
+              </p>
+            </ui-stack>
+          </ui-card>
         </div>
       </section>
     </main>

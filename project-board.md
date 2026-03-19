@@ -6,10 +6,10 @@ It is intended to be updated as work moves between agents.
 
 ## Status
 
-- Project stage: active foundation build
-- Current focus: Stencil component migration from shared CSS
-- Current highest-priority implementation: complete Phase 1 component work
-- Review model: Lagrange performs the formal review pass at the end of Phase 1
+- Project stage: Phase 2 in progress
+- Current focus: layout helpers and cleanup after the Phase 1 foundation commit
+- Current highest-priority implementation: first shared layout helper plus reduction of token/fallback debt
+- Review model: Lagrange prepares the next review and commit gate at the Phase 2 boundary
 
 ## Agent Tasks
 
@@ -25,10 +25,10 @@ Current responsibilities:
 
 Next tasks:
 
-1. Keep Heisenberg moving through the remaining Phase 1 work
-2. Track review debt and known findings for end-of-phase cleanup
-3. Refresh the board as implementation progresses
-4. Hand the full Phase 1 diff to Lagrange at the review gate
+1. Start Phase 2 with a narrow implementation slice
+2. Track cleanup debt carried from Phase 1
+3. Verify Stencil builds and web integration as new shared components land
+4. Hand the Phase 2 boundary to Lagrange when the slice set is coherent
 
 ### Heisenberg
 
@@ -36,32 +36,29 @@ Status: in progress
 
 Current task:
 
-- Continue Phase 1 component work without a per-slice review gate
-- `ui-card` is implemented and accepted provisionally for this phase
+- Start Phase 2 implementation
+- Build the first justified layout helper and reduce cleanup debt from Phase 1 where it directly overlaps
 
 Definition of done:
 
-- `ui-card` exists as a Stencil surface component
-- The API is narrow and slot-based
-- The component consumes shared tokens
-- One visible card in the web demo uses the component
+- The next shared layout helper is implemented and used in `apps/web`
+- The API is narrow and justified by repeated structure
 - The Stencil build passes
-- Remaining transitional card CSS is identified
+- Transitional CSS is reduced where the new component truly replaces raw structure
 
 Next after current task:
 
-1. Implement `ui-panel`
-2. Reduce transitional CSS tied to card and panel surfaces
-3. Evaluate whether a shared section-heading or layout helper is justified
-4. Address accumulated review findings before the Phase 1 closeout if needed
+1. Add the next layout helper if repetition still justifies it
+2. Reduce duplicated fallback/shared CSS
+3. Address token-alignment cleanup called out in prior review notes
 
 ### Lagrange
 
-Status: queued for end-of-phase review
+Status: queued for Phase 2 review
 
 Current task:
 
-- Review the full Phase 1 change set after implementation reaches the phase boundary
+- Prepare to review the Phase 2 layout/helper changes and cleanup work at the next phase boundary
 
 Review focus:
 
@@ -94,16 +91,16 @@ Next tasks if needed:
 
 ## Immediate Queue
 
-1. Heisenberg implements `ui-panel`
-2. Heisenberg continues Phase 1 cleanup and component migration work
-3. Codex tracks deferred review items during the phase
-4. Lagrange reviews the full Phase 1 set before commit preparation
+1. Heisenberg implements the first Phase 2 layout helper
+2. Heisenberg reduces overlapping fallback/shared CSS where safe
+3. Codex verifies build and web integration
+4. Lagrange reviews at the Phase 2 boundary
 
 ## Deferred Review Notes
 
-- `ui-card` already has preliminary review findings from Lagrange.
-- Those findings stay open until the end-of-phase review gate unless we choose to address them earlier.
-- Current known issues include token alignment for accent treatment and cleanup of `ui-card` fallback styling.
+- Token alignment for accent treatment is still a known cleanup item.
+- Transitional `:not(:defined)` fallback styling should keep shrinking as real components replace raw markup.
+- Shared layout should only be promoted when repetition is real across the demo surface.
 
 ## Notes
 
