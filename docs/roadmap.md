@@ -7,13 +7,14 @@ The repo already has the foundation in place:
 - pnpm workspace and package boundaries are established
 - `@ui-platform/tokens` exports the shared theme variables
 - `@ui-platform/design-system` is a working Stencil package with build output
-- Phase 1 is complete and committed
+- Phases 1 through 6 are complete and committed
 - `ui-button`, `ui-chip`, `ui-card`, and `ui-panel` are in the shared component layer
-- the first shared layout-helper slice is underway with `ui-stack`
+- layout and composition layers are in place with `ui-stack`, `ui-page-section`, `ui-badge`, and `ui-toolbar`
 - `apps/web` loads the Stencil loader and consumes shared components incrementally
-- `apps/mobile` remains a later-stage shell
+- `apps/mobile` is a thin shared-package consumer
+- the calendar family has started with a month-first milestone in progress
 
-The roadmap now needs to focus on Phase 2 layout-helper and cleanup work while keeping the layer boundaries intact.
+The roadmap now needs to focus on Phase 7 business-widget work, starting with the shared calendar family while keeping the lower shared layers stable.
 
 ## Delivery phases
 
@@ -61,7 +62,7 @@ Exit criteria:
 
 Status:
 
-- Active
+- Complete and committed
 
 Objective:
 
@@ -90,7 +91,7 @@ Exit criteria:
 
 Status:
 
-- Next
+- Complete and committed
 
 Objective:
 
@@ -117,7 +118,7 @@ Exit criteria:
 
 Status:
 
-- Later
+- Complete and committed
 
 Objective:
 
@@ -137,7 +138,7 @@ Exit criteria:
 
 Status:
 
-- Later
+- Complete and committed
 
 Objective:
 
@@ -158,7 +159,7 @@ Exit criteria:
 
 Status:
 
-- Later
+- Complete and committed
 
 Objective:
 
@@ -172,7 +173,7 @@ Exit criteria:
 
 Status:
 
-- Later
+- Active
 
 Objective:
 
@@ -184,36 +185,52 @@ Candidate work:
 - Kanban board
 - Task-oriented widgets
 
+Current focus:
+
+- Build the calendar as a component family, not a monolith
+- Keep the API controlled around `view`, `anchorDate`, `selectedDate`, and `events`
+- Use `apps/web` as the proving surface before introducing denser business views elsewhere
+
+Rollout order:
+
+1. Month baseline
+2. Day view
+3. Week view
+4. Multi-week only if product need is proven
+5. Year view later
+
+Current milestone:
+
+- `ui-calendar`, `ui-calendar-toolbar`, `ui-calendar-month-view`, `ui-calendar-day-cell`, `ui-calendar-event-chip`, and `ui-calendar-day-view` form the current baseline
+- `ui-calendar-week-view` is the next implementation slice
+- See `docs/calendar-brief.md` for the current architecture brief
+
 ## Near-term execution sequence
 
 This is the recommended next order for a developer working in `packages/design-system` and `apps/web`.
 
-1. Finish the `ui-stack` slice.
-   - Confirm spacing tokens and slot behavior.
-   - Use it where repeated vertical spacing already exists.
-2. Clean up existing shared component usage in `apps/web`.
-   - Normalize `ui-card` and `ui-panel` internals around `ui-stack`.
-   - Remove wrappers that exist only to simulate shared spacing behavior.
-3. Reduce transitional CSS.
-   - Delete styles that are fully replaced by the shared components.
-   - Keep only the CSS that still supports app-local or unmigrated structure.
-4. Re-evaluate repeated page structure.
-   - If a section wrapper repeats cleanly, add `ui-page-section`.
-   - If not, leave the structure in the app.
-5. Add or tighten tests around the active shared layer.
-   - Focus on the components and helper introduced in Phase 2, not speculative future layers.
+1. Keep the month-first calendar baseline build-clean.
+   - Treat `ui-calendar` plus the month view as the shared contract in motion.
+   - Avoid breaking the controlled API while new views are introduced.
+2. Revisit shared calendar utilities after the day view lands.
+   - Promote date-range or label helpers only when month and day both need them.
+   - Avoid locking in a month-centric helper model that blocks week or year later.
+3. Add week view only after day behavior is stable.
+   - Use day-view feedback to shape time-slot, keyboard, and event-density decisions.
+4. Treat year and multi-week as later validation work.
+   - Do not let them distort the earlier month/day APIs prematurely.
 
 ## Recommended `apps/web` migration order
 
-The web demo should continue to be the proving ground for each new component.
+The web demo should continue to be the proving ground for each new calendar slice.
 
 Recommended sequence:
 
-1. Keep the existing shared component usage stable.
-2. Finish replacing repeated internal stacks with `ui-stack`.
-3. Remove redundant wrappers around `ui-card` and `ui-panel`.
-4. Promote the next layout helper only if the same structure repeats cleanly in more than one place.
-5. Keep stats, lists, and one-off page structure app-local until clear shared patterns emerge.
+1. Keep the current month-view demo stable.
+2. Keep the day-view scenario driven by the same controlled calendar shell.
+3. Preserve app-level demo glue in `apps/web` instead of baking product behavior into the widget.
+4. Introduce week-level interactions only after day view exposes the next real constraints.
+5. Keep dense scheduling, creation flows, and product workflows app-local until the shared widget family proves the lower contracts.
 
 ## Milestones
 

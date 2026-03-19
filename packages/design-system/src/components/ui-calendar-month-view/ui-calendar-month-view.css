@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.ui-calendar-month-view {
+  display: grid;
+  gap: var(--ui-space-3);
+}
+
+.ui-calendar-month-view__weekdays,
+.ui-calendar-month-view__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--ui-space-2);
+}
+
+.ui-calendar-month-view__weekday {
+  padding: 0.25rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ui-color-text-muted);
+}

@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.ui-calendar {
+  padding: var(--ui-space-6);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background:
+    radial-gradient(circle at top right, rgba(207, 90, 43, 0.08), transparent 38%),
+    linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-calendar__unsupported {
+  display: grid;
+  gap: var(--ui-space-2);
+  min-height: 24rem;
+  place-content: center;
+  text-align: center;
+}
+
+.ui-calendar__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.76rem;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-calendar__message {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}

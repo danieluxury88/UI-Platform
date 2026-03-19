@@ -131,6 +131,28 @@ ui-page-section:not(:defined) {
   margin-top: var(--ui-space-8);
 }
 
+ui-calendar:not(:defined) {
+  display: block;
+  min-height: 32rem;
+  padding: var(--ui-space-6);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background:
+    radial-gradient(circle at top right, rgba(207, 90, 43, 0.08), transparent 38%),
+    linear-gradient(180deg, var(--ui-color-surface), var(--ui-color-surface-elevated));
+  box-shadow: var(--ui-shadow-1);
+}
+
+ui-calendar-day-view:not(:defined) {
+  display: block;
+  min-height: 18rem;
+  padding: var(--ui-space-5);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface-elevated);
+  box-shadow: var(--ui-shadow-1);
+}
+
 ui-stack:not(:defined) {
   display: flex;
   flex-direction: column;
@@ -147,6 +169,38 @@ ui-stack:not(:defined)[space='lg'] {
 
 ui-stack:not(:defined)[space='md'] {
   gap: var(--ui-space-4);
+}
+
+.ui-calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.72fr);
+  gap: var(--ui-space-4);
+  align-items: start;
+}
+
+.ui-calendar-layout--day {
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+}
+
+.ui-calendar-meta {
+  display: block;
+}
+
+.ui-calendar-status {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-calendar-note {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .ui-calendar-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 * {

@@ -9,11 +9,12 @@ The repository is already past the planning-only stage. It now has:
 - A pnpm workspace
 - A token package exporting shared CSS variables
 - A Stencil-based `@ui-platform/design-system` package
-- Shared primitives, surfaces, and the first layout-helper slice
+- Shared primitives, surfaces, layout helpers, feedback components, and the first composition layer
 - A web demo that loads built custom elements and still uses some shared CSS during migration
-- A placeholder mobile package for later Ionic and Capacitor work
+- A thin mobile package consuming the shared layers
+- A business-widget track started through the calendar family
 
-The main architectural job now is not bootstrap. Phase 1 is complete and committed. The active work is Phase 2: landing layout helpers where repetition is real and removing leftover transitional structure around the shared components.
+The main architectural job now is not bootstrap. Lower shared layers are committed and stable enough to support business widgets. The active work is the calendar family, starting with a month-first baseline and expanding carefully into day and later week views without collapsing into a single monolithic component.
 
 ## Goals
 
@@ -238,6 +239,7 @@ Rules:
 
 - Business widgets sit at the top of the hierarchy and should arrive last.
 - They require a concrete product need and stable lower layers first.
+- Calendar planning should follow the component-family approach described in `docs/calendar-brief.md`, with a shared shell, separate view components, and month-first rollout.
 
 ## Layer dependency rules
 

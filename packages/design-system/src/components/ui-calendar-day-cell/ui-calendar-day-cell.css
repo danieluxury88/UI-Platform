@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  min-height: 7.9rem;
+}
+
+.ui-calendar-day-cell {
+  display: grid;
+  gap: var(--ui-space-2);
+  min-height: 100%;
+  padding: var(--ui-space-3);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-radius-md);
+  background: var(--ui-color-surface);
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.ui-calendar-day-cell:hover {
+  border-color: rgba(207, 90, 43, 0.35);
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-calendar-day-cell__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ui-calendar-day-cell__button:hover {
+  background: rgba(207, 90, 43, 0.12);
+}
+
+:host([today]) .ui-calendar-day-cell__button {
+  border-color: var(--ui-color-accent);
+}
+
+:host([selected]) .ui-calendar-day-cell__button {
+  background: var(--ui-color-text);
+  color: var(--ui-color-surface);
+}
+
+:host([outside-month]) {
+  opacity: 0.58;
+}
+
+.ui-calendar-day-cell__events {
+  display: grid;
+  gap: var(--ui-space-1);
+}

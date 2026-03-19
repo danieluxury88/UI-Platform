@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+
+.ui-calendar-day-view {
+  display: grid;
+  gap: var(--ui-space-4);
+}
+
+.ui-calendar-day-view__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--ui-space-4);
+}
+
+.ui-calendar-day-view__title-block {
+  display: grid;
+  gap: var(--ui-space-2);
+}
+
+.ui-calendar-day-view__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.76rem;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-calendar-day-view__title {
+  margin: 0;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.ui-calendar-day-view__copy {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+}
+
+.ui-calendar-day-view__surface {
+  padding: var(--ui-space-5);
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface-elevated);
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-calendar-day-view__status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ui-space-2);
+}
+
+.ui-calendar-day-view__events {
+  display: grid;
+  gap: var(--ui-space-2);
+}
+
+.ui-calendar-day-view__empty {
+  margin: 0;
+  color: var(--ui-color-text-muted);
+}

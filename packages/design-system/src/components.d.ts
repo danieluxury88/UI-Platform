@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/calendar/calendar-utils";
+export { CalendarEventRecord, CalendarNavigateAction, CalendarTone, CalendarView, CalendarWeekday } from "./components/calendar/calendar-utils";
 export namespace Components {
     interface UiBadge {
         /**
@@ -29,6 +31,106 @@ export namespace Components {
           * @default 'secondary'
          */
         "variant": 'primary' | 'secondary';
+    }
+    interface UiCalendar {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate": string;
+        /**
+          * @default []
+         */
+        "events": CalendarEventRecord[];
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek": CalendarWeekday;
+        /**
+          * @default 'en-US'
+         */
+        "locale": string;
+        "selectedDate"?: string;
+        /**
+          * @default 'month'
+         */
+        "view": CalendarView;
+    }
+    interface UiCalendarDayCell {
+        /**
+          * @default ''
+         */
+        "date": string;
+        /**
+          * @default 0
+         */
+        "dayNumber": number;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default false
+         */
+        "outsideMonth": boolean;
+        /**
+          * @default false
+         */
+        "selected": boolean;
+        /**
+          * @default false
+         */
+        "today": boolean;
+    }
+    interface UiCalendarDayView {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate": string;
+        /**
+          * @default []
+         */
+        "events": CalendarEventRecord[];
+        /**
+          * @default 'en-US'
+         */
+        "locale": string;
+        "selectedDate"?: string;
+    }
+    interface UiCalendarEventChip {
+        /**
+          * @default ''
+         */
+        "date": string;
+        "event": CalendarEventRecord;
+        /**
+          * @default 'neutral'
+         */
+        "tone": CalendarTone;
+    }
+    interface UiCalendarMonthView {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate": string;
+        /**
+          * @default []
+         */
+        "events": CalendarEventRecord[];
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek": CalendarWeekday;
+        /**
+          * @default 'en-US'
+         */
+        "locale": string;
+        "selectedDate"?: string;
+    }
+    interface UiCalendarToolbar {
+        /**
+          * @default ''
+         */
+        "rangeLabel": string;
     }
     interface UiCard {
         /**
@@ -64,6 +166,22 @@ export namespace Components {
         "justify": 'start' | 'between' | 'center';
     }
 }
+export interface UiCalendarDayCellCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiCalendarDayCellElement;
+}
+export interface UiCalendarDayViewCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiCalendarDayViewElement;
+}
+export interface UiCalendarEventChipCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiCalendarEventChipElement;
+}
+export interface UiCalendarToolbarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiCalendarToolbarElement;
+}
 declare global {
     interface HTMLUiBadgeElement extends Components.UiBadge, HTMLStencilElement {
     }
@@ -76,6 +194,86 @@ declare global {
     var HTMLUiButtonElement: {
         prototype: HTMLUiButtonElement;
         new (): HTMLUiButtonElement;
+    };
+    interface HTMLUiCalendarElement extends Components.UiCalendar, HTMLStencilElement {
+    }
+    var HTMLUiCalendarElement: {
+        prototype: HTMLUiCalendarElement;
+        new (): HTMLUiCalendarElement;
+    };
+    interface HTMLUiCalendarDayCellElementEventMap {
+        "uiCalendarDateSelect": { date: string };
+    }
+    interface HTMLUiCalendarDayCellElement extends Components.UiCalendarDayCell, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiCalendarDayCellElementEventMap>(type: K, listener: (this: HTMLUiCalendarDayCellElement, ev: UiCalendarDayCellCustomEvent<HTMLUiCalendarDayCellElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiCalendarDayCellElementEventMap>(type: K, listener: (this: HTMLUiCalendarDayCellElement, ev: UiCalendarDayCellCustomEvent<HTMLUiCalendarDayCellElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiCalendarDayCellElement: {
+        prototype: HTMLUiCalendarDayCellElement;
+        new (): HTMLUiCalendarDayCellElement;
+    };
+    interface HTMLUiCalendarDayViewElementEventMap {
+        "uiCalendarDateSelect": { date: string };
+    }
+    interface HTMLUiCalendarDayViewElement extends Components.UiCalendarDayView, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiCalendarDayViewElementEventMap>(type: K, listener: (this: HTMLUiCalendarDayViewElement, ev: UiCalendarDayViewCustomEvent<HTMLUiCalendarDayViewElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiCalendarDayViewElementEventMap>(type: K, listener: (this: HTMLUiCalendarDayViewElement, ev: UiCalendarDayViewCustomEvent<HTMLUiCalendarDayViewElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiCalendarDayViewElement: {
+        prototype: HTMLUiCalendarDayViewElement;
+        new (): HTMLUiCalendarDayViewElement;
+    };
+    interface HTMLUiCalendarEventChipElementEventMap {
+        "uiCalendarEventActivate": { event: CalendarEventRecord; date: string };
+    }
+    interface HTMLUiCalendarEventChipElement extends Components.UiCalendarEventChip, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiCalendarEventChipElementEventMap>(type: K, listener: (this: HTMLUiCalendarEventChipElement, ev: UiCalendarEventChipCustomEvent<HTMLUiCalendarEventChipElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiCalendarEventChipElementEventMap>(type: K, listener: (this: HTMLUiCalendarEventChipElement, ev: UiCalendarEventChipCustomEvent<HTMLUiCalendarEventChipElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiCalendarEventChipElement: {
+        prototype: HTMLUiCalendarEventChipElement;
+        new (): HTMLUiCalendarEventChipElement;
+    };
+    interface HTMLUiCalendarMonthViewElement extends Components.UiCalendarMonthView, HTMLStencilElement {
+    }
+    var HTMLUiCalendarMonthViewElement: {
+        prototype: HTMLUiCalendarMonthViewElement;
+        new (): HTMLUiCalendarMonthViewElement;
+    };
+    interface HTMLUiCalendarToolbarElementEventMap {
+        "uiCalendarNavigate": { direction: CalendarNavigateAction };
+    }
+    interface HTMLUiCalendarToolbarElement extends Components.UiCalendarToolbar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiCalendarToolbarElementEventMap>(type: K, listener: (this: HTMLUiCalendarToolbarElement, ev: UiCalendarToolbarCustomEvent<HTMLUiCalendarToolbarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiCalendarToolbarElementEventMap>(type: K, listener: (this: HTMLUiCalendarToolbarElement, ev: UiCalendarToolbarCustomEvent<HTMLUiCalendarToolbarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiCalendarToolbarElement: {
+        prototype: HTMLUiCalendarToolbarElement;
+        new (): HTMLUiCalendarToolbarElement;
     };
     interface HTMLUiCardElement extends Components.UiCard, HTMLStencilElement {
     }
@@ -116,6 +314,12 @@ declare global {
     interface HTMLElementTagNameMap {
         "ui-badge": HTMLUiBadgeElement;
         "ui-button": HTMLUiButtonElement;
+        "ui-calendar": HTMLUiCalendarElement;
+        "ui-calendar-day-cell": HTMLUiCalendarDayCellElement;
+        "ui-calendar-day-view": HTMLUiCalendarDayViewElement;
+        "ui-calendar-event-chip": HTMLUiCalendarEventChipElement;
+        "ui-calendar-month-view": HTMLUiCalendarMonthViewElement;
+        "ui-calendar-toolbar": HTMLUiCalendarToolbarElement;
         "ui-card": HTMLUiCardElement;
         "ui-chip": HTMLUiChipElement;
         "ui-page-section": HTMLUiPageSectionElement;
@@ -148,6 +352,110 @@ declare namespace LocalJSX {
           * @default 'secondary'
          */
         "variant"?: 'primary' | 'secondary';
+    }
+    interface UiCalendar {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate"?: string;
+        /**
+          * @default []
+         */
+        "events"?: CalendarEventRecord[];
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek"?: CalendarWeekday;
+        /**
+          * @default 'en-US'
+         */
+        "locale"?: string;
+        "selectedDate"?: string;
+        /**
+          * @default 'month'
+         */
+        "view"?: CalendarView;
+    }
+    interface UiCalendarDayCell {
+        /**
+          * @default ''
+         */
+        "date"?: string;
+        /**
+          * @default 0
+         */
+        "dayNumber"?: number;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onUiCalendarDateSelect"?: (event: UiCalendarDayCellCustomEvent<{ date: string }>) => void;
+        /**
+          * @default false
+         */
+        "outsideMonth"?: boolean;
+        /**
+          * @default false
+         */
+        "selected"?: boolean;
+        /**
+          * @default false
+         */
+        "today"?: boolean;
+    }
+    interface UiCalendarDayView {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate"?: string;
+        /**
+          * @default []
+         */
+        "events"?: CalendarEventRecord[];
+        /**
+          * @default 'en-US'
+         */
+        "locale"?: string;
+        "onUiCalendarDateSelect"?: (event: UiCalendarDayViewCustomEvent<{ date: string }>) => void;
+        "selectedDate"?: string;
+    }
+    interface UiCalendarEventChip {
+        /**
+          * @default ''
+         */
+        "date"?: string;
+        "event": CalendarEventRecord;
+        "onUiCalendarEventActivate"?: (event: UiCalendarEventChipCustomEvent<{ event: CalendarEventRecord; date: string }>) => void;
+        /**
+          * @default 'neutral'
+         */
+        "tone"?: CalendarTone;
+    }
+    interface UiCalendarMonthView {
+        /**
+          * @default new Date().toISOString().slice(0, 10)
+         */
+        "anchorDate"?: string;
+        /**
+          * @default []
+         */
+        "events"?: CalendarEventRecord[];
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek"?: CalendarWeekday;
+        /**
+          * @default 'en-US'
+         */
+        "locale"?: string;
+        "selectedDate"?: string;
+    }
+    interface UiCalendarToolbar {
+        "onUiCalendarNavigate"?: (event: UiCalendarToolbarCustomEvent<{ direction: CalendarNavigateAction }>) => void;
+        /**
+          * @default ''
+         */
+        "rangeLabel"?: string;
     }
     interface UiCard {
         /**
@@ -192,6 +500,39 @@ declare namespace LocalJSX {
         "disabled": boolean;
         "pressed": boolean;
     }
+    interface UiCalendarAttributes {
+        "view": CalendarView;
+        "anchorDate": string;
+        "selectedDate": string;
+        "locale": string;
+        "firstDayOfWeek": CalendarWeekday;
+    }
+    interface UiCalendarDayCellAttributes {
+        "date": string;
+        "dayNumber": number;
+        "label": string;
+        "today": boolean;
+        "selected": boolean;
+        "outsideMonth": boolean;
+    }
+    interface UiCalendarDayViewAttributes {
+        "anchorDate": string;
+        "selectedDate": string;
+        "locale": string;
+    }
+    interface UiCalendarEventChipAttributes {
+        "date": string;
+        "tone": CalendarTone;
+    }
+    interface UiCalendarMonthViewAttributes {
+        "anchorDate": string;
+        "selectedDate": string;
+        "locale": string;
+        "firstDayOfWeek": CalendarWeekday;
+    }
+    interface UiCalendarToolbarAttributes {
+        "rangeLabel": string;
+    }
     interface UiCardAttributes {
         "tone": 'surface' | 'accent';
     }
@@ -212,6 +553,12 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "ui-badge": Omit<UiBadge, keyof UiBadgeAttributes> & { [K in keyof UiBadge & keyof UiBadgeAttributes]?: UiBadge[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `attr:${K}`]?: UiBadgeAttributes[K] } & { [K in keyof UiBadge & keyof UiBadgeAttributes as `prop:${K}`]?: UiBadge[K] };
         "ui-button": Omit<UiButton, keyof UiButtonAttributes> & { [K in keyof UiButton & keyof UiButtonAttributes]?: UiButton[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `attr:${K}`]?: UiButtonAttributes[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `prop:${K}`]?: UiButton[K] };
+        "ui-calendar": Omit<UiCalendar, keyof UiCalendarAttributes> & { [K in keyof UiCalendar & keyof UiCalendarAttributes]?: UiCalendar[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `attr:${K}`]?: UiCalendarAttributes[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `prop:${K}`]?: UiCalendar[K] };
+        "ui-calendar-day-cell": Omit<UiCalendarDayCell, keyof UiCalendarDayCellAttributes> & { [K in keyof UiCalendarDayCell & keyof UiCalendarDayCellAttributes]?: UiCalendarDayCell[K] } & { [K in keyof UiCalendarDayCell & keyof UiCalendarDayCellAttributes as `attr:${K}`]?: UiCalendarDayCellAttributes[K] } & { [K in keyof UiCalendarDayCell & keyof UiCalendarDayCellAttributes as `prop:${K}`]?: UiCalendarDayCell[K] };
+        "ui-calendar-day-view": Omit<UiCalendarDayView, keyof UiCalendarDayViewAttributes> & { [K in keyof UiCalendarDayView & keyof UiCalendarDayViewAttributes]?: UiCalendarDayView[K] } & { [K in keyof UiCalendarDayView & keyof UiCalendarDayViewAttributes as `attr:${K}`]?: UiCalendarDayViewAttributes[K] } & { [K in keyof UiCalendarDayView & keyof UiCalendarDayViewAttributes as `prop:${K}`]?: UiCalendarDayView[K] };
+        "ui-calendar-event-chip": Omit<UiCalendarEventChip, keyof UiCalendarEventChipAttributes> & { [K in keyof UiCalendarEventChip & keyof UiCalendarEventChipAttributes]?: UiCalendarEventChip[K] } & { [K in keyof UiCalendarEventChip & keyof UiCalendarEventChipAttributes as `attr:${K}`]?: UiCalendarEventChipAttributes[K] } & { [K in keyof UiCalendarEventChip & keyof UiCalendarEventChipAttributes as `prop:${K}`]?: UiCalendarEventChip[K] };
+        "ui-calendar-month-view": Omit<UiCalendarMonthView, keyof UiCalendarMonthViewAttributes> & { [K in keyof UiCalendarMonthView & keyof UiCalendarMonthViewAttributes]?: UiCalendarMonthView[K] } & { [K in keyof UiCalendarMonthView & keyof UiCalendarMonthViewAttributes as `attr:${K}`]?: UiCalendarMonthViewAttributes[K] } & { [K in keyof UiCalendarMonthView & keyof UiCalendarMonthViewAttributes as `prop:${K}`]?: UiCalendarMonthView[K] };
+        "ui-calendar-toolbar": Omit<UiCalendarToolbar, keyof UiCalendarToolbarAttributes> & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes]?: UiCalendarToolbar[K] } & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes as `attr:${K}`]?: UiCalendarToolbarAttributes[K] } & { [K in keyof UiCalendarToolbar & keyof UiCalendarToolbarAttributes as `prop:${K}`]?: UiCalendarToolbar[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
         "ui-chip": Omit<UiChip, keyof UiChipAttributes> & { [K in keyof UiChip & keyof UiChipAttributes]?: UiChip[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `attr:${K}`]?: UiChipAttributes[K] } & { [K in keyof UiChip & keyof UiChipAttributes as `prop:${K}`]?: UiChip[K] };
         "ui-page-section": UiPageSection;
@@ -226,6 +573,12 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "ui-badge": LocalJSX.IntrinsicElements["ui-badge"] & JSXBase.HTMLAttributes<HTMLUiBadgeElement>;
             "ui-button": LocalJSX.IntrinsicElements["ui-button"] & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
+            "ui-calendar": LocalJSX.IntrinsicElements["ui-calendar"] & JSXBase.HTMLAttributes<HTMLUiCalendarElement>;
+            "ui-calendar-day-cell": LocalJSX.IntrinsicElements["ui-calendar-day-cell"] & JSXBase.HTMLAttributes<HTMLUiCalendarDayCellElement>;
+            "ui-calendar-day-view": LocalJSX.IntrinsicElements["ui-calendar-day-view"] & JSXBase.HTMLAttributes<HTMLUiCalendarDayViewElement>;
+            "ui-calendar-event-chip": LocalJSX.IntrinsicElements["ui-calendar-event-chip"] & JSXBase.HTMLAttributes<HTMLUiCalendarEventChipElement>;
+            "ui-calendar-month-view": LocalJSX.IntrinsicElements["ui-calendar-month-view"] & JSXBase.HTMLAttributes<HTMLUiCalendarMonthViewElement>;
+            "ui-calendar-toolbar": LocalJSX.IntrinsicElements["ui-calendar-toolbar"] & JSXBase.HTMLAttributes<HTMLUiCalendarToolbarElement>;
             "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
             "ui-chip": LocalJSX.IntrinsicElements["ui-chip"] & JSXBase.HTMLAttributes<HTMLUiChipElement>;
             "ui-page-section": LocalJSX.IntrinsicElements["ui-page-section"] & JSXBase.HTMLAttributes<HTMLUiPageSectionElement>;

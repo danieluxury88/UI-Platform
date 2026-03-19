@@ -6,10 +6,10 @@ It is intended to be updated as work moves between agents.
 
 ## Status
 
-- Project stage: Phase 6 complete
-- Current focus: Phase 6 mobile shell slice is ready to land
-- Current highest-priority implementation: await next phase assignment after commit
-- Review model: Lagrange remains available for the next phase boundary
+- Project stage: Business-widget implementation in progress
+- Current focus: stabilize the month-and-day calendar milestone and prepare the next week-view slice
+- Current highest-priority implementation: review and land the combined month/day calendar milestone cleanly
+- Review model: Lagrange remains available for the next implementation boundary
 
 ## Agent Tasks
 
@@ -25,37 +25,38 @@ Current responsibilities:
 
 Next tasks:
 
-1. Commit the completed Phase 6 slice
-2. Queue the next phase once commit is complete
+1. Keep the month-first calendar baseline build-clean while new slices land
+2. Align roadmap and architecture docs with the active business-widget track
+3. Hand the combined month/day milestone to Lagrange and queue the next calendar slice
 
 ### Heisenberg
 
-Status: completed for current phase
+Status: completed, pending review
 
 Current task:
 
-- Phase 6 implementation complete
-- `apps/mobile` now has a real thin shell consuming the shared packages
+- Deliver the combined month/day calendar milestone
 
 Definition of done:
 
-- The mobile shell consumes the existing shared packages without redefining them
-- The initial mobile setup stays thin and does not fork the component model
-- The setup path is explicit enough to continue in later slices
+- `ui-calendar-day-view` renders a narrow, controlled single-day experience
+- `ui-calendar` supports `view="day"` without breaking the month API
+- `apps/web` demonstrates both month and day meaningfully
+- The Stencil build passes after the new slice lands
 
 Next after current task:
 
-1. Add one or two representative mobile integration surfaces
-2. Keep platform-specific logic isolated to the app shell
-3. Address token-alignment cleanup called out in prior review notes
+1. Start `ui-calendar-week-view` after the current milestone is reviewed
+2. Reuse the event shape and shared calendar utilities where sensible
+3. Report follow-up work needed for timed layouts and denser scheduling
 
 ### Lagrange
 
-Status: standby
+Status: in progress
 
 Current task:
 
-- Await the next review and commit-preparation boundary
+- Review the combined month/day calendar milestone and prepare follow-up findings
 
 Review focus:
 
@@ -70,27 +71,27 @@ Next after review:
 
 1. Prepare a concise findings report
 2. Confirm whether the change is ready to land
-3. Own commit preparation once the change is accepted
+3. Own commit preparation once the next calendar milestone is accepted
 
 ### Archimedes
 
-Status: standby
+Status: complete
 
 Current task:
 
-- No active implementation task
+- Calendar brief delivered in `docs/calendar-brief.md`
 
 Next tasks if needed:
 
-1. Align docs if `ui-card` or `ui-panel` introduce architectural clarifications
-2. Update roadmap if implementation order changes
-3. Record any new architectural decision that becomes stable
+1. Align docs if the calendar API or rollout order changes materially
+2. Record architectural decisions once week/day/year behavior stabilizes
+3. Re-enter only if the business-widget boundary starts to blur
 
 ## Immediate Queue
 
-1. Commit the completed Phase 6 work
-2. Ask Archimedes to write the calendar brief
-3. Start the first calendar milestone after the brief is in place
+1. Codex lands the combined month/day milestone
+2. Lagrange reviews the milestone and flags follow-up work
+3. Heisenberg starts `ui-calendar-week-view` once the review boundary is clear
 
 ## Deferred Review Notes
 
@@ -100,6 +101,10 @@ Next tasks if needed:
 - `ui-stack` and `ui-page-section` are now the current layout baseline.
 - Composition work should stay product-agnostic and avoid business semantics.
 - Mobile work should not fork or reimplement the shared design-system contract.
+- Calendar work should start as a family of components, not a monolith with a large `view` switch.
+- Day view should stay narrow and avoid pretending timed scheduling is solved yet.
+- Week and year views should not start until day-view state, events, and keyboard behavior feel stable.
+- Week view is the next intentional complexity jump and should stay narrow on its first pass.
 
 ## Notes
 

@@ -144,53 +144,71 @@
         </div>
       </ui-page-section>
 
-      <ui-page-section>
+      <ui-page-section id="calendar">
         <div class="ui-section-head">
           <div>
-            <p class="ui-kicker">Foundations</p>
-            <h2 class="ui-section-title">The first shared patterns are now visible.</h2>
+            <p class="ui-kicker">Calendar milestone</p>
+            <h2 class="ui-section-title">Month-first planning is now wired into the shared system.</h2>
           </div>
+          <p class="ui-section-copy">
+            The demo uses a controlled anchor date, shared navigation events, and compact event
+            chips inside the month grid.
+          </p>
         </div>
 
-        <div class="ui-grid">
-          <ui-card>
-            <ui-stack space="sm">
-              <div>
-                <p class="ui-card-label">Page shell</p>
-                <h3 class="ui-card-title">Framing and rhythm</h3>
-              </div>
-              <p class="ui-card-copy">
-                Consistent margins, section headers, and panel spacing provide the backbone for the
-                future component library.
-              </p>
-            </ui-stack>
-          </ui-card>
+        <div class="ui-calendar-layout">
+          <ui-calendar id="demo-calendar"></ui-calendar>
 
-          <ui-card>
+          <ui-panel tone="surface" class="ui-calendar-meta">
             <ui-stack space="sm">
               <div>
-                <p class="ui-card-label">Control</p>
-                <h3 class="ui-card-title">Buttons and chips</h3>
+                <p class="ui-card-label">Controlled state</p>
+                <h3 class="ui-card-title">Selection and activation stay separate.</h3>
               </div>
-              <p class="ui-card-copy">
-                The shared button treatment is already in place for actions, toggles, and status
-                labels.
+              <ui-badge id="calendar-selection" tone="accent">Selected date</ui-badge>
+              <p id="calendar-status" class="ui-calendar-status">
+                Pick a date or activate an event chip to inspect the current state.
+              </p>
+              <p class="ui-calendar-note">
+                The calendar starts on Monday for this demo and keeps the month view as the only
+                supported view for now.
               </p>
             </ui-stack>
-          </ui-card>
+          </ui-panel>
+        </div>
+      </ui-page-section>
 
-          <ui-card>
+      <ui-page-section id="calendar-day">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Day view</p>
+            <h2 class="ui-section-title">The same shell now supports a narrow agenda-style day view.</h2>
+          </div>
+          <p class="ui-section-copy">
+            This slice keeps the API controlled and reuses the same shared event model as the
+            month view.
+          </p>
+        </div>
+
+        <div class="ui-calendar-layout ui-calendar-layout--day">
+          <ui-calendar id="demo-day-calendar" view="day"></ui-calendar>
+
+          <ui-panel tone="surface" class="ui-calendar-meta">
             <ui-stack space="sm">
               <div>
-                <p class="ui-card-label">Data</p>
-                <h3 class="ui-card-title">Stats and lists</h3>
+                <p class="ui-card-label">Day focus</p>
+                <h3 class="ui-card-title">One day, compact events, and a single selection target.</h3>
               </div>
-              <p class="ui-card-copy">
-                Small metric blocks and list rows establish a reusable pattern for dashboard-style
-                information.
+              <ui-badge id="calendar-day-selection" tone="accent">Selected day</ui-badge>
+              <p id="calendar-day-status" class="ui-calendar-status">
+                Choose the visible day or activate an event chip to inspect the focused agenda.
+              </p>
+              <p class="ui-calendar-note">
+                The day view stays thin on purpose so week and year can build on the same shared
+                shell later.
               </p>
             </ui-stack>
-          </ui-card>
+          </ui-panel>
         </div>
       </ui-page-section>
     </main>
