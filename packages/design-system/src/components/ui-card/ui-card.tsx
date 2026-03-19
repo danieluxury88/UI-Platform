@@ -1,0 +1,18 @@
+import { Component, Host, Prop, h } from '@stencil/core';
+
+@Component({
+  tag: 'ui-card',
+  styleUrl: 'ui-card.css',
+  shadow: true,
+})
+export class UiCard {
+  @Prop({ reflect: true }) tone: 'surface' | 'accent' = 'surface';
+
+  render() {
+    return (
+      <Host>
+        <slot />
+      </Host>
+    );
+  }
+}

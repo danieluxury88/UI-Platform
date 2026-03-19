@@ -1,0 +1,54 @@
+:host {
+  display: inline-flex;
+}
+
+.ui-button__control {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ui-space-2);
+  min-height: 2.9rem;
+  padding: 0 var(--ui-space-4);
+  border-radius: var(--ui-radius-md);
+  border: 1px solid var(--ui-color-border);
+  background: var(--ui-color-surface);
+  color: var(--ui-color-text);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    background-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.ui-button__control:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--ui-shadow-1);
+}
+
+.ui-button__control--primary {
+  background: var(--ui-color-text);
+  border-color: var(--ui-color-text);
+  color: var(--ui-color-surface);
+}
+
+.ui-button__control--secondary {
+  background: var(--ui-color-surface);
+}
+
+.ui-button__control:focus-visible {
+  outline: 2px solid var(--ui-color-accent);
+  outline-offset: 2px;
+}
+
+.ui-button__control:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

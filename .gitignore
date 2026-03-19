@@ -1,0 +1,11 @@
+node_modules/
+.stencil/
+dist/
+build/
+coverage/
+.DS_Store
+.pnpm-store/
+.turbo/
+.cache/
+*.tsbuildinfo
+pnpm-debug.log*

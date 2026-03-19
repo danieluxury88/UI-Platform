@@ -1,0 +1,48 @@
+{
+  "name": "@ui-platform/design-system",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/components.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "style": "styles.css",
+  "exports": {
+    ".": {
+      "types": "./dist/types/components.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js",
+      "default": "./dist/index.js"
+    },
+    "./loader": {
+      "types": "./dist/loader/index.d.ts",
+      "import": "./dist/loader/index.js",
+      "require": "./dist/loader/index.cjs.js",
+      "default": "./dist/loader/index.js"
+    },
+    "./styles.css": "./styles.css",
+    "./src/styles.css": "./src/styles.css"
+  },
+  "files": [
+    "dist/",
+    "styles.css",
+    "src/styles.css"
+  ],
+  "dependencies": {
+    "@ui-platform/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.12.0",
+    "typescript": "^5.4.0"
+  },
+  "scripts": {
+    "build": "stencil build",
+    "dev": "stencil build --watch --serve",
+    "generate": "stencil generate",
+    "lint": "echo 'TODO: lint design system'",
+    "test": "stencil test --spec",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

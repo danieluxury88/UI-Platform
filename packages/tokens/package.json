@@ -1,0 +1,16 @@
+{
+  "name": "@ui-platform/tokens",
+  "version": "0.0.0",
+  "style": "tokens.css",
+  "exports": {
+    ".": "./tokens.css",
+    "./tokens.css": "./tokens.css",
+    "./src/tokens.css": "./src/tokens.css"
+  },
+  "scripts": {
+    "build": "echo 'TODO: build design tokens'",
+    "lint": "echo 'TODO: lint design tokens'",
+    "test": "echo 'TODO: test design tokens'",
+    "typecheck": "echo 'TODO: typecheck design tokens'"
+  }
+}

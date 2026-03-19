@@ -1,0 +1,15 @@
+{
+  "name": "@ui-platform/web",
+  "private": true,
+  "version": "0.0.0",
+  "dependencies": {
+    "@ui-platform/design-system": "workspace:*",
+    "@ui-platform/tokens": "workspace:*"
+  },
+  "scripts": {
+    "dev": "python3 -m http.server 4173 --directory ../..",
+    "lint": "echo 'TODO: lint web app'",
+    "test": "echo 'TODO: test web app'",
+    "typecheck": "echo 'TODO: typecheck web app'"
+  }
+}

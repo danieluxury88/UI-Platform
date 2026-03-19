@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI Platform</title>
+    <meta name="theme-color" content="#f6f1ea" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('ui-platform-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = stored || (prefersDark ? 'dark' : 'light');
+        } catch (error) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="../../packages/tokens/tokens.css" />
+    <link rel="stylesheet" href="../../packages/design-system/styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="ui-page">
+      <header class="ui-topbar">
+        <div class="ui-brand">
+          <div class="ui-brand-mark" aria-hidden="true"></div>
+          <div class="ui-brand-copy">
+            <span class="ui-brand-name">UI Platform</span>
+            <span class="ui-brand-meta">Phase 1 demo surface</span>
+          </div>
+        </div>
+
+        <ui-button
+          id="theme-toggle"
+          variant="secondary"
+          type="button"
+          aria-pressed="false"
+        >
+          Toggle theme
+        </ui-button>
+      </header>
+
+      <section class="ui-hero">
+        <div>
+          <p class="ui-kicker">Shared tokens and shared styles</p>
+          <h1 class="ui-hero-title">A product demo, not a placeholder.</h1>
+          <p class="ui-hero-copy">
+            This static page uses the token package and the shared design-system styles directly.
+            It gives the repo a deliberate visual direction before a component runtime exists.
+          </p>
+          <div class="ui-actions">
+            <ui-button id="jump-to-surface" variant="primary" type="button">
+              Open the live surface
+            </ui-button>
+            <a class="ui-link-button" href="../../packages/design-system/styles.css">
+              Inspect the styles
+            </a>
+          </div>
+        </div>
+
+        <ui-panel tone="surface">
+          <div class="ui-panel-stack">
+            <ui-chip tone="accent">Live / static / shared</ui-chip>
+            <h2 class="ui-panel-title">Theme-aware shell</h2>
+            <p class="ui-panel-copy">
+              The toggle updates the existing token model by switching the `data-theme` attribute
+              on the root element.
+            </p>
+          </div>
+
+          <div class="ui-divider" aria-hidden="true"></div>
+
+          <div class="ui-progress">
+            <div class="ui-list-item">
+              <span>Token coverage</span>
+              <strong>Color, spacing, radius</strong>
+            </div>
+            <div class="ui-progress-track" aria-hidden="true">
+              <span class="ui-progress-fill" style="width: 78%;"></span>
+            </div>
+          </div>
+        </ui-panel>
+      </section>
+
+      <section class="ui-section" id="surface">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Demo surface</p>
+            <h2 class="ui-section-title">A shared style layer with enough structure to feel real.</h2>
+          </div>
+          <p class="ui-section-copy">
+            The goal is to prove composition, spacing, and theming, not to simulate a full
+            application runtime.
+          </p>
+        </div>
+
+        <div class="ui-grid">
+          <ui-card tone="accent" class="ui-grid-main">
+            <p class="ui-card-label">Executive summary</p>
+            <h3 class="ui-card-title">The shell now reads like a product workspace.</h3>
+            <p class="ui-card-copy">
+              A strong hierarchy, visible status, and compact controls make the page feel like an
+              actual UI platform rather than a blank prototype.
+            </p>
+
+            <div class="ui-stat-grid" style="margin-top: var(--ui-space-6);">
+              <div class="ui-stat">
+                <p class="ui-stat-value">3</p>
+                <p class="ui-stat-label">shared surfaces</p>
+              </div>
+              <div class="ui-stat">
+                <p class="ui-stat-value">1</p>
+                <p class="ui-stat-label">theme toggle</p>
+              </div>
+              <div class="ui-stat">
+                <p class="ui-stat-value">0</p>
+                <p class="ui-stat-label">runtime frameworks</p>
+              </div>
+            </div>
+          </ui-card>
+
+          <aside class="ui-card ui-grid-side">
+            <p class="ui-card-label">What it proves</p>
+            <ul class="ui-list">
+              <li class="ui-list-item">
+                <span>Tokens</span>
+                <span class="ui-list-meta">Shared CSS variables</span>
+              </li>
+              <li class="ui-list-item">
+                <span>Design system</span>
+                <span class="ui-list-meta">Common UI patterns</span>
+              </li>
+              <li class="ui-list-item">
+                <span>Web app</span>
+                <span class="ui-list-meta">Direct consumer</span>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="ui-section">
+        <div class="ui-section-head">
+          <div>
+            <p class="ui-kicker">Foundations</p>
+            <h2 class="ui-section-title">The first shared patterns are now visible.</h2>
+          </div>
+        </div>
+
+        <div class="ui-grid">
+          <article class="ui-card">
+            <p class="ui-card-label">Page shell</p>
+            <h3 class="ui-card-title">Framing and rhythm</h3>
+            <p class="ui-card-copy">
+              Consistent margins, section headers, and panel spacing provide the backbone for the
+              future component library.
+            </p>
+          </article>
+
+          <article class="ui-card">
+            <p class="ui-card-label">Control</p>
+            <h3 class="ui-card-title">Buttons and chips</h3>
+            <p class="ui-card-copy">
+              The shared button treatment is already in place for actions, toggles, and status
+              labels.
+            </p>
+          </article>
+
+          <article class="ui-card">
+            <p class="ui-card-label">Data</p>
+            <h3 class="ui-card-title">Stats and lists</h3>
+            <p class="ui-card-copy">
+              Small metric blocks and list rows establish a reusable pattern for dashboard-style
+              information.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
