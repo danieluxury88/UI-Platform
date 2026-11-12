@@ -9,3 +9,6 @@ coverage/
 .cache/
 *.tsbuildinfo
 pnpm-debug.log*
+
+# Local task list, never versioned
+/TASKS.md
